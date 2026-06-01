@@ -1,0 +1,52 @@
+What the Pattern Doesn't Tell You
+
+The first thing to understand about a sewing pattern is that it's a simplification. A solved version of a problem. Somewhere, at some point, a pattern maker measured a collection of bodies — or more accurately, a statistical abstraction of bodies — and made a series of decisions about how to translate three-dimensional human form into flat pieces of paper that can be cut from flat fabric and reassembled into a garment. Those decisions involved compromise, and the result is a pattern that will fit most people approximately and almost nobody perfectly.
+
+You don't find out where the simplification breaks down until you cut into fabric. That moment — scissors through cloth, no going back — is the beginning of a genuinely surprising education about what clothes actually are and why your body is a more interesting shape than the fashion industry would prefer.
+
+---
+
+A pattern works by creating pieces that, when sewn together, describe a shape in three dimensions. This is the conceptual leap that trips most beginners: the flat pieces on the table bear no obvious resemblance to the finished garment, in the same way that a flat map of a globe distorts the shapes of continents to make them lie flat on paper. A bodice front piece looks like a modified rectangle with a curved edge and a notch or two cut into it. That curve is doing the work of wrapping around your ribcage. The notch is a marker for lining up with another piece. Until you hold the fabric up to your body and see it conform to your curves, it's almost impossible to imagine.
+
+The other conceptual leap is seam allowance. The line printed on the pattern — the cutting line — is not the line you sew along. The sewing line sits an inch or so inward from the cut edge, and the strip of fabric between them is the seam allowance: the buffer that gets folded away inside the garment and gives you room to adjust the fit without the seam blowing out. Beginners who miss this end up with garments a size or two smaller than they expected, and they assume they cut wrong. Usually they've simply been sewing on the cutting line rather than the sewing line.
+
+---
+
+Before a pattern gets cut, you take measurements. Not one set of measurements — several, because garment sizing depends on multiple reference points. Bust, waist, hips — but also back length, shoulder width, and for trousers, rise (the distance from waist to seat). These measurements are then compared against the pattern's size chart, and here's where the first important divergence from buying clothes off a rack shows up: you may need to cut different sizes for different parts of the same pattern.
+
+If your bust is a 14 but your hips are a 16, you cut the bodice in a 14 and the skirt in a 16, blending between them through the waist. Ready-to-wear clothes pick the size that fits your largest measurement and leave the rest baggy; a pattern lets you address each measurement independently. This is a simple adjustment once you understand why you're doing it, and it immediately produces a garment that fits better than most things you've bought.
+
+There's a deeper category of adjustment that requires more experience: ease. Ease is the extra room built into a garment beyond your actual measurements, and it's the reason clothes don't feel like cling film. A blouse might have four inches of ease at the bust; fitted trousers might have one inch. The amount of ease is a design decision that affects how the garment moves, how formal it reads, and how comfortable it is to wear. Learning to predict whether a pattern has the ease you want — before you've cut anything — is one of the skills that separates experienced sewists from beginners.
+
+---
+
+Fabric choice matters more than most beginners expect. The same pattern in two different fabrics can produce garments that look almost unrelated, not just in colour but in silhouette and feel.
+
+Woven fabrics — cotton, linen, silk charmeuse — don't stretch and hold their shape reliably. They press beautifully (pressing means ironing each seam as you sew, not at the end; it's the single most important technique for professional-looking results). They're forgiving of beginner stitching because a slightly wobbly line doesn't pull the fabric out of shape. Lightweight wovens are the standard recommendation for a first garment, and the advice is sound.
+
+Knits — jersey, ponte, interlock — stretch, which means they fit in an entirely different way. A knit top can have negative ease at the bust and still feel comfortable because the fabric gives. But knits require either a stretch stitch on a regular sewing machine or an overlocker (serger), and they have a tendency to wavy-stitch and distort if handled without enough care. They're not actually harder than wovens, but the failure modes are different and less intuitive.
+
+Fabric grain — the direction of the threads in a woven fabric — matters because fabric has different stretch in different directions. A garment cut off-grain will twist and pull when worn, no matter how well you've sewn it. Experienced sewists check grain obsessively; beginners often skip it and wonder why their finished skirt rotates at the waist when they move.
+
+---
+
+The basic process of constructing a garment, once fabric is cut, follows a sequence that feels arbitrary until you understand the logic. You sew small pieces into larger pieces before attaching them to the main body — the collar is assembled before it goes onto the bodice; the sleeve is sewn into a tube before it goes into the armhole. This matters because sewing a flat piece to a curved edge is substantially easier than sewing a curved piece to another curved edge. The construction sequence is, in this sense, a kind of kindness: it makes each step as easy as possible by sequencing what gets joined to what.
+
+Pressing at every stage is the technique most often described by experienced sewists as the thing that makes the biggest difference to finished results. A pressed seam lies flat; an unpressed seam creates a ridge and resists the next step. The iron is, functionally, a second machine.
+
+---
+
+The moment that changes a sewist's relationship to the craft usually isn't a successful finished garment. It's the first time they identify exactly why something doesn't fit and know what to do about it. The shoulder seam is sitting three centimetres toward the back — that means the bodice back is too narrow for this particular body, and the solution is to add width at the centre back seam. The trouser is pulling across the front thigh — that means the front rise is too short, and a small wedge taken out of the pattern at the waist will release it.
+
+This diagnostic skill — seeing the problem in the fabric and tracing it back to the pattern — is what fit is. It can't be learned from a list; it comes from making things, making mistakes, and looking carefully at what went wrong. But once you have it, it's transferable to everything. You start looking at clothes you buy differently. You can see, in a shop, why the shoulder of a coat isn't sitting where it should, or why a dress drapes beautifully on one person and badly on another. The education runs in both directions.
+
+---
+
+There's a particular satisfaction in wearing something you made that doesn't come from pride, exactly. It's closer to knowledge. You know where every seam is. You know why the waist sits there rather than half an inch up or down, because you adjusted it. You know what's inside: the interfacing stiffening the collar, the invisible hem, the French seam you didn't have to do but did anyway because you were enjoying it.
+
+The garment is a record of decisions, and you made all of them. Not a production line or a pattern maker or a buyer guessing at what the average person wants. You took a flat sheet of cloth and a simplified document and turned them into something that fits your particular body, in the colour you wanted, in the fabric that felt right, at the length that suits you.
+
+This is what sewing offers: not cheapness (it is rarely cheaper than buying), not speed (it is never faster), not ease (it is not easy). It offers agency. The clothes stop being things that approximately contain you and start being things made to fit.
+
+Topics: Sewing your own clothes
+Pending approval: Sustainable fashion and slow clothes, Music theory for non-musicians, Colour analysis and undertones, Zero Trust security architecture

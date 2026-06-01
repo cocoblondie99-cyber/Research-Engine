@@ -1,0 +1,108 @@
+The Map That Argues With the Territory
+
+Somewhere in your organisation's Azure subscription, there is almost certainly a virtual machine that nobody remembers creating.
+
+Perhaps it was spun up for a proof of concept two years ago, then forgotten when the project stalled. Perhaps a contractor stood it up to test something and meant to delete it before their last day. Perhaps it was created through the portal by someone who has since left the company, using a password nobody wrote down, for a purpose that never made it into a ticket. It's running. It's consuming money. And it exists entirely outside any map of what your infrastructure is supposed to be.
+
+This is not primarily a problem of bad intentions. It's a problem of how infrastructure has traditionally been managed — one click, one command, one request at a time, with no durable record of the intention behind each change, and no mechanism for reality to stay in sync with what was planned. Infrastructure as code exists to solve this. Terraform is, by a considerable margin, the most widely adopted tool for doing it. And its azurerm provider — the adapter that lets Terraform speak Azure's API — has now been downloaded more than one billion times.
+
+That number is worth pausing on. A billion downloads is the internet's way of saying that this approach to managing cloud infrastructure — describing what you want in text files and letting a tool reconcile that description with reality — has become the default in serious engineering organisations. But understanding why requires understanding a distinction that took the field years to internalise: the difference between telling a computer what to do, and telling it what you want.
+
+
+Imperative vs declarative: the instruction vs the intention
+
+When infrastructure was first managed through code, the instinct was to write scripts. A Bash script calling the Azure CLI, or a PowerShell runbook, would spell out every step in order: create this resource group, then create this virtual network, then create this subnet, then create this virtual machine. Step one, step two, step three.
+
+This is the imperative approach. It works, in the same way a recipe works — follow the instructions in sequence and you get the result. The problem is that a recipe assumes you're starting from scratch. Run the same script twice and you might create two of everything. Run it on an environment where someone has already created the subnet and the script fails, or silently creates a duplicate. If you want to change something, you write a new script for the change, and the relationship between all the scripts you've ever run, and the state of the infrastructure they've touched, lives only in someone's head. Usually the person who's just handed in their notice.
+
+Terraform is declarative. You don't tell it how to build your infrastructure. You tell it what your infrastructure should look like. You write a configuration that says: I want a resource group called prod-rg, in UK South. I want a virtual network with this address space. I want three virtual machines of this size, running this image. These are the firewall rules I want to exist.
+
+Terraform's job is to read that description, compare it to reality, and compute the minimum set of changes required to make reality match. Run it twice and the second run does nothing, because reality already matches the description. Change the machine count from three to four and Terraform creates exactly one new machine. Nothing else. The configuration becomes a source of truth for what exists, rather than a procedural record of the steps taken to get there.
+
+This shift is subtle but its consequences are large. The configuration files, checked into version control alongside your application code, become your infrastructure's specification. A new team member joins: they read the code and understand the environment. An audit is required: the code is the record of intent. Something changes unexpectedly: the code is the authoritative statement of what was supposed to be there.
+
+
+HCL and the azurerm provider
+
+Terraform configurations are written in HCL — the HashiCorp Configuration Language. If you've read a configuration file of any kind, HCL is immediately legible. A resource block looks something like this:
+
+    resource "azurerm_resource_group" "main" {
+      name     = "prod-rg"
+      location = "UK South"
+    }
+
+The first part identifies the type of thing you're creating — azurerm_resource_group, belonging to the azurerm provider. The second part is what you're calling it within Terraform, a local label so you can reference it from other resource blocks. Then you specify the properties. It reads close to plain English: this is an Azure resource group, I'm calling it "main", its name in Azure will be "prod-rg", and it lives in UK South.
+
+The azurerm provider is the layer that translates between Terraform's universal resource model and Azure's specific API. It's a large and mature piece of software. Since its creation in 2017, it has grown to support approximately 1,400 resources and data sources across more than 110 Azure services — virtual machines and scale sets, storage accounts, Key Vault secrets, App Service plans, Entra ID applications, Azure Kubernetes Service clusters, Log Analytics workspaces, and several hundred other things that Azure exposes. When Azure adds a service, the provider eventually grows a resource block for describing it in Terraform.
+
+This is where Terraform differs most clearly from Microsoft's own infrastructure-as-code options. ARM templates — Azure Resource Manager templates — are Microsoft's native format: JSON that describes resources directly. They work, but the syntax is verbose and the JSON structure makes complex templates difficult to read and harder still to debug. Bicep is Microsoft's response, a domain-specific language that compiles down to ARM but is far more readable, with proper variable support and module composition. If you're working entirely within Azure and your organisation is committed to Microsoft tooling, Bicep is a reasonable choice and it has Microsoft's full engineering investment behind it.
+
+Terraform's advantage is neutrality. The same tool, the same workflow, the same configuration language, manages Azure, AWS, GCP, Cloudflare, GitHub repositories, and Kubernetes clusters. The provider model means a single plan-and-apply workflow spans the whole estate. For organisations running genuinely multi-cloud environments, or that just want their infrastructure tooling to survive a potential cloud migration, this consistency is worth a significant amount of friction.
+
+
+The state file: Terraform's memory
+
+Here is where Terraform's elegance and its fragility live in the same place.
+
+To know whether reality matches your configuration, Terraform needs a model of reality. That model is the state file — a JSON document, typically called terraform.tfstate, that records every resource Terraform manages: its type, its properties, the identifiers that Azure uses to refer to it internally. When you run a Terraform plan, the tool reads your configuration, reads its state file, and queries the real API to compare all three.
+
+Think of the state file as a surveyor's map. It's not the territory — it's a record of what the territory looked like the last time someone went out and measured it. Terraform uses it to work out what has changed and what needs to happen next.
+
+This creates a constraint that is important to understand: Terraform only knows about resources it has created or explicitly imported. Your cloud environment is the territory. The state file is the map. If someone logs into the Azure portal and changes a setting, or runs an az CLI command, or deploys something through a pipeline that doesn't go through Terraform — the map doesn't update. Terraform is still pointing at its last known configuration. Reality has diverged.
+
+This divergence is called configuration drift, and it accumulates silently. It happens whenever a human finds it faster to click than to code. It happens when an incident response requires an immediate change and there's no time to update the configuration. It happens in environments where Terraform was adopted gradually, so some resources were imported and some were never brought under management. Over time, the gap between what Terraform believes and what Azure is actually running can become substantial.
+
+Running terraform plan after significant drift can be alarming. Terraform may propose to destroy and recreate things it perceives as having changed, because the current state of a resource no longer matches what the state file says it should be. Reading the plan carefully before applying is not optional — it's where you catch the thing that would take down production.
+
+
+The plan/apply workflow in practice
+
+The plan command is, in this sense, a diagnostic as much as a preview. Before touching anything, Terraform tells you everything it intends to do. Plan output reads like a proposal — each resource marked as to be created (a plus sign), destroyed (a minus sign), updated in-place (a tilde), or replaced (a destroy followed by a create, the most dangerous outcome). Changes that would replace a resource — delete the existing one and create a new one — are flagged explicitly, because a database or a load balancer that gets recreated is a very different thing from one that gets its tags updated.
+
+A typical Terraform session for a new resource looks like this. You add a new storage account to your configuration. You run terraform plan. Terraform shows you that it will create one new resource, and lists its properties — name, location, replication type, access tier. You check that the settings are right. You run terraform apply. Terraform creates the resource, the Azure API confirms success, and the state file is updated to record that this storage account now exists under Terraform's management.
+
+Later, someone notices the replication type needs to change. They update the configuration file, open a pull request. In a well-run environment, the plan runs automatically and posts its output to the PR for review — reviewers can see, before a single byte of infrastructure changes, exactly what Terraform will do. The reviewer sees that one attribute on one resource will be updated in-place. They approve. The change merges. The pipeline applies. The state file updates.
+
+This is the modern standard. Running terraform apply from a developer's laptop against a shared environment is now treated as an anti-pattern, for the same reason that deploying application code from your local machine to production is an anti-pattern: there's no review, no audit trail, no guarantee that what ran locally is what you think it is. The apply should happen in a controlled, auditable, CI-triggered environment, after a human has reviewed the plan.
+
+The git history of the Terraform configuration becomes, in effect, a record of every intentional change to the infrastructure — when, by whom, referenced to a PR number, with a description of why. For teams that haven't done this before, the first time they can look at a storage account and trace its configuration choices back through three years of pull requests is usually revelatory.
+
+
+A community, a license, and a fork
+
+In August 2023, something happened that revealed just how much of the modern infrastructure world had come to depend on Terraform.
+
+HashiCorp, the company that builds and maintains Terraform, announced it was changing the tool's license. Until that point, Terraform had been released under the Mozilla Public License 2.0 — a permissive open-source license that allowed anyone to use, modify, and distribute the code, including as part of commercial products. The new license was the Business Source License, a different beast entirely: it prohibited using HashiCorp software to build products or services that competed with HashiCorp's own commercial offerings.
+
+HashiCorp's stated justification was understandable. Cloud providers and managed platform companies had been building profitable services on top of Terraform — running Terraform for customers, building automation around it, charging for it — without contributing much back to the underlying tool. The licence change was an attempt to close that gap, to say: you can use this freely, but not to undercut the people who built it.
+
+The community response was immediate and substantial. Within five days of the announcement, more than a hundred companies — Spacelift, env0, Gruntwork, and others — signed an open manifesto asking HashiCorp to reverse the decision. When it didn't, they forked the last MPL-licensed version of Terraform. The fork was initially called OpenTF. In September 2023, the Linux Foundation accepted it as a project. It was renamed OpenTofu. In January 2024, OpenTofu shipped its first stable release and announced readiness for production use.
+
+OpenTofu is, deliberately, a drop-in replacement. It uses the same HCL syntax. It uses the same provider ecosystem — including, critically, the azurerm provider. The state file format is identical. You switch by changing which binary you call. The CLI commands differ only in name: tofu rather than terraform. You can migrate an existing Terraform environment to OpenTofu, or back again, without touching your configuration files.
+
+What the episode illuminates is something that was always true about open source but rarely tested so cleanly: when a company builds software that an entire industry has come to depend on, and then changes the terms, the community can fork it. The fork works as a constraint on the licence change precisely because the code was already out there, the contributors were already out there, and the institutional knowledge of how to maintain and extend it was spread across hundreds of organisations who had every reason to keep it open. HashiCorp discovered that you can change the licence on a tool, but you cannot revoke the decade of expertise that the community has built around it.
+
+The pattern is not unique to Terraform. MySQL was forked into MariaDB when Oracle acquired Sun Microsystems. Redis was forked into Valkey after a similar licence change in 2024. Each time, the fork succeeds to the extent that the community's investment in the tool outweighs any single company's ability to control it. Open source turns out to be more durable than any individual company's intentions, because it transfers capability to the people who use it, not just access.
+
+
+What Terraform is actually good at
+
+The strongest argument for Terraform is not the tool itself. It's the practice it enforces.
+
+The practice is this: before you change your infrastructure, write down what you want it to look like. Let the tool compute the difference between that description and what currently exists. Review that difference. Apply it in a controlled way, in a context where someone other than you can see what happened. Keep a record of what changed and why.
+
+Every step in that process is a form of institutional memory. The configuration files accumulate the decisions your organisation has made about its infrastructure: why this region, why this replication tier, why three nodes rather than two. The git history accumulates the decisions about when and why those choices changed. The plan output is a paper trail for each change — what Terraform expected to do and what it was told to do.
+
+None of this prevents the VM that nobody remembers creating. Someone still has to enforce the norm that infrastructure must be declared before it's created. Terraform doesn't have authority over people who don't use it, or over the portal, or over a script someone runs manually in a pinch. The mixed estate — some resources under Terraform management, some not — is the normal state of affairs in most organisations, not a failure mode.
+
+What Terraform does is make the declared portion legible. It makes the gap between intention and reality visible, every time you run a plan. It makes change reviewable, in the same workflow and with the same disciplines that code change uses. And visibility is where governance starts — you cannot manage what you cannot see, and you cannot see what was never written down.
+
+The state file is imperfect. The plan is an approximation. The drift will accumulate wherever humans find it easier to click than to code. The azurerm provider lags behind Azure's own release cadence, so the newest features sometimes wait months before Terraform can describe them. The ecosystem is split between the original tool and its community fork, and organisations must now choose a side.
+
+These are not fatal objections. They are the friction cost of a practice that, despite all of it, has been downloaded a billion times. The underlying question Terraform asks — given that you want your infrastructure to look like this, what would need to change, and is that change something you're willing to accept right now — turns out to be very worth asking.
+
+It's the question that nobody asked before creating the VM that nobody remembers.
+
+
+Topics: Terraform with Azure RM
+Pending approval: Policy as code (OPA and Sentinel), GitOps for infrastructure, Terragrunt and Terraform modules

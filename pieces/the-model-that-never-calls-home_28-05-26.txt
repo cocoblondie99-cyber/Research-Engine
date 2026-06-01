@@ -1,0 +1,92 @@
+The Model That Never Calls Home
+
+Somewhere in a mid-sized law firm's IT department, a request is sitting in a queue. A partner wants to use an AI assistant to help draft case summaries, speed up document review, help junior associates structure arguments. Entirely reasonable. The partner has probably been using ChatGPT at home, finds it extraordinary, and wants to bring that productivity into the office.
+
+The IT manager's response is careful and not unreasonable: no. Attorney-client privilege. GDPR. The client data in those documents goes to a server somewhere, gets processed by a company whose data handling agreements, however carefully drafted, are not fully within anyone's control. The unknowable question of what happens to privileged information once it leaves the building is legally and professionally intolerable.
+
+This conversation, with variations, is happening across healthcare, finance, government, and any organisation that handles data it would rather not explain to a regulator. And it points toward a question that has a better answer than most people expect: what if the model never left the building?
+
+Self-hosted AI — running a large language model entirely on your own infrastructure, on your own hardware, behind your own firewall — has moved in the past couple of years from an enthusiast curiosity to a legitimate enterprise option. The AI answers your questions from your documents. The prompts stay on your servers. Nothing calls home.
+
+Here is what that actually looks like in practice, and why the gap between "sounds complicated" and "actually achievable" has shrunk dramatically.
+
+
+The Models That Don't Cost Anything
+
+The first surprise, for anyone who has only encountered AI through the commercial APIs, is that some of the best language models in the world are free to download and run. They are called open-weight models, and they come from labs and technology companies who have released not just the software but the trained parameters — the billions of numerical weights that encode what the model has learned — under licences that allow anyone to run them.
+
+Meta's Llama 3.1 is the most-downloaded model in Ollama's model library, with over 111 million pulls. DeepSeek-R1, from a Chinese AI lab, follows at 79 million. Mistral's models, from a French lab, are widely used in enterprise settings for their efficiency. Google has released Gemma. Alibaba has released Qwen. The field is crowded, competitive, and improving rapidly.
+
+How good are these models compared to the commercial APIs you access through Claude or ChatGPT? By 2026, the quality gap has closed to somewhere between 3 and 5 percentage points on standard benchmarks. That is not nothing — the frontier commercial models remain ahead, especially on complex reasoning — but for the vast majority of organisational use cases (document summarisation, drafting, Q&A over internal knowledge bases, classification, code assistance), the open-weight models are genuinely excellent. The comparison is less "sports car vs family sedan" and more "two competent cars where one is slightly faster on motorways."
+
+
+The Hardware Question (It's More Manageable Than It Looks)
+
+The second surprise is the hardware. When people imagine running a model with billions of parameters, they tend to picture server rooms and enterprise contracts. The reality is more interesting, because of a technique called quantization.
+
+Think of quantization this way. A photograph stored at full resolution is large and precise. The same photograph compressed to JPEG loses some information, but you might not be able to tell. At aggressive compression, the quality degrades visibly. At moderate compression, the image is essentially indistinguishable from the original for practical purposes — smaller file, same utility.
+
+Quantization does something analogous to model weights. A language model's parameters are normally stored as 16-bit floating-point numbers (FP16). Quantizing to 4-bit (specifically a format called Q4_K_M) reduces each parameter to a quarter of its original size. The quality loss? Approximately 5 to 10 percent on benchmarks — which, combined with the 3-5 point gap already discussed, still leaves most open-weight models performing excellently on practical tasks. The memory saving, though, is dramatic: a model that would otherwise require more RAM than most servers is now running on a consumer GPU.
+
+The practical upshot is a tiered hardware landscape that is more accessible than expected:
+
+A 7-billion-parameter model — perfectly capable of summarisation, drafting, and Q&A — runs on a GPU with 8GB of VRAM. That is an RTX 4060: a card that costs around £300, found in ordinary gaming computers. It produces 40 to 60 tokens per second, which is fast enough to feel responsive.
+
+A 70-billion-parameter model, which is genuinely impressive for complex reasoning, runs on a GPU with 24GB of VRAM — an RTX 4090, currently around £1,800, or an equivalent workstation-class card. Throughput drops but remains usable for internal tooling.
+
+For the absolute frontier of open-weight models — 405 billion parameters and above — you are into multi-GPU server territory, with costs starting around £16,000 and rising quickly. Most organisations do not need this level, and should not buy it until they have established that a smaller model cannot do the job.
+
+There is also an interesting architectural wrinkle worth knowing about: Mixture-of-Experts models. Mistral's current model has 119 billion total parameters but only activates 24 billion per inference pass — the rest are dormant. This means its memory footprint is that of a 24B model while its knowledge breadth is closer to 119B. It is a meaningful efficiency gain and represents the direction the field is heading.
+
+
+The Serving Layer: How the Model Becomes a Service
+
+A model on a server is a file. To turn it into something employees can actually use, you need two things: a serving layer that handles the model's computational work and exposes an API, and an interface that humans can talk to.
+
+On the serving side, two tools dominate. **Ollama** is the easy option — it handles model downloads, manages VRAM, and exposes a simple API. It is excellent for development, testing, or small teams where only a handful of users will query it at once. Its architectural limit is roughly four parallel requests before it begins queuing, which becomes a bottleneck the moment you have meaningful organisational usage.
+
+**vLLM** is the production option. It is harder to set up but built for concurrency: while Ollama hits 41 tokens per second at peak throughput, vLLM reaches around 793 tokens per second on the same hardware under concurrent load. The architecture scales linearly as you add more parallel users. For any organisation with more than a handful of AI users, vLLM sitting behind a reverse proxy — which handles authentication, TLS termination, and rate limiting — is the sensible architecture.
+
+The interface layer is where **Open WebUI** has emerged as a clear favourite. It is an open-source project with over 128,000 GitHub stars and a 355,000-person community, which is how the software world signals "mature and actively maintained." It presents users with a ChatGPT-like interface — conversation threads, file uploads, model switching — that requires no technical knowledge to use. Behind the scenes, it integrates with Active Directory and Azure AD for single sign-on, supports role-based access control (so the legal team only sees legal-approved models and documents), generates audit logs, and is designed to run in air-gapped environments where no external network connectivity is permitted. It is not a prototype. Organisations are running it under SOC 2, HIPAA, GDPR, and ISO 27001 compliance frameworks.
+
+The stack, then, is: model weights on disk, vLLM serving them as an API, Nginx or Caddy as a reverse proxy handling authentication, Open WebUI as the human-facing interface. Each of these components is open source and free to use. The cost is hardware, electricity, and the time of whoever sets it up.
+
+
+The Piece That Makes It Actually Useful: RAG
+
+A model running on your own infrastructure knows nothing about your organisation. It was trained on the internet, not on your case files, your procedures, your internal policies, your client histories. This gap — between what the model knows and what you need it to know — is the key challenge of organisational AI deployment. The solution is called Retrieval-Augmented Generation, or RAG, and understanding it is what separates organisations that get something genuinely useful from organisations that install a model and wonder why it keeps getting things wrong.
+
+Here is how to think about RAG. Imagine the language model as an exceptionally well-read consultant who has read almost everything ever published and can synthesise, reason, and write fluently — but who has just walked in the door and knows nothing about your company. Before RAG, you would have to include all the relevant background in every message: pasting in documents, copying procedures, explaining context. Time-consuming, limited by message length, and you would have to know in advance which documents mattered.
+
+RAG automates this. When an employee sends a question, the system first searches your document library for the most relevant passages — not by keyword matching, but by semantic similarity, finding text that means the same thing even if it uses different words. Those passages are retrieved and silently inserted into the context that the model receives, along with the original question. The model then answers, citing your documents, from your knowledge base. It is not the model's training that contains your information; it is the retrieval step that supplies it at the moment of each query.
+
+The search step runs over a vector database: a store of your documents converted into numerical representations of their meaning. Every paragraph or page in your knowledge base has been processed by an embedding model (a smaller, faster model whose job is to convert text into meaning-vectors) and stored. The vector of the incoming question is compared against all the stored vectors; the closest matches are returned. Semantic search means "the model found results that mean what you were asking" rather than "the model found results containing the exact words you used." It handles paraphrasing, synonyms, and conceptual proximity in a way that keyword search cannot.
+
+In 2026, enterprise RAG deployments almost universally extend this basic retrieval with additional layers: query rewriting (restructuring the question before search to improve recall), hybrid retrieval (combining vector search with traditional keyword search for completeness), and reranking (using a second model to rescore and filter the retrieved results before sending to the main model). Access controls are applied at the retrieval layer — so if a junior employee queries the system, the retrieval step only searches document sets they are authorised to see. The model never has the chance to surface information above the user's clearance level, because that information is never placed in its context.
+
+The most common failure mode in early enterprise RAG deployments was treating retrieval as an afterthought: dumping documents into a vector store and hoping the model could find what it needed. The retrieval quality determines the answer quality. A model handed the wrong context will confidently produce wrong answers. Most organisations that deploy RAG seriously now spend more time on retrieval architecture — chunking strategy, metadata design, hybrid retrieval, reranking — than on model selection.
+
+
+When Does Self-Hosting Make Sense?
+
+The honest answer is: for some organisations always, for others in some cases, and for some organisations never.
+
+The always category is regulated industries with non-negotiable data residency requirements. Healthcare organisations in jurisdictions where patient data cannot leave certain boundaries. Law firms where attorney-client privilege makes any third-party data processor an existential risk. Financial institutions operating under regulatory frameworks that require full control over data flows. Government departments with security classifications that preclude external services. These organisations are self-hosting not because it is cheaper, but because they have no alternative. The cost is a compliance cost.
+
+The economics for everyone else are worth examining carefully, because the instinct to self-host "for privacy" is sometimes based on a premise that has shifted. Both major commercial AI providers now offer enterprise tiers with zero-data-retention agreements, SOC 2 Type II compliance, and contractual guarantees that API inputs are never used for training. For an organisation whose data concerns are addressed by such an agreement, the privacy argument for self-hosting is weaker than it was two years ago.
+
+On cost, the break-even point for self-hosting versus cloud API usage falls somewhere between five million and sixty million tokens per month, depending on model size, hardware, and electricity costs. Below that, managed APIs are almost always cheaper once you factor in hardware depreciation, power, cooling, and the engineering time to maintain the stack. Above it, the arithmetic begins to favour self-hosting, and organisations processing hundreds of millions of tokens monthly can save substantially.
+
+The pattern that is emerging in 2026 is the hybrid architecture: self-hosted infrastructure for sensitive, predictable-volume workloads, with cloud API access for frontier capability (the cases where the best available model matters) and overflow traffic during peak periods. The self-hosted layer handles the day-to-day; the cloud layer handles the edge cases and the frontier needs.
+
+
+What This Actually Delivers
+
+The organisations getting genuine value from self-hosted AI in 2026 tend to share a few characteristics. They have a specific, well-defined use case — document Q&A, internal knowledge search, case summarisation — rather than a vague ambition to "use AI." They have invested in the retrieval layer, not just the model. They have integrated the interface with their existing identity management, so access control is not an afterthought. And they have been honest about what the model can and cannot do, calibrating employee expectations appropriately.
+
+What they have built, at its best, is something that would have seemed like science fiction a few years ago: an expert assistant that has read every document in the organisation, can answer questions about any of them, never forgets, is available at any hour, and has never once considered telling anyone outside the building what it knows. The model knows the case files, the procedures, the precedents, the exceptions — because you told it, every time it is asked, exactly what it needs to know.
+
+The information never left the building. Neither did the model. It just learned to answer from what was already there.
+
+Topics: Self-hosted AI for organisations, open-weight models, RAG, Ollama, vLLM, Open WebUI, vector databases, enterprise AI
+Pending approval: Vector databases and embeddings, LLM fine-tuning for organisations, AI at the edge

@@ -1,0 +1,45 @@
+You're Taking Too Much
+
+The melatonin tablet you can pick up in any pharmacy contains, almost certainly, either 5 milligrams or 10. These are the standard doses because standard doses are whatever companies decided to put in tablets. But the dose that the research actually supports for improving sleep onset — the dose that works, in the trials, for real people — sits somewhere between 0.3 and 1 milligram. The gap isn't a rounding error. It's roughly a tenfold overdose, taken nightly by millions of people, sold without a prescription, and mostly harmless in the short term. Mostly harmless, but not optimal. And understanding why changes everything about how you should use it.
+
+Melatonin is not a sleeping pill. This is the thing almost everyone misunderstands. It does not make you sleepy in the way that an antihistamine does, or alcohol, or a benzodiazepine — by pushing your nervous system toward sedation. Melatonin is a timing signal. Your pineal gland releases it in response to darkness, and its job is to tell the rest of your body that night has arrived. Think of it as a flag rather than a hammer. When the flag goes up, your body knows to begin the sequence of changes that lead toward sleep: falling core temperature, slower heart rate, shifting hormones. The flag does not cause unconsciousness. It announces that the time for unconsciousness is approaching.
+
+This is why dose matters so much. A small amount of melatonin — 0.5mg, taken 30 to 60 minutes before you want to feel sleepy — raises the flag. A large amount raises it too, but after a point the body stops responding proportionately, and what you get instead is a longer half-life in the bloodstream and a higher likelihood of morning grogginess: the flag still waving at 7am, telling your body it's nighttime, right as you're trying to get up and function. The people who take 10mg melatonin and find it doesn't really work aren't taking too little. They're taking so much that the signalling system is overwhelmed and confused.
+
+Used correctly, melatonin is excellent for jet lag — because jet lag is precisely a clock-timing problem. Your internal body clock is calibrated to one timezone; the external world is running on another. Low-dose melatonin, taken at the destination's bedtime, helps your clock resynchronise faster. Most travellers find this noticeably effective within a night or two. For delayed sleep phase — the condition where your natural sleep window is shifted late, so you can't fall asleep before 1am however hard you try — melatonin at 0.5mg, taken at the same time each evening, can gradually move the window earlier. This takes weeks, not nights.
+
+What melatonin cannot fix: anxiety-driven insomnia, physiological hyperarousal, poor sleep hygiene, habitual late caffeine, a partner who keeps the bedroom at 22 degrees. For those problems, the clock isn't the issue.
+
+
+Magnesium, and the architecture of calm
+
+Magnesium glycinate addresses a different problem altogether. Where melatonin adjusts the clock, magnesium glycinate lowers the general level of excitation in the nervous system — the background hum that keeps some people from falling asleep even when they're tired.
+
+Magnesium is involved in over 300 enzymatic reactions in the body. Among them: it modulates GABA receptors. GABA — gamma-aminobutyric acid — is the nervous system's primary inhibitory neurotransmitter, the signal that says "slow down, quiet down." When GABA activity is functioning well, the brain can move from waking arousal to resting calm without much struggle. When magnesium levels are insufficient — and many people in the UK and US are mildly deficient, partly because magnesium is depleted from modern agricultural soil — GABA activity tends to be lower than optimal, and falling asleep requires more effort than it should.
+
+The glycinate form matters here. Magnesium comes in many compounds: oxide, citrate, chloride, malate, threonate. Magnesium oxide is cheap and widely sold but poorly absorbed, with a reputation for laxative effects. Magnesium glycinate binds the mineral to glycine — an amino acid that has its own gentle calming properties — and is absorbed well without gastrointestinal upset. The typical research-supported dose is 200–400mg, taken an hour or so before bed.
+
+What it feels like: probably not much, which surprises people who expect sedation. The effect of magnesium glycinate is more like the removal of a low-level irritation than the addition of a sleeping sensation. People who take it tend to report, after a week or two, that they fall asleep a bit faster, wake up less during the night, and feel more genuinely rested. The absence of drama is actually a good sign — this is a mineral being supplemented to a sufficient level, not a sedative drug being ingested. The system runs more smoothly when it has what it needs.
+
+
+L-theanine, and the quiet mind
+
+The third member of this small constellation addresses yet another flavour of insomnia: the kind caused by a mind that simply won't stop. The replaying of conversations, the anticipatory rehearsals, the ideas that arrive with perfect clarity at 11pm — these are not a melatonin problem or a magnesium problem. They are a cognitive arousal problem. And for this, there is L-theanine.
+
+L-theanine is an amino acid found almost exclusively in tea — green and black both — and in trace amounts in certain mushrooms. It is the reason that tea has a different quality of alertness than coffee: both contain caffeine, but tea also contains L-theanine, which modifies the caffeine's effect. The result — alert without being jittery, awake without being wired — has a neurological correlate: L-theanine increases alpha brain wave activity, the pattern associated with relaxed wakefulness. It's the brainwave signature of meditation, of a quiet creative flow state, of the moments just before sleep onset.
+
+At a dose of 100–200mg taken before bed, L-theanine doesn't sedate — it quiets. People who use it for sleep typically describe it as turning down the mental noise level rather than switching anything off. Clinical trials in anxious populations show modest reductions in sleep latency and improvements in sleep quality ratings. The effect is real but not large; genuine but not dramatic. Like magnesium glycinate, it disappoints people expecting something they can feel strongly. What you actually want, for something taken nightly over years, is exactly this: reliable, subtle, and without side effects.
+
+
+How to use all of this
+
+The sensible sequence is: one thing at a time, give it two weeks, assess honestly.
+
+Start with magnesium glycinate. It's the supplement with the broadest evidence base, the most direct mechanism, and the lowest risk of misuse. Many people find that their sleep improves enough that nothing further is needed. If falling asleep is still the specific problem, add L-theanine. If your problem is sleep timing — you can't fall asleep early enough, or you're fighting jet lag, or you're trying to shift your schedule forward — add low-dose melatonin (0.3–0.5mg; cut a 1mg tablet in half before you try the standard pharmacy dose).
+
+None of this replaces the foundations. A dark room, a cool temperature, a consistent bedtime, limited bright light in the hour before sleep, no alcohol within three hours of lying down — these changes produce larger and more consistent improvements than any supplement. The reason to mention this isn't moralising; it's practical. Supplements work best as refinements on a foundation that's already reasonably solid. They correct deficiencies and lower thresholds. They are not the engine; they're the tuning.
+
+The best thing the folk tradition of nighttime teas got right was this: that what happens in the body in the hours before sleep matters enormously, and that the ritual of preparation — the warm cup, the dim light, the quiet — is itself part of the medicine. What modern sleep science adds is the mechanism: the specific molecules, the specific doses, the specific problems each one addresses. The folk healers were right about the direction. The pharmacology helps you aim more carefully.
+
+Topics: Nighttime teas and supplements, Modern Witchcraft
+Pending approval: Sleep science and circadian biology — how the two-process model of sleep (sleep pressure + circadian signal) works; why light is the master regulator; why sleep timing often matters more than duration (surfaced from: nighttime supplements — session 2026-05-27)

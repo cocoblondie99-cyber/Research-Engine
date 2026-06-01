@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"/home/coco/Documents/Claude/research engine\" && git add -A && (git diff --cached --quiet || git commit -m \"Auto-backup $(date '+%Y-%m-%d %H:%M')\") && git push 2>/dev/null || true",
+            "timeout": 30,
+            "statusMessage": "Backing up to GitHub..."
+          }
+        ]
+      }
+    ]
+  }
+}

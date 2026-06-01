@@ -1,0 +1,58 @@
+When the Players Go Off-Script
+
+Thirty minutes into a carefully prepared session, one player says something that changes everything. Maybe they decide to follow the mysterious stranger instead of ignoring him, and you hadn't written anything about where the stranger goes. Maybe they attempt to bribe the villain, and the villain — whom you'd always imagined as principled and incorruptible — actually pauses, and you realise in real time that actually he would take the bribe, because his family needs the money, and now the whole arc of the campaign has shifted.
+
+This is Dungeon Mastering. Not the part where your preparation pays off, but the part where it runs out. And it turns out that's the part that makes it interesting.
+
+---
+
+The Dungeon Master is, depending on which moment you catch them, three different people: an author, a referee, and an improv actor. The problem is that these roles are often in direct conflict with each other.
+
+The author wants narrative control. They've built the world, seeded the plot, planned the escalating reveals. They know the ending — or at least a version of it. The referee wants fairness: the rules apply regardless of whether the outcome serves the story. The improv actor wants to say yes. Yes to the wild plan, yes to the unexpected connection, yes to the player who insists their character would absolutely try to seduce the dragon.
+
+Most DMs discover, usually in their first few sessions, that you can't be all three at once all the time. The campaign that's too authored feels like a railroad — players pushing against a script they didn't write. The campaign that's too improvised feels like smoke — vivid in any moment, impossible to hold. The art is the balance, and the balance shifts every session.
+
+---
+
+Start with the world, because everything else grows from it. A common mistake is to build a world that exists to serve the plot — a setting constructed around the story you've decided to tell. The better approach is to build a world that would exist whether or not the players were in it, and then decide where they enter.
+
+This is sometimes called the iceberg principle. The players will see a fraction of what you've created. The other fraction — the history they don't dig into, the city they walk past, the god they never invoke — doesn't disappear. It makes the fraction they do see denser and more real. When a player asks a question you hadn't anticipated, the answer is in the world you built, not in the plot you planned.
+
+A good working practice: know three things about every location, faction, or NPC that the players might interact with. Their situation (what's actually happening), their motivation (what they want), and their secret (what they're not saying). You don't need a spreadsheet — three mental facts, held lightly. When the players do something unexpected, you reach into those facts and pull out a response that feels consistent with what you've built.
+
+---
+
+Encounters — combat or otherwise — follow a similar logic. The temptation is to build them around mechanics: what level are the players, what challenge rating are the monsters, how many actions per round? These things matter, but they're not what makes an encounter memorable.
+
+What makes an encounter memorable is context. Every encounter should have a reason for existing in that specific place: the goblins are guarding something they're terrified to lose; the mercenaries are being paid to stall, not to fight; the ghost is genuinely confused about what year it is. When the conflict has a human (or goblinoid) logic beneath it, players can negotiate with it, trick it, feel their way around it. An encounter with only a stat block is a roadblock. An encounter with a context is a scene.
+
+The best moments in D&D often emerge when players interact with the context rather than the mechanics. They ask the goblins what they're protecting. They let the mercenaries go because the cost in lives isn't worth it. They help the ghost figure out that it's dead. These moments aren't in the rulebook; they come from the encounter having a life beneath the numbers.
+
+---
+
+Then there's the question of improv, which is where most new DMs feel the most exposed. Improv has a famous principle: "yes, and." Accept what the other person gives you and build on it. Don't block — don't say "no, that didn't happen" — say "yes, and here's what that means."
+
+For a DM, this translates into something more specific: the rule of cool, and the principle that what players do should have consequences rather than corrections.
+
+If a player attempts something audacious that probably shouldn't work by the rules — swinging from the chandelier, making a speech that turns the crowd, single-handedly holding the bridge — you can let it work if it would be genuinely exciting and the player has committed to it. The satisfaction of the moment is part of the game. You pay for it in consequences later: the chandelier snapped, and now the thieves' guild are annoyed; the speech was magnetic, and now the crowd expects leadership; the bridge held, but the character is exhausted and known.
+
+This is how improvised details become canon. You make something up in the moment — the name of the innkeeper, the flag colours of the approaching army, the reason the alchemist's shop smells so strange — and the players remember it. They'll reference the innkeeper by name three sessions later. They'll notice if the flag colours change. The detail you invented under pressure to fill a gap has become a fact of the world, and you have to honour it.
+
+---
+
+The paradox at the heart of preparation is this: the more thoroughly you know your world, the more freely you can abandon your plan.
+
+DMs who have spent twenty hours building out their setting can discard a prepared encounter without losing anything, because they know where to go next. The world doesn't rely on the specific sequence of events they'd written; it has internal logic that generates new events. But DMs who've prepared only a thin strip of narrative — just enough for tonight's session — can't improvise off the edges of it, because there are no edges. The strip runs out, and there's nothing behind it.
+
+This is why the most useful thing a new DM can do isn't write more plot. It's build more world. Know the factions and what they want. Know the geography and what it means. Know a handful of characters well enough to predict how they'd behave under stress. The plot can be loose — barely outlined, held with open hands — because the world will generate the plot when the players interact with it.
+
+---
+
+There's a kind of session that every DM eventually has, where nothing went according to plan and it didn't matter. The players took the bribe off the table and offered it to the villain, and the villain took it, and the campaign went somewhere the DM hadn't imagined, and it was better. Or the players spent the whole session talking to a minor NPC that the DM had named on impulse and fleshed out in real time, and by the end of the session that NPC had become someone everyone loved.
+
+These sessions feel like gifts, but they're not random. They happen in worlds that were built to have that density. They happen when the DM has done enough preparation to improvise freely, and when the players trust the DM enough to hand them something unexpected without fearing it'll break.
+
+The job of the DM is to be worthy of that trust — to catch whatever the players throw, turn it into something that fits the world, and hand it back to them changed. Author, referee, improv actor: not all at once, but fluidly, in whatever proportion the moment requires.
+
+Topics: Dungeon Mastering
+Pending approval: Sustainable fashion and slow clothes, Music theory for non-musicians, Colour analysis and undertones, Zero Trust security architecture

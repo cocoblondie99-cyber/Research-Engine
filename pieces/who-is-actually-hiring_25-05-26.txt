@@ -1,0 +1,67 @@
+Who's Actually Hiring (And For What)
+
+The job postings are back. After a year or two of hiring freezes, redundancy rounds, and the kind of silence that made even experienced IT professionals quietly refresh LinkedIn at 11pm, the UK tech job market is moving again.
+
+The catch is that it's moving differently than before. The skills that guaranteed an interview two years ago aren't the ones that matter most now. The roles that were growing have split into winners and losers. And the companies hiring are looking for something more specific — and more demanding — than they used to be.
+
+This is what the UK IT job market actually looks like in 2026, and what it means if you're working in it.
+
+
+The specialists are winning
+
+The clearest signal from every piece of current research is the same: specialist skills command the market; generalist profiles get stuck.
+
+That might sound counterintuitive — surely being good at more things makes you more hireable? But here's what's happening. Technology decisions in most organisations are no longer optional extras; they're core to how the business operates and competes. A company hiring a cloud architect is making a decision that will shape its infrastructure for the next decade. It can't afford someone who's "reasonably good" at cloud. It wants someone who's done it, failed at it, solved the hard problems, and has opinions about why a more expensive security configuration is worth the cost.
+
+The domains where this is most pronounced:
+
+Cloud architecture. Not just using cloud services, but designing systems that are secure, resilient, and cost-efficient at scale. AWS, Azure, and GCP certifications open doors, but hands-on experience with real complexity — the kind where you've had to fix something at 2am because a misconfigured policy brought down a production system — opens bigger ones.
+
+Cybersecurity. The UK faces one of the sharpest cybersecurity skills shortages in Europe. Demand for security engineers, threat analysts, and compliance specialists is significantly outpacing supply, which translates into salaries and negotiating leverage that the rest of the IT market hasn't seen for a while. The shortage is at the specialist end; junior security roles are more competitive, but the pipeline into senior positions is short.
+
+AI and machine learning engineering. Jobs requiring AI-related skills are growing at more than three times the rate of average tech roles. The specific need isn't "knows how large language models work" but "can design, deploy, and maintain AI systems in production — including the monitoring, the data pipelines, and the uncomfortable conversations about what the model is actually doing."
+
+Data engineering. As every company accumulates more data and more AI ambition, the gap between having data and being able to use it is a data engineering problem. Pipelines, warehouses, quality controls — the plumbing of the data world — represent consistent, relatively unglamorous demand that isn't going anywhere.
+
+
+The market that didn't come back
+
+There are roles that were growing before 2024 that haven't recovered in the same shape.
+
+Mid-level IT generalist positions — the kind where you troubleshoot a bit, manage some systems, help with projects — are under more pressure. Not because companies don't need generalist IT support, but because automation tools and managed services are absorbing more of what those roles used to do. What's left is increasingly the edge cases, the vendor relationships, and the judgment calls — and companies are trying to do that with fewer people.
+
+Junior roles are harder to enter. Many companies cut their graduate programmes during the lean years and haven't rebuilt them. AI-assisted coding tools have raised the bar for what a junior developer is expected to produce on day one. There are still entry points, but they're narrower, and candidates are competing against more experienced people who were caught in redundancy rounds and are willing to accept a more junior title to get back in.
+
+The roles that are growing tend to be highly specific and highly skilled. The roles that are shrinking tend to be broad and general. This is the shape of the market, and it doesn't appear to be a temporary dip.
+
+
+The National Insurance effect
+
+Something particular to the UK: the 2025 increase in employer National Insurance contributions hit tech recruitment in a way that's still working through the system. 82% of companies report increased hiring costs, and while they didn't all freeze hiring, they got more selective. Longer processes, more interview stages, a higher bar for the same salary.
+
+The practical effect for candidates is that you're more likely to face a thorough interview process than a fast one. Bringing evidence of your work — not just claiming experience, but showing it — matters more than it used to. Portfolios, GitHub activity, case studies of real problems you've solved: these carry weight in a way they sometimes didn't when the market was moving quickly and companies were hiring on potential.
+
+
+What's actually worth doing now
+
+If you're working in IT and thinking about where to invest your time, the picture is reasonably clear.
+
+Cloud skills with depth are the single highest-value investment. Not a surface-level certification, but genuine understanding of architecture, security, and cost at scale. If you haven't spent time genuinely failing to build something properly in AWS or Azure — and learning why it failed — that's the experience worth chasing.
+
+Cybersecurity pivots are realistic. The shortage is real enough that companies are actively developing people with adjacent skills. If you have a networking, systems, or infrastructure background, there is more appetite to develop that into security expertise than there's been in years.
+
+Understanding AI at a working level matters now. You don't need to be a machine learning researcher. You do need to understand what AI can and can't do, how to work with AI tools, and — increasingly — how to govern and audit them. The people who understand both the technology and the business process it's being applied to are disproportionately valuable in a way that's likely to persist.
+
+Soft skills genuinely differentiate. This sounds like the kind of thing people say when they've run out of specific advice, but the evidence is consistent: technical candidates who can communicate clearly, run a project, and manage up are more employable and better paid than those with equivalent technical skill who can't. The floor of technical competence is rising; the scarcity above the floor is increasingly human.
+
+
+The honest picture
+
+The UK IT job market in 2026 is not as bleak as it felt two years ago, and not as buoyant as it was in 2021. It's a selective market in which depth, specificity, and demonstrated capability count for more than broad experience or impressive credentials.
+
+The rules haven't changed so much as sharpened. The people who will do best are the ones who know something specific, can show that they know it, and understand — at least broadly — what AI is doing to the landscape around them.
+
+If that sounds demanding, it is. But the skills it rewards are the ones that were always worth having. They're just more visible now.
+
+Topics: UK IT job market
+Pending approval: AI governance and compliance, Adaptogens and the stress response, Attachment styles in adult relationships, Cybersecurity careers UK

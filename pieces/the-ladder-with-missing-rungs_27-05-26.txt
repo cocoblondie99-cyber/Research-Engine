@@ -1,0 +1,41 @@
+The Ladder With Missing Rungs
+
+Here is a peculiar paradox sitting in the centre of the UK IT job market in 2026: the country cannot fill its entry-level digital roles, and yet there have never been fewer junior positions to fill. According to recent data, 54% of UK firms report difficulty filling entry-level digital vacancies. Meanwhile, the entry-level tier is actively shrinking — AI is doing a growing share of the work that junior employees used to do, which means employers are posting fewer junior roles while simultaneously struggling to find people for the ones that remain. The ladder has fewer rungs than it used to, and somehow that makes climbing it harder.
+
+Understanding this paradox requires understanding what junior roles have traditionally been for. An entry-level developer or IT support technician wasn't only providing a service; they were learning. Junior roles were the mechanism by which the industry reproduced itself — the place where people with potential but little experience were shaped into the senior specialists that companies actually needed. The junior role was less a job and more a training programme with a salary attached.
+
+AI-assisted coding tools have disrupted this logic profoundly. A single mid-level developer using AI code generation can produce roughly what a small team of junior developers might have produced five years ago. The economics of the junior hire have shifted: where once the cost of onboarding and mentoring a junior was justified by their eventual growth into a productive senior, now the same output can be obtained more cheaply and quickly from fewer, more experienced people using AI amplification. Junior developers haven't become less capable. They've become less economically necessary in the short term — at the precise moment when entry-level roles were the most accessible path into the industry.
+
+
+The squeeze from both directions
+
+The problem is compounded by a change in expectations. As junior roles have thinned, competition for the ones that remain has intensified. Employers posting junior positions are increasingly reviewing applications from people with significant experience, certifications, portfolio projects, and demonstrable proficiency with AI tools — all for a role that, a few years ago, was intended for someone just starting out. The bar for entry has risen to meet the bar for mid-level, while the salary has not. The British Chambers of Commerce noted in early 2026 that anticipated AI-related job losses are concentrated in administrative and junior professional roles rather than at senior levels — a finding that should make anyone entering the industry think carefully about their approach.
+
+What this means practically: the classic entry path — graduate scheme, helpdesk L1 position, junior developer role — is increasingly unreliable as a route in. Not impossible; still happening. But narrower, more competitive, and more demanding than the same path was in 2020.
+
+There is also a longer-term problem that the industry is not yet fully confronting. If you stop training junior staff, you eventually run out of senior staff. The senior developers billing £700 per day today were junior developers once. The pipeline has a delay measured in years, not quarters. By the time the talent drought caused by hollowing out the junior tier becomes visible in senior hiring — which some analysts put at five to ten years out — it will be very difficult to address quickly. The ladder that seems unimportant to climb when AI can do the bottom rungs is the same ladder that produces the people who build and govern AI.
+
+
+What still works
+
+The picture isn't bleak, but it requires more deliberate navigation than it once did. A few routes still reliably lead in.
+
+Apprenticeships are one. The IT and digital apprenticeship market in the UK has expanded considerably, with providers like Estio, QA, and Multiverse placing apprentices at major employers. Apprenticeships skirt the experience paradox: employers are investing in formation, not recruiting the finished product. The compensation is lower, but the learning is structured and the credentialing is legitimate. For someone changing careers, a Level 3 or Level 4 digital apprenticeship can be a more reliable path than a traditional job application, precisely because it bypasses the junior-role competition.
+
+Cybersecurity is another persistent bright spot. The cybersecurity talent shortage is so severe and so persistent that the normal market dynamics barely apply. The UK cybersecurity sector has what economists describe as full employment — essentially zero unemployment for practitioners — and this holds true even for people in the earlier stages of their career. The CompTIA Security+, SC-200, or Certified Ethical Hacker credentials remain meaningful signals. Someone who takes these seriously, builds a home lab, demonstrates genuine curiosity about attack and defence patterns, and targets smaller security operations centres will find the path less blocked than almost anywhere else in IT.
+
+The contractor market is also, paradoxically, more accessible than the permanent job market for certain kinds of experience. Not immediately — contracting typically requires enough specialist knowledge that clients feel confident handing you a problem and leaving you to solve it — but as a medium-term horizon. Mid-level contractors in cloud engineering, DevOps, and Azure or AWS infrastructure are billing £350–600 per day. Senior architects and security consultants reach £700–1,200. The upside is significant for people with genuinely scarce skills; the downside is the absence of pension contributions, holiday pay, and the security of a salary. It suits some temperaments and not others.
+
+
+What's actually worth learning
+
+If you are building skills for this market now, the most useful framing is the augmented specialist: someone who uses AI tools with fluency and pairs that fluency with genuine expertise in a particular domain. The pure generalist — competent at many things, expert at few — is under pressure. The combination of real depth in one area and AI literacy across tasks is where the compensation premium currently lives.
+
+In terms of domains: cloud architecture, cybersecurity, and data engineering remain in genuine demand with near-constant shortfall. AI implementation roles — the people who can deploy, tune, and govern AI tools within organisations — are growing fastest. These aren't the people who built the AI models; they're the people who understand how to use them responsibly in real business contexts, with appropriate governance, monitoring, and human oversight. That skill set is neither purely technical nor purely managerial, which makes it both difficult to automate and genuinely scarce.
+
+The qualification landscape matters differently depending on where you are. Microsoft certifications — AZ-104, AZ-500, SC-300 — still carry weight in Azure-heavy organisations. ISC² and CompTIA credentials still open doors in security. But employers are increasingly asking to see evidence of practical capability: GitHub portfolios, home lab documentation, writeups of problems actually solved. The formal credential says you sat an exam; the portfolio says you can do the work.
+
+The ladder hasn't disappeared. But several of its bottom rungs have been removed, and the ones that remain are more crowded. The people who navigate it successfully tend to be the ones who understand which rungs are actually solid before putting their weight on them — and who understand that the ladder itself is changing shape while they climb.
+
+Topics: UK IT job market
+Pending approval: AI and the changing shape of work — beyond IT: how agentic AI is transforming specific job categories across all industries; the hollowing out of middle-complexity work; what "human tasks" actually means going forward (surfaced from: UK IT job market, IT automation — session 2026-05-27)

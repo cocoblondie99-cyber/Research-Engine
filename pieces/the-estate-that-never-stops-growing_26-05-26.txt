@@ -1,0 +1,48 @@
+The Estate That Never Stops Growing
+
+If you are the Microsoft 365 administrator for an organisation — and in many small and medium businesses, that means you are also the IT manager, the help desk, the network support, and the person everyone calls when their laptop is slow — you are managing something that changes every month, whether or not you asked it to.
+
+Microsoft 365 is not a product. It is an ecosystem that has been expanding, consolidating, and reinventing itself for over a decade. In 2026, the rate of change has accelerated noticeably. The reasons are structural: the shift to cloud-first architecture is largely complete for most tenants, and Microsoft is now building the second phase — governance, security hardening, and AI agent integration — on top of the foundation. Understanding what has changed is not really about keeping up with features. It is about understanding where the platform is going, and making sure your tenant does not drift somewhere you did not intend.
+
+---
+
+The most important shift happening in Entra ID — and in Microsoft's security architecture broadly — is the assumption that the traditional network perimeter no longer exists. Employees work from everywhere, on a mixture of managed and unmanaged devices. The "inside" of your network is not a safe zone by default. The model Microsoft has been building toward is sometimes called Zero Trust: never assume a connection is safe because of where it is coming from; always verify identity, device state, and risk before granting access.
+
+The practical implication for administrators is that Conditional Access has become more central to the security posture than firewalls or VPNs. Conditional Access policies are rules that determine whether a given login attempt should succeed based on signals: who is the user, what device are they on, where are they, what application are they accessing, does the risk profile look normal? Getting these policies right — and keeping them right as the environment changes — is one of the core governance tasks.
+
+Related to this: Microsoft has pushed aggressively toward passwordless authentication, and the picture has clarified in 2026. The recommended approach is passkeys, built on the FIDO2 standard. A passkey is a cryptographic key stored on a device — the phone in your pocket, the laptop in front of you — that proves your identity without transmitting a secret across the network. There is nothing to phish. There is nothing to steal from a database. Microsoft Authenticator now supports synced passkeys, and the Entra admin centre allows you to enforce passkey-only authentication for specific users or groups. For high-risk accounts — executives, IT administrators, finance users — this is the most impactful single change you can make to the security posture right now.
+
+---
+
+Here is something that afflicts every mature Microsoft 365 tenant: configuration drift.
+
+When you set up a tenant, you make decisions. Some are deliberate; many are default. Over time, people add applications, modify policies to resolve individual problems, create guest accounts, change settings without documenting the change. The aggregate effect is a tenant that has wandered some distance from wherever you thought it was — with Conditional Access policies that have been weakened, with permissions that have grown broader than intended, with security settings that have quietly slipped.
+
+Microsoft has responded to this with Tenant Configuration Management, now generally available. The feature takes a snapshot of your current configuration — over two hundred resource types across Entra, Intune, Teams, and Exchange — and monitors continuously for drift from that baseline. When a security setting is changed, or a Conditional Access policy is modified, or a new privileged account appears, you are alerted.
+
+Think of it as version control for your security posture. Not dramatic; not exciting — exactly the sort of thing that becomes enormously valuable when something goes wrong and you need to know what changed and when.
+
+The companion feature is Entra Backup and Recovery, now built into the platform. It automatically backs up critical directory objects — users, groups, applications, service principals, Conditional Access policies, managed identities — and allows restoration after accidental deletion or a malicious change. Before this existed, recovering from a significant accidental deletion required Microsoft support involvement and was often slow and incomplete. Having it built in is a genuine improvement, and the kind of thing worth enabling before you need it.
+
+---
+
+The most conceptually interesting development in Microsoft 365 administration in 2026 is the emergence of AI agents as first-class citizens in the tenant. Copilot agents, custom agents built on the Copilot extensibility framework, and third-party agents integrated through Microsoft's marketplace all run in your tenant, with identities, permissions, and access to your data. Managing them is a new category of work.
+
+Microsoft has consolidated agent management into Agent 365 — a single unified catalog for all agents running in your tenant. What each agent is. What permissions it has. What data it can access. Whether it has been reviewed and approved. Who deployed it and when. Previously, this visibility simply did not exist in any systematic way; agents accumulated in tenants without a clear inventory.
+
+The governance question this creates is significant. An agent that has been granted access to email, SharePoint, and calendar data on behalf of a user has, effectively, the permissions of that user — and it is running autonomously, without a human reviewing each action. The principle of least privilege applies as much to agents as to human accounts. An agent that needs to read documents from one SharePoint library probably should not have access to the entire organisation's SharePoint. Getting this right now, while the ecosystem is relatively new, is considerably easier than trying to rein it in after widespread deployment.
+
+There is also a broader question about what it means when your IT estate includes entities that act, that make requests, that consume data — but that are not people. The agent is not a user. It is not a service account exactly, though it has one. It is a new category of principal, and the admin tooling is catching up to that reality.
+
+---
+
+The volume of change in Microsoft 365 can make keeping up feel like a full-time job separate from the actual job. The useful reframe is to stop trying to track every feature announcement and instead maintain a systematic baseline — then notice when something departs from it.
+
+Practical actions for 2026: take a Tenant Configuration snapshot if you have not already; it costs nothing and creates the baseline you will be grateful for later. Review your Conditional Access policies with passkey enforcement in mind; if you do not have phishing-resistant authentication required for privileged accounts, this is where to start. Open Agent 365 and review the agents running in your tenant; understand what each one has access to, and revoke anything that is not clearly justified.
+
+None of this is glamorous. But the security model Microsoft is building toward — assume breach, verify everything, monitor for drift — requires the administrator to think less like a builder and more like a gardener. You are not constructing a wall once and walking away. You are tending a living system that changes constantly, interacting with a threat landscape that changes constantly.
+
+The administrator who thrives in this environment is not the one who knows every feature. It is the one who has the instruments to notice when something has changed — and the habits to do something about it.
+
+Topics: Microsoft tenant admin updates, IT automation
+Pending approval: Colour psychology in interiors, Passkeys and passwordless authentication, Fabric science, The persona in Jungian psychology

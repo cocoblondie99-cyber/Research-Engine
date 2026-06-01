@@ -1,0 +1,44 @@
+What Machines Leave Behind
+
+In 1997, a chess-playing computer called Deep Blue defeated the reigning world champion, Garry Kasparov, for the first time in a formal match. Kasparov had spent his career developing an intuitive mastery of the game that no other human could rival. He lost to a machine that didn't know it was playing chess in any meaningful sense — that was applying search algorithms and evaluating positions according to programmed heuristics. The machines got better at chess. Then better still. Then incomparably better. And the question of whether a computer can beat a human at chess now has the same energy as asking whether a calculator can add faster.
+
+The story of automation tends to be told from the direction of what it can do. The more interesting direction is what it can't. Because the contours of machine competence have a very particular shape, and understanding that shape tells you something important about what humans are actually for.
+
+
+The shape of the easy
+
+Automation has always started with the same kind of task: well-defined, rule-governed, repeatable, and measurable. The conveyor belt automates the repeating physical motion. The script automates the predictable sequence of commands. The RPA bot automates the clicking-through-forms that a human used to do because there was no better way.
+
+These tasks share a property: the problem space is closed. The inputs are known, the operations are defined, the outputs can be evaluated. There is no ambiguity about what success looks like. Given enough data and processing power, a machine will eventually outperform any human at this kind of task, because performance is just finding the optimal path through a defined space — and machines can search that space much faster than biological brains can.
+
+The IT helpdesk is a clean illustration. Level 1 support — password resets, software reinstallation, following a troubleshooting decision tree — is almost entirely automatable and increasingly automated. The range of problems is known. The solutions are documented. The work doesn't require understanding the person behind the ticket in any deep sense; it requires pattern-matching their problem to a known category and returning the documented response.
+
+Level 3 escalation is different. The senior engineer dealing with an obscure interaction between a legacy authentication system and a new cloud service, where the documented behaviour doesn't match what's actually happening, and where figuring out the solution requires knowing the history of a dozen decisions made by people who left the organisation three years ago — that is not automation's territory. Not because the machine lacks processing power, but because the problem space isn't closed. The inputs aren't fully known. What counts as success requires judgment about what the business actually needs, which isn't written down anywhere.
+
+
+What resists: a short taxonomy
+
+Context is the first thing automation struggles with. Not context in the technical sense, but in the human sense — understanding what's actually being asked when the words being used aren't precise. A user who submits a ticket saying "my computer is slow" might mean CPU-bound performance, or a network latency issue, or they feel undervalued and the laptop is just a symbol, or they need permission to buy new hardware but don't want to seem demanding. Figuring out which requires listening in a richer sense than text classification allows. The actual problem is often not the stated problem.
+
+Relationships are the second category. Trust, once built between people, enables faster and better decisions than any formal system can. The senior developer who calls the infrastructure manager directly and says "I think this is going to be a problem in three months" gets a different response — faster, smarter, more honest — than the formal ticket that would take three weeks to route to the right team. These relationships are not automatable. They are the residue of accumulated shared history: knowing how someone thinks, what they prioritise, when they're worried and not saying so. Automating the channel through which those relationships operate is not the same as automating the relationships themselves.
+
+Novel situations are the third. Automation is excellent at the problem it has already seen. It struggles with the problem it hasn't. The pandemic was a novel situation. The specific failure mode in a deployment environment that no one has encountered before is a novel situation. The edge case outside the training data is a novel situation. And novel situations are, by definition, the ones that matter most — because they're the ones that can't be handled by the existing playbook, where judgment is the only tool available.
+
+
+The home automation exception
+
+There is one domain where personal automation is both accessible and genuinely rewarding: the home. With tools like Home Assistant, n8n, Apple Shortcuts, and modest scripting ability, a technically inclined person can automate a surprising range of domestic digital tasks — backup routines, network monitoring, smart device orchestration, notification triggers, file organisation. This is rule-governed, bounded, and well-defined enough that even modest automation effort pays dividends in daily convenience.
+
+The interesting thing about home automation is that it reverses the usual enterprise experience. Here, you decide what to automate. You define what counts as success. You set the constraints yourself, and you change them when you want to. There are no stakeholders to negotiate with, no legacy systems to accommodate, no compliance requirements to satisfy. It's the cleanest version of the automation promise: a machine doing reliably what you told it to do, exactly when you need it.
+
+And the things that are hardest to automate at home turn out to be the same things that are hardest at enterprise scale: the judgments, the priorities, the "what do I actually want here" questions that no system can answer on your behalf. The script that backs up your files at 2am every night is trivially easy to build. The decision about which files matter is not.
+
+
+The residue
+
+Automation doesn't replace human work. It redistributes it — pulling the rule-governed and repeatable toward machines, leaving the contextual, relational, and novel with people. This is not a consoling thought for the people whose work was mostly rule-governed and repeatable. The redistribution is real and it is disruptive, and saying "humans will do the interesting parts" offers cold comfort to someone whose job was not, until recently, one of the interesting ones.
+
+But it is an accurate picture of the direction of travel. What machines leave behind turns out to be the most characteristically human part of every job: the understanding that only comes from caring about the outcome; the trust that only comes from being known; the judgment that only comes from having been wrong before and learned from it. Chess was the easy part. It was always going to be the easy part. The harder thing to automate is the conversation about whether to play at all.
+
+Topics: IT automation
+Pending approval: AI and the changing shape of work — beyond IT: how agentic AI is transforming specific job categories across all industries; the hollowing out of middle-complexity work; what "human tasks" actually means going forward (surfaced from: IT automation, UK IT job market — session 2026-05-27)

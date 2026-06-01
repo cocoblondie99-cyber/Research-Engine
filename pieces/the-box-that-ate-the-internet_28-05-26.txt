@@ -1,0 +1,114 @@
+The Box That Ate the Internet
+
+On April 26, 1956, a modified oil tanker called the SS Ideal-X left Port Newark, New Jersey, carrying an unusual cargo: fifty-eight large metal boxes, each filled with goods, sitting on deck like oversized Lego bricks. It arrived in Houston five days later. The experiment worked. Nothing was damaged. The boxes were unloaded in a fraction of the time that loose cargo would have taken. The cost per tonne fell from $5.86 to 16 cents.
+
+That voyage was arranged by Malcolm McLean, a trucking entrepreneur from North Carolina who had spent decades watching ships being loaded and unloaded, and couldn't stop thinking about how absurd it was. Before McLean's boxes, unloading a cargo ship was a medieval operation. Thousands of individual items — crates, sacks, drums, bundles — were loaded by hand in layers, stacked by stevedores who knew from experience where everything fitted. Unloading required the reverse: men with hooks and muscle, working item by item, a ship in port for days before it could sail again. Goods were transferred between trucks, trains, and ships in a constant stream of individual decisions. Theft was endemic. Damage was routine.
+
+McLean's insight was that the problem wasn't loading — it was the lack of a standard unit. If everything came in the same box, in the same dimensions, you could build machines to move boxes. You could design ships to carry boxes. You could design trucks and trains to accommodate boxes. The interface between every mode of transport could be standardised around the box, and suddenly a container that left a factory in Taiwan could ride a truck, transfer to a train, board a ship, ride another train, and arrive at a warehouse in Birmingham without anyone ever touching the contents. The box would handle the complexity. The box would hide the mess.
+
+McLean was so committed to the idea of standardisation that he made his container patents available to the International Organization for Standardization royalty-free. He gave them away. He understood that the box was only useful if everyone used the same box.
+
+This is the true origin story of Docker — not a Silicon Valley startup in 2013, but a frustrated trucker in 1956. The same insight, applied to software, turned programming from a chaotic craft into something that could be reliably shipped, reproduced, and scaled.
+
+
+The "Works on My Machine" Problem
+
+Before we get to the technical details, there's a simpler question worth sitting with: what problem were containers actually solving?
+
+Any developer who has ever tried to hand a piece of software to a colleague — or deploy code from their laptop to a server — has encountered the fundamental frustration: it works perfectly in one place and fails inexplicably somewhere else. Libraries are wrong versions. A dependency was installed differently. The operating system makes different assumptions. The configuration file expects to be in a path that doesn't exist on the new machine.
+
+This is so common it has a name in the industry: the "works on my machine" problem. A developer finishes a feature, tests it thoroughly, hands it over — and when it lands on the production server, it breaks. The server has a different version of Python. The server doesn't have the right database driver. The server was set up six months ago from a setup guide that has since drifted from reality.
+
+Before containers, the orthodox solutions were all versions of the same answer: try very hard to make every environment identical. Write long setup scripts. Maintain detailed documentation of exactly what software needs to be installed and in what order. Hope everyone follows it. Inevitably, they don't, because setup scripts are fragile and documentation rots.
+
+Virtual machines were a partial solution. You could create a virtual computer running inside your real computer, install everything your software needed, save that virtual computer as a snapshot, and hand the snapshot to someone else. They'd open it, and the environment would be identical, because it was literally the same frozen computer.
+
+This works, but virtual machines are extraordinarily heavy. A virtual machine includes an entire operating system — its own kernel, system libraries, everything — simulated in software on top of the hardware. Even a minimal VM consumes several gigabytes. Starting one takes thirty seconds to two minutes. Running twenty of them simultaneously on a single server requires enormous resources, because each one is pretending to be its own complete computer. The overhead accumulates fast.
+
+Docker took a different path. Instead of simulating an entire separate computer, it shares the operating system's core — the kernel — between the host machine and every container running on it. The isolation is achieved not by hardware emulation but by a Linux feature called namespaces. This changes everything about the weight and speed of the thing.
+
+
+The Illusion of Isolation
+
+Understanding namespaces is the key to understanding containers. The concept is straightforward once you have the right analogy.
+
+Think of a large office building. All the offices share the same heating system, the same electrical supply, the same physical structure. But each office has its own door, its own interior, its own filing system. An employee in one office can't see into another. From inside any given office, you have no idea how many others are in the building, or what's happening in them. The building's infrastructure is shared; the experience is private.
+
+A Linux namespace works the same way. It gives a process its own private view of specific parts of the system. A network namespace gives a container its own network interface, its own IP address, its own routing table — even though the physical network it connects through is shared. A filesystem namespace gives a container its own directory structure, so the container thinks it starts at its own root directory and can't see the host machine's files. A process namespace gives a container its own list of running processes, so the software inside the container thinks it's the only thing running, and its process IDs start at 1.
+
+The container doesn't know it's in a container. From its perspective, it has its own machine. Its own filesystem. Its own network. Its own processes. The isolation is real — one container genuinely cannot interfere with another's files or processes. But it's achieved not by simulation but by controlled permission: the Linux kernel simply doesn't show each container what it's not supposed to see.
+
+The second piece of the mechanism is called control groups, abbreviated cgroups. These enforce resource limits. If you have five containers running on a server, you can specify that container A gets at most two CPU cores and four gigabytes of RAM, container B gets one core and two gigabytes, and so on. The containers can't steal each other's resources. The system enforces the allocation at the kernel level, not through negotiation.
+
+Put namespaces and cgroups together and you have containers. Namespace isolation says what you can see; cgroup limits say what you can consume. The rest of Docker is, conceptually, plumbing around this core — useful, thoughtfully designed plumbing, but not the insight. The insight is that you don't need a separate operating system for each application. You need selective invisibility.
+
+
+Images, Containers, and the Magic of Layers
+
+Docker introduces two concepts that beginners often blur together: images and containers. The distinction matters.
+
+An image is a blueprint. It's a frozen, read-only snapshot of an environment: a base operating system layer (usually a minimal Linux distribution), your application's runtime and dependencies, your application's code, and instructions about how to start it. An image doesn't run. It just is — like a photograph of a specific configuration, taken at a specific moment.
+
+A container is a running instance of an image. You take an image and start it, and Docker creates a live process from that blueprint, with all the namespace isolation and cgroup limits applied. You can run five containers from the same image simultaneously, each isolated from the others, each behaving independently. Delete any one of them, and the others are unaffected. The image persists; the containers are temporary.
+
+The interesting part is how images are built. Docker uses a layered filesystem, and this is where the engineering elegance really shows. The base image might be a stripped-down version of Ubuntu. On top of that, you add Python — that's a second layer. On top of that, you install your application's Python dependencies — a third layer. On top of that, you copy your application code — a fourth layer.
+
+These layers are shared between images that have the same base. If you have twenty different applications that all start from the same base Ubuntu layer with the same Python version, Docker stores that base layer once, not twenty times. Spinning up a new container doesn't require copying gigabytes of data — it creates a thin read-write layer on top of the shared read-only layers underneath, like placing a blank sheet of tracing paper on top of a detailed drawing. Your changes go on the tracing paper; the drawing beneath is untouched.
+
+This is why containers start so fast. A container running on a machine where the image is already present starts in milliseconds — not the thirty-second VM boot, but faster than you can read this sentence. On a server with 128 gigabytes of RAM, you might run a hundred or two hundred containers where you could manage only fifteen virtual machines.
+
+The instructions for building an image live in a Dockerfile — a plain text file that reads like a recipe:
+
+Start from Ubuntu 22.04. Install Python. Copy in the list of required packages. Install them. Copy in the application code. When someone starts a container from this image, run main.py.
+
+That file is everything needed to recreate the environment from scratch, on any machine that has Docker installed. Check the Dockerfile into version control alongside the code, and anyone who checks out the repository can build and run the application identically. The environment is defined in code. It travels with the software.
+
+
+Composing a World
+
+In practice, most modern applications aren't a single container. They're three or four, or a dozen, all needing to talk to each other.
+
+A typical web application might consist of: a database (PostgreSQL, running in its own container), a caching layer (Redis, running in another), the main application logic (Python or Node.js, running in a third), and a reverse proxy (Nginx, routing web traffic to the application). Each of these has different dependencies, different resource needs, different startup requirements. Each runs in its own isolated container. Together, they form the working application.
+
+Describing how these containers should cooperate — which ports each exposes, how they discover each other, which should start before which, where their data should be stored — is what Docker Compose does. A single configuration file lists all the containers the application needs, maps the connections between them, and specifies any persistent storage. Run `docker compose up` and the whole system assembles: the database starts, the cache starts, the application starts, the proxy starts, and they find each other automatically.
+
+The power of this for a development team is hard to overstate. A new developer joining a project can have a complete, working version of the entire system running locally in minutes — not by following a ten-page setup guide and hoping nothing has changed, but by running one command. The same setup that runs on their laptop is the setup that runs in testing, and the same setup that runs in production. If it breaks in production in a way it didn't break locally, that's a genuine new problem, not the old "you set it up slightly differently" noise.
+
+
+What Everyone Gets Wrong
+
+The most common misconception about containers is that they make software faster. They don't, particularly. An application running inside a container executes at essentially the same speed as the same application running natively on the same hardware. There's a minimal overhead from the namespace bookkeeping, but it's negligible for nearly every real workload. What containers do is make environments consistent, portable, and fast to start — not fast to run.
+
+The second misconception is security. Because containers share the host kernel, they are not as strongly isolated as virtual machines. A serious kernel vulnerability could theoretically allow a process inside a container to escape and affect the host or other containers. This is not an imaginary risk — it's a real consideration that the industry has spent considerable engineering effort on, through techniques like seccomp filtering, read-only filesystems, and running containers as non-root users. But it does mean that containers aren't appropriate for every situation. Multi-tenant environments where genuinely untrusted code runs (cloud providers hosting strangers' workloads, for instance) typically still rely on virtual machine boundaries for the strongest isolation. For the vast majority of deployment scenarios, containers are secure enough, and the operational benefits are decisive.
+
+The third misconception is that Docker and containers are synonymous. Docker was the company that made containers accessible and popular, and Docker Desktop is still what most developers install on their laptops to get started. But the underlying container runtime — the component that actually manages namespaces and cgroups — has been standardised through the Open Container Initiative. In production, most cloud platforms now use containerd, not Docker's own engine, as the runtime. Kubernetes — the system most large deployments use to manage containers across many machines — dropped its dependency on Docker Engine in 2020. Docker built the culture, the tooling, and the vocabulary. The infrastructure has since moved to open standards, much as Malcolm McLean's specific corner-fitting patent became an ISO standard while the man himself eventually sold his shipping company.
+
+The box, once invented, belongs to everyone.
+
+
+At Scale: The Orchestration Problem
+
+Running one container, or a handful with Compose, is manageable and approachable. Running thousands of containers across dozens of servers — which is the situation at any significant organisation — is a categorically different challenge.
+
+If you have ten servers and five hundred containers, you need a system that can decide which containers run on which servers, restart a container automatically if it crashes, redistribute containers to healthy servers if a machine goes down, handle the gradual rollout of new versions without taking the service offline, and scale up when traffic spikes by starting more container instances. This is called orchestration, and the dominant solution is Kubernetes.
+
+Kubernetes deserves its own piece; its full complexity would overflow this one. But its existence points at something important. Containers solved the packaging problem — what a unit of software is, how it carries its environment with it, how it starts reliably. Kubernetes solved the operational problem — how to manage hundreds of those units in production without losing your mind. They're complementary: containers are the atoms, Kubernetes is the chemistry. You can use containers without Kubernetes (plenty of organisations do, running Docker Compose on a single beefy server, and it works fine for moderate workloads). But if you're running at scale, you'll eventually want an orchestrator, and Kubernetes won that race comprehensively.
+
+
+Why the Box Won
+
+Here is the thing about the shipping container that gets overlooked in the focus on cost savings. McLean's insight was not fundamentally technical. The metal box was not a new invention. The bolt-down corner fittings were not a sophisticated technology. The innovation was social and organisational: he created a standard interface between actors who had previously all done things their own way.
+
+Dock operators, shipping companies, rail operators, trucking companies, and warehouse operators — all of whom had been optimising their own small piece of the chain — suddenly found themselves able to cooperate at scale, because they had agreed on a unit. The box that arrived on a ship from Shanghai fitted the crane at Felixstowe, fitted the truck that drove it to a Birmingham warehouse, fitted the shelving system inside. Everyone built their infrastructure around the same dimensions, and global trade exploded. Containerisation is credited as one of the key material enablers of globalisation: without the standardised box, just-in-time manufacturing across multiple continents would be unthinkable.
+
+Docker did the same thing for software. Developers, build systems, testing infrastructure, staging environments, production servers, cloud platforms — all of them can now exchange the same unit. An image built on a MacBook runs unchanged on AWS. A container that works in the CI/CD pipeline behaves identically in production. The environment a new developer spins up on their first day is the same environment the application runs in when real users are hitting it.
+
+That coordination gain — that reduction in friction, in miscommunication, in the grinding waste of "works on my machine" — is what the container revolution actually delivered. It wasn't a faster program. It was an end to the chaos of every environment being slightly different from every other, in ways nobody could fully account for.
+
+McLean gave away his patents because he understood that the box was only useful if it was universal. A container format that only some ships could handle was worthless. A container standard that everyone adopted made the whole system — and every participant in it — more valuable. He got rich anyway, because he'd restructured the economics of an entire industry. He just couldn't do it alone.
+
+Docker open-sourced its core software for exactly the same reason. The box wins when everyone uses the same box. And when everyone uses the same box, software stops being a mystery that only works in one place, and starts being something you can actually ship.
+
+
+Topics: Docker and containers
+Pending approval: Kubernetes and container orchestration, Container security, CI/CD and DevOps pipelines

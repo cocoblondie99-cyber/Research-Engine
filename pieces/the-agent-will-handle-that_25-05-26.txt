@@ -1,0 +1,63 @@
+The Agent Will Handle That
+
+Think about the last time your company deployed a bot. It probably did one thing: took an order number from a spreadsheet, looked it up in a system, and put the result somewhere else. Fast, tireless, and stupid in the most specific way possible — give it an order number that doesn't exist and it would crash, or loop forever, or cheerfully write "ERROR" into a thousand cells before anyone noticed.
+
+That bot is already obsolete.
+
+What's replacing it isn't just a smarter bot. It's something meaningfully different: an AI agent that doesn't execute a script but pursues a goal. The distinction matters more than it might seem.
+
+A script says: do step 1, then step 2, then step 3. An agent says: I need to achieve X — let me figure out what steps that requires, take them, check whether they worked, and adjust if they didn't. The bot was a very precise tool. The agent is more like a very fast, very tireless junior employee who can read a policy document, understand what they're supposed to do, and get on with it. Gartner predicts that 40% of enterprise applications will include task-specific AI agents by the end of 2026, up from less than 5% last year. That's not a gradual evolution. That's a step change in what business software can do.
+
+
+From bots to brains
+
+The previous era of IT automation was called Robotic Process Automation, or RPA. RPA tools like UiPath and Automation Anywhere became enormously popular in the 2010s because they could do something genuinely useful: click buttons in software the same way a human would, without requiring any integration between systems. If your HR platform didn't have an API but it had a screen, you could build a bot that navigated it. Slow and fragile, but cheaper than re-engineering legacy software.
+
+RPA bots were good at repetitive, well-defined tasks in stable environments. They were terrible at anything requiring judgment. If the software's interface changed slightly, the bot fell over. If the data was ambiguous, it guessed badly or stopped. The humans working alongside RPA systems spent a substantial amount of their time fixing what the bots broke.
+
+AI agents change the nature of the problem. They don't navigate screens by memorising pixel locations — they understand what they're looking at. They can read a support ticket written in imperfect English, identify the issue, look up the relevant policy, draft a response, and send it for human review — or, increasingly, just send it. They can be interrupted midway through a task, asked to explain their reasoning, and continue. When something goes wrong, they can recover by trying a different approach rather than crashing.
+
+This is partly a language model capability: modern AI can read, reason, and write in ways that earlier systems couldn't. But it's also an architectural shift. AI agents are increasingly designed to work in chains, with one agent handing off to another and a supervising agent watching the whole thing.
+
+
+The multi-agent office
+
+Think of a traditional company as a building where each floor doesn't know what the others are doing. The sales floor hands its orders through a small hatch to the fulfilment floor, which passes delivery confirmations through a different hatch to accounts. The process works, but everything has to be formalised as a handover document, because floors don't talk directly.
+
+A multi-agent system is more like taking down the walls. You have a supervisor agent that understands the whole process, specialist agents handling pricing, inventory, logistics, and invoicing, and they communicate directly, sharing context and handing off tasks in real time. When a customer asks for something unusual — a custom quantity, an urgent delivery, an international address that the old system couldn't handle — the agents can negotiate with each other rather than breaking the process.
+
+78% of executives now say they'll need to reinvent their operating models to get the most from agentic AI. That's not hyperbole. You can't simply drop agents into processes designed for humans — the whole rhythm of work changes. The handover documents, the approval stages, the committee meetings that exist because humans need time to read and decide: many of these are redundant when decisions can be made in seconds. But removing them exposes a different problem.
+
+
+The governance gap
+
+Here's what keeps IT leaders awake at night: the capabilities are advancing faster than the controls.
+
+When a human employee makes a decision, there's a clear accountability chain. When an AI agent makes ten thousand decisions overnight across twelve interconnected systems, who's responsible for each one? How do you audit it? How do you catch it when it starts making systematically bad decisions in a way that only becomes apparent weeks later?
+
+The EU AI Act, which came into force this year, requires AI systems to be transparent, explainable, and continuously monitored. That sounds reasonable until you try to implement it at scale. An agent that can genuinely account for every decision it made — in terms a regulator can verify — requires significant engineering effort that most organisations haven't yet put in.
+
+The phrase gaining traction among IT leaders is governance as code: the idea that the rules governing what AI agents can and can't do should be written into the system itself, not just described in a policy document that no agent ever reads. If an agent cannot take a financial commitment above a certain value without human approval, that limit should be hardcoded into its constraints. The alternative — an agent that could, in principle, do anything but is expected to behave well because it's been told to — is not a governance model. It's optimism.
+
+
+What this means for IT jobs
+
+The RPA era created a brief boom in people who could configure and maintain bots — a skill set that is now aging out faster than many expected. AI agents can increasingly configure themselves.
+
+What's growing instead is demand for people who understand the orchestration layer: how to design multi-agent systems, how to write governance rules, how to audit what agents are doing, and how to intervene intelligently when things go wrong. This is less about coding than about systems thinking — understanding process, risk, and accountability, and knowing how to express that in terms an AI can operate within.
+
+The emerging metaphor is that AI agents are like a very capable contractor workforce: they can do an enormous amount without constant supervision, but someone still needs to define the job, set the boundaries, and check the work. That someone increasingly needs to understand both the business process and the AI capability sitting inside it.
+
+
+The irreducible human
+
+There are tasks that AI agents genuinely can't handle yet — not because the language model isn't capable of understanding them, but because the context required to do them well is too embedded in human relationships, institutional history, and tacit knowledge.
+
+When a long-standing client relationship is at risk, you need someone who understands not just the contract terms but the seventeen years of goodwill sitting behind them. When a decision has implications across stakeholders with competing interests and unspoken priorities, a system that operates on explicit instructions will make a systematic mess of it.
+
+The honest picture of where automation is heading isn't one where IT jobs disappear. It's one where the nature of the work shifts — from executing processes to designing, governing, and correcting them. The people who will thrive are the ones who understand AI well enough to direct it, and understand human systems well enough to know where AI shouldn't be left alone.
+
+Your IT department's new colleague is genuinely impressive. But it still needs someone to write its job description.
+
+Topics: IT automation
+Pending approval: AI governance and compliance, Adaptogens and the stress response, Attachment styles in adult relationships, Cybersecurity careers UK

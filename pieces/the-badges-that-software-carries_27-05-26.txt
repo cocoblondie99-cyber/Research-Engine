@@ -1,0 +1,69 @@
+The Badges That Software Carries
+
+Every time a scheduled script checks whether your organisation's servers are healthy, something has to prove it is allowed to be there. Not the IT manager who wrote the script — the script itself. In the modern cloud, software has to show its badge at the door just like people do. Understanding what those badges are, and why they matter, is increasingly the difference between a cloud environment you can trust and one you are just hoping nobody has noticed yet.
+
+Start with the problem. In the early days of networked IT, when you needed a piece of software to access a database or read from a file share, you gave it a username and password. Often a domain account — the kind a human would have — sitting in a config file somewhere, its password set to never expire because rotating it would break seven other things and nobody had time to find all seven. These service accounts multiplied over years until most enterprise environments had hundreds of them: accounts with broad permissions, old passwords, and no living human who remembered what they were for. A security audit of one of these environments is, invariably, a horror show.
+
+The cloud era did not solve this problem immediately. It just moved it somewhere else.
+
+
+What a service principal actually is
+
+When you register an application in Microsoft Entra ID (formerly Azure Active Directory), you create two things: the application object itself, and what is called a service principal — a concrete instance of that application identity within a specific tenant, the organisational home it lives in. The service principal is, in essence, the badge that your application carries when it walks up to a secured Azure resource and says: let me in.
+
+Like any badge, it proves identity rather than capability. What the badge allows you to do is a separate question — that is handled by role assignments. But first, the door has to believe the badge is real.
+
+Service principals authenticate in one of two ways: with a client secret (a password, essentially — a long random string with an expiry date) or with a certificate. The certificate approach is meaningfully more secure: it is harder to accidentally log, harder to accidentally paste into a chat window, and proves possession of a private key rather than knowledge of a string. But both approaches share a common burden: someone has to manage them. Set the expiry dates. Rotate the credentials before they lapse. Store them somewhere secure — ideally a key vault rather than a config file. Know which applications are using which secrets, so you can rotate them without bringing down a service.
+
+This burden is real. It is where most of the risk lives. Not in the service principal concept itself, but in the credential that proves it.
+
+
+The managed identity revolution
+
+Managed identities exist to solve the credential problem by making the credential disappear.
+
+The insight is elegant: if your code is running on an Azure virtual machine, why should you prove to Azure who you are with a separate credential? Azure knows what machine is running your code. The machine itself is an identity. Let the platform vouch for it.
+
+When you enable a managed identity on an Azure resource — a virtual machine, an App Service, an Azure Function — the platform automatically creates a service principal for that resource and manages its credentials completely. The application code asks for a token from a local metadata endpoint (a service only accessible from within the machine), receives one automatically, and uses it to authenticate to whatever Azure service it needs. No password. No certificate to rotate. No secret to store, leak, or forget.
+
+There are two flavours. System-assigned managed identities live and die with the resource — when you delete the VM, the identity goes with it. User-assigned managed identities are independent objects you create separately and attach to one or more resources. If you have twenty functions that all need to read from the same storage account, a user-assigned identity they all share is cleaner than twenty separate system-assigned identities, each carrying its own permissions and lifecycle.
+
+Microsoft's current guidance is direct: use a managed identity by default. If the service does not support managed identities — and some do not, particularly for workloads running outside Azure entirely — fall back to a service principal. If you need a service principal, use a certificate over a secret. If you must use a secret, put it in Key Vault and read it at runtime. Never hardcode it. Never commit it to a repository. Never paste it in a chat.
+
+The shift this represents is subtle but important. Previously, the question was: where do we store this credential securely? The managed identity answer is: nowhere, because it does not exist as a thing anyone carries. The platform is the custodian.
+
+
+Where gMSA fits in
+
+Managed identities are an Azure concept. They require Azure to be the platform vouching for the workload. But vast amounts of enterprise software still runs on Windows servers that are members of an on-premises Active Directory domain — not in the cloud, or hybrid at best. For these workloads, the managed identity does not exist. Something else does: the Group Managed Service Account.
+
+A gMSA is a domain account — the traditional kind, living in Active Directory — with one crucial difference: no human ever sets, knows, or manages its password. The domain controller generates a 240-character random password, stores it securely in the directory, and rotates it automatically on a schedule, typically every thirty days. When a domain-joined server running a service that uses the gMSA needs to authenticate, it requests the current password from the domain controller at boot time, uses it silently, and never exposes it to anyone.
+
+The "group" in Group Managed Service Account refers to the fact that multiple servers can be authorised to retrieve the same account's password. This is essential for load-balanced services — a cluster of IIS servers all running the same web application need to authenticate as the same identity so session state and permissions work consistently. A gMSA handles this cleanly: any server added to the authorised list gets access; any server removed loses it immediately.
+
+The practical effect is the same as a managed identity: no human password to manage, no credential to store in a config file, no expiry date to miss. The difference is the plumbing beneath it — Active Directory domain membership rather than Azure platform attestation.
+
+
+The hierarchy in practice
+
+Where does this leave the practitioner? With a fairly clear decision tree.
+
+Cloud workloads running in Azure: use a managed identity. The platform handles everything; the only decisions are system-assigned versus user-assigned and which roles to grant.
+
+On-premises Windows services running under a service account: use a gMSA. Set it up once, add the servers to the authorised list, and let the domain controller handle the rest.
+
+Workloads running outside Azure — a CI/CD pipeline in GitHub Actions, an application on a physical server in a remote office, a third-party integration that needs to call Microsoft APIs: use a service principal. Store its credentials in Key Vault. Set calendar reminders for expiry. Prefer certificates over secrets.
+
+The thing all three approaches share is a shift in thinking: identity for software should not be a problem that humans solve by carrying secrets around. It should be a problem that systems solve by design. The most secure credential is the one that never exists as a thing someone could lose or leak.
+
+
+Why this matters beyond the technical
+
+There is a deeper principle here that transcends cloud architecture. The question "what identity does this service need?" turns out to be one of the most consequential security questions in any organisation, and it gets asked remarkably rarely. Service accounts get created with broad permissions, their credentials get stored carelessly, their purpose gets forgotten, and years later they become the path an attacker takes from a compromised laptop to production data.
+
+Managed identities and gMSAs do not solve that second problem — the over-privileged, poorly-understood service account that does too much and belongs to no one. That requires human decisions about role assignments and regular reviews. But they solve the first problem definitively: the password that outlives the project, the secret in the config file, the credential rotating on nobody's calendar.
+
+In identity management, the safest credential is the one you never have to think about because the infrastructure is thinking about it for you. The history of enterprise security is, in no small part, a history of learning this lesson after the breach rather than before it. The tools now exist to learn it beforehand. The choice about whether to use them is still a human one.
+
+Topics: Azure service principals and gMSA
+Pending approval: None

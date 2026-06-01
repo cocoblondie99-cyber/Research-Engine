@@ -1,0 +1,192 @@
+Session complete. Here's what was produced:
+
+---
+
+**Five pieces written today (2026-05-25):**
+
+1. `pieces/2026-05-25_the-agent-will-handle-that.txt` — **IT automation** — the shift from RPA bots to agentic AI; what governance as code means and why it's the hard part
+2. `pieces/2026-05-25_who-is-actually-hiring.txt` — **UK IT job market** — why specialists are winning, which roles didn't come back, and what's genuinely worth investing in
+3. `pieces/modern witchcraft/2026-05-25_what-the-folk-healers-knew.txt` — **Nighttime teas** — the GABA pathway, valerian vs. passionflower, why chamomile works but not through chemistry
+4. `pieces/2026-05-25_the-parts-of-yourself-youve-given-away.txt` — **Jungian psychology** — the shadow, projection, gold in the shadow, individuation
+5. `pieces/2026-05-25_the-damage-of-what-didnt-happen.txt` — **Childhood emotional neglect** — attunement, the wound of absence, the self-dismissal trap, what healing looks like
+
+**Four related topics added to `topics.md` (pending your confirmation):**
+- AI governance and compliance
+- Adaptogens and the stress response
+- Attachment styles in adult relationships
+- Cybersecurity careers UK
+Session complete. Here's what was produced:
+
+---
+
+**Session 2026-05-26 — 5 pieces written:**
+
+1. **The Two Languages on the Page** — *Reading sheet music*: how notation is really rhythm and pitch as separate learnable systems, and pattern recognition as the path to fluency
+2. **When the Players Go Off-Script** — *Dungeon Mastering*: the DM as author, referee, and improv actor; worldbuilding depth as the precondition for improvisation; the paradox of preparation
+3. **Dressing a Body That Wasn't the Default** — *Crossdressing and presentation*: the specific structural challenges (shoulders, hip ratio, waist); silhouette and proportion tools; the two-stage makeup approach; coherence as the goal rather than passing
+4. **In Praise of the Warm Dark** — *Rich brown and burgundy*: why the palette is structurally coherent; how to use it in rooms and outfits; the specific combinations (camel, cognac, terracotta, cream) that work and why
+5. **What the Pattern Doesn't Tell You** — *Sewing your own clothes*: how patterns work as a solved compromise; measurements and ease; fabric choice and grain; the fit-diagnosis skill that changes everything
+
+---
+
+**4 related topics surfaced** (pending your confirmation before drawing from as a primary focus):
+- **Sustainable fashion and slow clothes** — the environmental and personal case for making vs buying
+- **Music theory for non-musicians** — the grammar beneath notation: intervals, chords, scales, why keys feel the way they do
+- **Colour analysis and undertones** — the seasonal palette system; warm/cool/light/deep and which colours suit which person
+- **Zero Trust security architecture** — the model replacing perimeter security; what it means in practice for Microsoft 365 tenants
+
+Microsoft tenant admin updates and Jungian psychology: identity and sexuality remain untouched for next session.
+Session complete. Here's what was produced:
+
+---
+
+**Phase 1 — Research:** Searched all four remaining topic areas. Found four new related topic candidates, all added to `topics.md`:
+- Colour psychology in interiors
+- Passkeys and passwordless authentication
+- Fabric science
+- The persona in Jungian psychology
+
+**Phase 2 — Selection:** Four topics chosen from the remaining unwritten main list.
+
+**Phase 3 — Writing:** Four pieces saved to `pieces/`:
+
+| File | Topic | Angle |
+|---|---|---|
+| `2026-05-26_the-stranger-you-already-are.txt` | Jungian psychology: identity and sexuality | Anima/animus as the unlived self; the persona; how this maps onto gender identity and sexuality; individuation as becoming who you are |
+| `2026-05-26_what-a-room-is-actually-saying.txt` | Interior decoration | The room as an argument; focal hierarchy; light as the underestimated variable; why colour commitment matters |
+| `2026-05-26_the-estate-that-never-stops-growing.txt` | Microsoft tenant admin updates | Zero Trust and passkeys; configuration drift monitoring; Entra Backup and Recovery; AI agents as first-class tenant citizens |
+| `2026-05-26_the-system-problem.txt` | Everyday fashion | The wardrobe as system vs collection; building around neutrals; the three-colour rule; fabric as texture and behaviour |
+
+The remaining main topics — **Jungian psychology** (archetypes and collective unconscious angles), **Microsoft tenant admin updates**, **Interior decoration**, and **Everyday fashion** — all stay in the main list as broad enough for future sessions.
+Session complete. Here's what was written and what needs your attention:
+
+---
+
+**5 pieces written this session (2026-05-27):**
+
+| File | Topic |
+|------|-------|
+| `the-badges-that-software-carries_27-05-26.txt` | Azure service principals and gMSA |
+| `before-you-throw-it-away_27-05-26.txt` | Mending clothes |
+| `the-stories-that-dream-us_27-05-26.txt` | Jungian psychology: archetypes and collective unconscious |
+| `learning-to-be-witnessed_27-05-26.txt` | Childhood emotional neglect: healing |
+| `modern witchcraft/making-stress-smarter_27-05-26.txt` | Adaptogens [related topic, 1 per session] |
+
+**4 new related topics added to `topics.md`:** Sashiko and visible mending; The hero's journey and mythology; Emotional literacy and interoception; The HPA axis and chronic stress.
+
+---
+
+**Owner action needed — flagged for confirmation:**
+
+1. **Adaptogens and the stress response** — used as this session's one related topic in the Modern Witchcraft slot. Should it be promoted to the main Modern Witchcraft list? The evidence base is solid enough to justify it.
+2. **The persona in Jungian psychology** — already in the related topics list; surfaced again this session as relevant. Worth promoting to main list?
+3. **Attachment styles in adult relationships** — also already in related topics; surfaced again from the CEN healing piece. Promotion candidate.
+Session complete. Here's what was produced:
+
+**5 pieces written and saved:**
+
+1. **You're Taking Too Much** `pieces/modern witchcraft/youre-taking-too-much_27-05-26.txt` — The melatonin tenfold overdose as the hook; melatonin as timing signal not sedative; magnesium glycinate and the GABA system; L-theanine for the racing mind; how to stack them sensibly.
+
+2. **The Ladder With Missing Rungs** `pieces/the-ladder-with-missing-rungs_27-05-26.txt` — The paradox of 54% of UK firms struggling to fill junior roles while creating fewer of them; the pipeline crisis; apprenticeships and cybersecurity as reliable routes; the augmented specialist framing.
+
+3. **The Long Game** `pieces/the-long-game_27-05-26.txt` — Running long D&D campaigns; the living-world/faction-tracker approach; preparing situations not plots; the emotional weight that accumulates over years; mini-seasons; how to end well.
+
+4. **What Machines Leave Behind** `pieces/what-machines-leave-behind_27-05-26.txt` — The inverse of the automation story; what resists (context, relationships, novel situations); home automation as the clean version of the promise; what the residue reveals about humans.
+
+5. **The Score That Knows You're Looking** `pieces/the-score-that-knows-youre-looking_27-05-26.txt` — Why adults freeze over sheet music (developmental pathway, not neural limits); the shame loop; rhythm-first learning; starting embarrassingly easy; brief-and-daily practice.
+
+**3 related topics added to `topics.md`:** sleep science and circadian biology; the actual-play phenomenon; AI and the changing shape of work.
+Session complete. Here's what was done:
+
+**Phase 1 — Research:** Searched self-hosted AI deployment in 2026, covering open-weight model quality vs cloud APIs, hardware requirements and quantization, Ollama vs vLLM serving, Open WebUI as enterprise interface, RAG architecture and access control, and cost/privacy economics.
+
+**Phase 2 — Selection:** Chose **Self-hosted AI for organisations** — untouched topic, rich material, good hook (the attorney-client privilege scenario), and the quantization and RAG angles gave clear points of genuine illumination.
+
+**Phase 3 — Writing:** Produced *The Model That Never Calls Home* (~2,500 words), saved to `pieces/the-model-that-never-calls-home_28-05-26.txt`.
+
+**Related topics added to `topics.md`:** Vector databases and embeddings, LLM fine-tuning for organisations, AI at the edge.
+Session complete. Here's what was produced:
+
+---
+
+**Piece written:** *The Box That Ate the Internet* (~2,600 words)
+`pieces/the-box-that-ate-the-internet_28-05-26.txt`
+
+**Angle:** The shipping container — specifically Malcolm McLean and the SS Ideal-X in 1956 — as the genuine origin of the Docker idea, not a convenient metaphor. The piece traces containerisation from McLean's coordination insight through Linux namespaces and cgroups (explained via an office-building analogy), the image/container/layer distinction, Docker Compose for multi-service apps, and what containers actually deliver (consistent, portable environments — not faster code). Ends with the parallel between McLean giving away his patents and Docker open-sourcing its core: the box only wins when everyone uses the same box.
+
+**3 related topics added to `topics.md`** (pending owner confirmation):
+- Kubernetes and container orchestration
+- Container security
+- CI/CD and DevOps pipelines
+Session complete. Here's the summary:
+
+**Piece written:** *The Body That Learned to Brace* — saved to `pieces/the-body-that-learned-to-brace_29-05-26.txt`
+
+**Topic:** Childhood emotional neglect: nervous system effects. The piece opens in a quiet room with a baby that no one comes to — and uses that image to anchor the whole argument. It covers:
+- How the vagus nerve and social engagement system are built through co-regulation
+- Neuroception — Porges's concept of pre-conscious threat detection, and why it miscalibrates under chronic neglect
+- The polyvagal three-state hierarchy (ventral vagal, sympathetic, dorsal vagal) as a cascade of fallback survival strategies
+- The window of tolerance and how early neglect narrows it
+- Freeze, fawn, and hypervigilance as adaptive dysregulation patterns, not character flaws
+- Interoception deficits — the specific finding that emotional neglect produces body dissociation (disregarding rather than not feeling)
+- What repair actually requires: corrective relational experience, somatic approaches, pendulation, vagal toning, slow sensation-tracking
+
+**4 related topics added to `topics.md`** — pending owner confirmation: co-regulation and the developing brain, vagal tone and HRV, somatic experiencing, dissociation and depersonalisation.
+[18:03:01] === Session start ===
+[18:03:01] Syncing read folder from GDrive
+2026/05/30 18:03:03 ERROR : Google drive root 'Research Engine/read': error reading source root directory: directory not found
+2026/05/30 18:03:03 ERROR : Attempt 1/3 failed with 1 errors and: directory not found
+2026/05/30 18:03:04 ERROR : Google drive root 'Research Engine/read': error reading source root directory: directory not found
+2026/05/30 18:03:04 ERROR : Attempt 2/3 failed with 1 errors and: directory not found
+2026/05/30 18:03:04 ERROR : Google drive root 'Research Engine/read': error reading source root directory: directory not found
+2026/05/30 18:03:04 ERROR : Attempt 3/3 failed with 1 errors and: directory not found
+2026/05/30 18:03:04 Failed to copy: directory not found
+2026/05/30 18:03:06 ERROR : Google drive root 'Research Engine/modern witchcraft/read': error reading source root directory: directory not found
+2026/05/30 18:03:06 ERROR : Attempt 1/3 failed with 1 errors and: directory not found
+2026/05/30 18:03:06 ERROR : Google drive root 'Research Engine/modern witchcraft/read': error reading source root directory: directory not found
+2026/05/30 18:03:06 ERROR : Attempt 2/3 failed with 1 errors and: directory not found
+2026/05/30 18:03:07 ERROR : Google drive root 'Research Engine/modern witchcraft/read': error reading source root directory: directory not found
+2026/05/30 18:03:07 ERROR : Attempt 3/3 failed with 1 errors and: directory not found
+2026/05/30 18:03:07 Failed to copy: directory not found
+Session complete. Here's what happened:
+
+**Piece written:** *The Map That Argues With the Territory* — Terraform with Azure RM (~2,500 words)
+
+The piece opens with the VM nobody remembers creating as a hook for the core problem Terraform solves, then walks through: the declarative vs imperative distinction and why it matters, how HCL and the azurerm provider work, the state file as Terraform's model of reality, configuration drift as the silent accumulation of divergence between map and territory, the plan/apply workflow and why applying from a laptop is now an anti-pattern, and the OpenTofu fork story as a window into what open source actually means when stakes are real.
+
+**3 new related topics added** to `topics.md`: Policy as code (OPA and Sentinel), GitOps for infrastructure, Terragrunt and Terraform modules.
+
+**Uploaded** to gdrive:"Research Engine". CLAUDE.md updated with session notes.
+[18:09:33] === Session complete ===
+[18:03:01] === Session start ===
+[18:03:01] Syncing read folder from GDrive
+2026/05/31 18:03:04 ERROR : Google drive root 'Research Engine/read': error reading source root directory: directory not found
+2026/05/31 18:03:04 ERROR : Attempt 1/3 failed with 1 errors and: directory not found
+2026/05/31 18:03:04 ERROR : Google drive root 'Research Engine/read': error reading source root directory: directory not found
+2026/05/31 18:03:04 ERROR : Attempt 2/3 failed with 1 errors and: directory not found
+2026/05/31 18:03:04 ERROR : Google drive root 'Research Engine/read': error reading source root directory: directory not found
+2026/05/31 18:03:04 ERROR : Attempt 3/3 failed with 1 errors and: directory not found
+2026/05/31 18:03:04 Failed to copy: directory not found
+2026/05/31 18:03:06 ERROR : Google drive root 'Research Engine/modern witchcraft/read': error reading source root directory: directory not found
+2026/05/31 18:03:06 ERROR : Attempt 1/3 failed with 1 errors and: directory not found
+2026/05/31 18:03:07 ERROR : Google drive root 'Research Engine/modern witchcraft/read': error reading source root directory: directory not found
+2026/05/31 18:03:07 ERROR : Attempt 2/3 failed with 1 errors and: directory not found
+2026/05/31 18:03:07 ERROR : Google drive root 'Research Engine/modern witchcraft/read': error reading source root directory: directory not found
+2026/05/31 18:03:07 ERROR : Attempt 3/3 failed with 1 errors and: directory not found
+2026/05/31 18:03:07 Failed to copy: directory not found
+Session complete. Here's what was done:
+
+---
+
+**Piece written**: *What Was Never There* (~2,600 words)
+
+**Topic**: Healing the neglect-affected adult nervous system
+
+**Angle**: The piece opens on the distinction that makes CEN recovery genuinely strange — you're not repairing something that was damaged, you're building something that was never constructed. From there it works through the lock-and-key paradox (healing requires relational experience; CEN removes the capacity for exactly that), the window of tolerance as the mechanics of why this is hard, somatic and IFS approaches as the most effective routes in, and the earned secure attachment research as evidence that genuine change is possible. It closes on what change actually feels like as it arrives — molecular, without announcement, and belonging entirely to the person who built it.
+
+**New related topics added for owner review**:
+- **Earned secure attachment** — Mary Main's AAI research; the 20–25% of secure adults with insecure childhoods; narrative coherence as the mechanism
+- **AEDP** — Diana Fosha's model; transformation as the primary process; transformational affects
+
+**Uploaded to**: `gdrive:"Research Engine"`
+[18:09:50] === Session complete ===
