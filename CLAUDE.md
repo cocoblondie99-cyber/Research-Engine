@@ -82,3 +82,8 @@ This mirrors the owner's GDrive organisation locally and prevents re-uploads. Lo
 ### 2026-05-31 — Session notes
 - Wrote *What Was Never There* — healing the neglect-affected adult nervous system: repair vs construction distinction; corrective emotional experience; the lock-and-key paradox; window of tolerance; somatic approaches and interoception; IFS and befriending protectors before accessing exiles; earned secure attachment (20–25% of secure adults had insecure childhoods); AEDP and transformational affects; what change actually feels like
 - 2 new related topics added: Earned secure attachment, AEDP (Accelerated Experiential Dynamic Psychotherapy)
+
+### 2026-06-01 — Session notes
+- Wrote *The Pilot That Never Lands* — AI automation in large organisations: the 86–89% pilot failure rate vs genuine service desk wins (1B requests handled, 80% auto-resolution); why pilots fail (integration gap, data quality debt, organisational change, ROI miscalculation); the $735 governance ratio; agent blast-radius thinking vs uniform governance failure; what actually ships at scale (service desk, customer onboarding, compliance monitoring); what remains experimental
+- 3 new related topics added: ITSM platforms and AI integration, AI agent identity and access management, The AI pilot failure problem
+- GDrive upload failed — rclone OAuth token expired; manual re-auth required before upload

@@ -190,3 +190,7 @@ Session complete. Here's what was done:
 
 **Uploaded to**: `gdrive:"Research Engine"`
 [18:09:50] === Session complete ===
+[18:03:01] === Session start ===
+[18:03:01] Syncing read folder from GDrive
+2026/06/01 18:03:06 Failed to create file system for "gdrive:Research Engine/read/": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token - maybe it has expired? - refresh with "rclone config reconnect gdrive:": oauth2: "invalid_grant" "Token has been expired or revoked."
+2026/06/01 18:03:12 Failed to create file system for "gdrive:Research Engine/modern witchcraft/read/": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token - maybe it has expired? - refresh with "rclone config reconnect gdrive:": oauth2: "invalid_grant" "Token has been expired or revoked."

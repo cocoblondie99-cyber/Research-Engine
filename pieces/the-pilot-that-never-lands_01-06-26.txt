@@ -1,0 +1,90 @@
+The Pilot That Never Lands
+
+Somewhere in a large organisation right now, a presentation is being given. The slides are clean and the numbers are extraordinary: AI-powered automation will handle 70 percent of tier-1 support tickets. Response times will drop by half. The existing headcount can absorb the growth without additional hires. The pilot data is attached as an appendix, and it really does look impressive.
+
+Three months later, the pilot is still running. Six months after that, it is in "extended evaluation." A year on, it has been quietly absorbed into a long-form review document that nobody reads, and the tier-1 support team is doing exactly what it was doing before.
+
+This is not a story about AI being fraudulent or overhyped in the way that technology trends often are. The numbers in those presentations are usually real. The pilots often work. The technology is, in a narrow and specific sense, ready. What is not ready — and what the press releases tend to skip over — is everything around the technology: the integrations, the data, the governance structures, the organisational change, and the institutional willingness to spend real money making something work at scale instead of just making it work in a demo.
+
+In 2026, 72 percent of large organisations are piloting or deploying agentic AI in some form. Only 11 to 14 percent of those pilots have reached production at scale. That means somewhere between 86 and 89 percent of enterprise AI projects — the ones that generated the promising pilot results, the ones that made it into the budget cycle, the ones that had executive sponsorship — have not shipped. Over 40 percent are expected to be decommissioned entirely by 2027.
+
+This is the actual state of AI automation in large organisations. Not the hype. Not the failure. Something stranger than either: genuine capability, genuine enthusiasm, and a structural inability to cross the gap between a controlled experiment and a living production system.
+
+---
+
+Start with what is working, because it deserves to be taken seriously.
+
+Automation Anywhere, one of the major vendors in this space, announced in early 2026 that its autonomous service desk solution had handled more than one billion IT support requests across its enterprise clients. One billion is not a marketing estimate. It is a fulfilment number. BDO Canada, one of its customers, achieved an 84 percent auto-resolution rate for IT support tickets, a 72 percent productivity improvement, and projects $1.9 million in annual cost savings — all while handling a growing support workload without expanding the support team. Across the industry, enterprise AI service desk agents are resolving more than 80 percent of employee service requests on average.
+
+That is the genuine, commercially validated success story of enterprise AI automation in 2026: tier-1 IT support. It is narrower than the headlines suggest, but within that lane it is real, it is significant, and it is instructive about what made it work.
+
+The IT service desk problem has a particular shape that turns out to suit AI agents almost perfectly. A large organisation might receive tens of thousands of support tickets a month. The majority follow repeatable patterns: password resets, software access requests, VPN troubleshooting, new device setup, printer configurations, account unlocks. There is an existing knowledge base. There is structured data in an ITSM platform — ServiceNow, Jira Service Management, Freshservice, Atomicwork — that describes processes and previous resolutions. And critically, the stakes of a wrong answer are bounded: if the AI gets it wrong, a human takes over. Nobody loses access to production systems. Nobody's data gets corrupted. The cost of a mistake is an annoyed employee and a manual escalation, not a regulatory violation or a service outage.
+
+What makes the current generation of AI service desk agents different from the chatbots that preceded them — and which failed, mostly — is three things working together. A large language model that understands free-form human requests rather than requiring users to navigate a menu of pre-defined categories. Retrieval-augmented generation that grounds the model's responses in the actual, current knowledge base rather than in whatever was in its training data two years ago. And integration with the underlying ITSM stack that lets the agent take actions rather than just suggest them. The agent does not say "your VPN credentials should work now." It resets them, logs the action, closes the ticket, and sends the confirmation.
+
+This combination — understand the intent, look up the current answer, take the action — is what changed the resolution rate from 20 percent (chatbots, 2019) to 80 percent (AI agents, 2026). And it generalises to a handful of other domains where the same conditions hold: customer onboarding processes with clear steps and measurable outcomes; compliance monitoring against a defined policy baseline; patch classification against a known vulnerability database. These are places where the inputs are structured enough, the knowledge is codifiable enough, and the blast radius of a mistake is contained enough for AI agents to produce durable value.
+
+---
+
+So why does the 89 percent exist?
+
+The most important thing to understand about the pilots that never ship is that they are not failing because the AI is bad. They are failing because of everything around the AI.
+
+The integration problem comes first. A pilot runs on a narrow slice of the environment, with carefully selected data, a limited set of integrations, and a vendor who is highly motivated to make it work. Moving to production means connecting the agent to real enterprise systems at scale — identity providers, ITSM platforms, HR databases, monitoring tools, access management systems — and those integrations require IT resource, security review, vendor cooperation, and change control processes that can take months. The pilot looked easy because someone removed all the hard parts. Production is the hard parts.
+
+The data quality problem compounds this. AI agents grounded in a knowledge base are only as good as that knowledge base. In most organisations, the knowledge base is a slow-moving disaster: outdated articles written by people who left three years ago, contradictory procedures for the same process in different departments, institutional knowledge that was never written down at all, and information that was accurate before the last major software upgrade. Cleaning this data is not a technology task. It is a sustained human effort that requires dedicated resource, departmental cooperation, and the kind of organisational attention that tends to be available during an exciting pilot but unavailable during the long unglamorous work of production readiness.
+
+The organisational change problem is the one that gets discussed least but fails the most projects. The service desk staff who currently handle tier-1 tickets need to know what their new role looks like. Managers who measure team performance need new metrics that reflect AI-augmented throughput rather than raw ticket volume. Executives who approved the pilot budget need to understand why the 80 percent auto-resolution rate looks more like 60 percent in the first production month — not because the AI degraded, but because the real ticket queue contains anomalies, edge cases, and user behaviour that the pilot's curated sample never captured. None of this is an algorithm problem. All of it requires sustained, careful human management.
+
+And the ROI measurement problem quietly kills more projects than any of the others. Pilots are cheap. Three months, a narrow scope, a small integration surface, a vendor deeply motivated to subsidise the experiment. Production is expensive: ongoing compute costs, model licensing fees, integration maintenance, governance infrastructure, the overhead of human oversight at scale, and the hidden cost of the data-cleaning and change management work that was deferred during the pilot and now has to be done for real. Organisations consistently underestimate the total cost of running an AI agent in production for three years. When the real number becomes clear — usually partway through the move from pilot to production — many projects die not because they failed but because nobody had properly accounted for what succeeding would cost.
+
+---
+
+Beneath all of this is a governance gap that has no precedent in conventional IT procurement, and which is being treated with roughly the urgency of a footnote.
+
+Worldwide AI spending in 2026 is projected to reach $2.52 trillion. Of that, approximately $3.43 billion is allocated to AI trust, risk, and security management. Work through the arithmetic: that is roughly one dollar in safety and governance for every $735 spent on capability.
+
+This would be concerning if AI agents were passive tools that produced text. It is something more serious given what AI agents actually do in enterprise environments in 2026. They hold credentials. They have permissions to read and write across enterprise systems. They make multi-step autonomous decisions across ITSM stacks, identity providers, and monitoring tools. When they misbehave — and they do misbehave, through hallucination, adversarial manipulation, or simple scope confusion — the consequences are not a bad answer. They are an unauthorised action taken in a real system.
+
+Only 23 percent of enterprises have formal agent identity and inventorying strategies. That means in three out of four large organisations, there is no complete, maintained picture of which AI agents are running, what access rights they hold, which systems they can reach, and what they are authorised to do. The agents are deployed. They are active. They are not being tracked with the rigor that would be applied to a privileged user account or an elevated service account.
+
+OWASP, which has catalogued software vulnerabilities for decades, has extended its threat model to AI agents, and its findings are worth sitting with. One of its top categories is tool misuse and exploitation: an AI agent with legitimate access to email, CRM, and HR systems can, if compromised through adversarial input, exfiltrate sensitive data to an external destination while appearing to behave normally — because it is using exactly the access it was legitimately granted. The failure mode does not look like a crash or an error. It looks like normal operation.
+
+This is why "blast radius" has become the vocabulary of AI governance in the organisations that are managing this well. The question they are asking about every agent is not "what can this agent do usefully?" but "what is the maximum damage this agent can cause if it is wrong, compromised, or manipulated?" An agent that reads from a knowledge base and generates suggestions gets light oversight. An agent that can provision accounts, send external emails, and modify financial records gets treated like a privileged access workstation: heavily constrained, fully audited, and reviewed before deployment with the same rigour applied to a new administrator.
+
+The organisations that are applying uniform governance across all agents — the same policy for a low-stakes FAQ bot as for a provisioning agent with access to Active Directory — are the ones the CIO Dive analysis identifies as most likely to decommission their deployments. You cannot govern a hammer the same way you govern a chainsaw, and the organisations that have tried are finding the hard way that the cost of that shortcut shows up eventually.
+
+---
+
+Beyond the service desk, several other use cases have reached meaningful production at real organisations.
+
+Patch management automation is further along than its headline numbers suggest. Only 8 percent of organisations have fully autonomous patching today — where an AI agent identifies a vulnerability, assesses its priority in context, deploys the patch, and validates the result without a human in the loop. But 44 percent have partially automated workflows that dramatically reduce the manual effort involved, and 21 percent expect to reach full autonomy within the next two years. The barrier is not technical capability; it is governance readiness. Patching is one of the few IT operations where a wrong automated decision can take down production systems, so the blast-radius calculation is unforgiving.
+
+Onboarding automation, particularly for customers rather than employees, has a cleaner track record. Orange Group deployed customer onboarding AI agents across multiple European markets in four weeks and reported a 50 percent improvement in conversion rates and over $6 million in projected annual revenue impact. The conditions that made this work — clear process scope, measurable outcomes, structured data inputs, and a failure mode (manual handoff) that is tolerable — are the same conditions that make service desk automation succeed.
+
+Compliance monitoring is one of the faster-growing categories because the alternative is so obviously expensive. AI agents that continuously check configuration states against policy baselines, flag drift, and automatically generate audit evidence are being adopted steadily — in part because the governance requirement here paradoxically helps: regulators and auditors want documentation, and an AI agent produces it as a natural by-product of its operation.
+
+What remains mostly in the experimental stage: complex engineering tasks that require cross-system reasoning under uncertainty; incident response that involves novel failure modes outside the training distribution; and anything that involves judgements about people — performance, hiring, compensation, termination — where the legal and ethical exposure is too large and the organisational risk tolerance is too low.
+
+---
+
+The organisations that are navigating this well — the 11 to 14 percent who have moved AI agents into durable production — share something that is not a technology choice. It is an attitude toward trust.
+
+They treat AI agents like new employees rather than like software deployments. When you onboard a new employee, you do not give them administrative access to every system on day one. You define their role precisely. You specify what they are and are not permitted to do. You build in review mechanisms. You give them a clear path to escalate when they encounter something outside their scope. You establish accountability structures that let you reconstruct what they did and why. And you calibrate all of this to the stakes: you supervise a junior analyst differently from a contractor with root access to production.
+
+Extending this thinking to AI agents means: defining agent roles with the same precision applied to human roles; treating agent credentials with the same rigour applied to privileged user accounts; building escalation paths into agent workflows so that edge cases surface to humans rather than being resolved confidently and wrongly; and auditing agent actions at the same level of detail applied to sensitive human actions.
+
+This is not difficult in principle. It requires exactly the organisational discipline that good IT governance has always required: thoughtful access control, clear accountability, and the institutional patience to do the unglamorous foundational work before shipping the visible thing.
+
+The organisations that are failing to ship are, almost uniformly, the ones that treated the governance infrastructure as something to be figured out later — after the capability is deployed, after the cost savings have been promised to the board, after the pilot results have been cited in the annual report. Later arrives, the governance work proves more expensive and time-consuming than anticipated, and the project stalls.
+
+---
+
+There is a version of this story that ends with reassurance: most organisations will figure this out eventually; the technology is real; the future is still bright. And that is probably true. The service desk wins prove that enterprise AI can work, not just in controlled conditions but in production at scale, at billions of requests, in real organisations with real complexity.
+
+But the 89 percent failure rate is telling us something that the technology optimists tend to skip past. The limiting factor for enterprise AI has never been, and is not now, the sophistication of the models. It is the gap between what an AI agent can theoretically do and what an organisation has actually built the institutional capacity to run responsibly. That gap is a governance gap, a data quality gap, a change management gap, and above all a cultural gap — the gap between an organisation that treats AI agents as tools it controls, and an organisation that treats them as capabilities it has acquired.
+
+For every dollar spent on governance, $735 goes to capability. The pilot that never lands is not failing because the plane doesn't fly. The plane flies. It is failing because nobody has built the airport.
+
+Topics: AI automation in large organisations
+Pending approval: ITSM platforms and AI integration, AI agent identity and access management, The AI pilot failure problem
