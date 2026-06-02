@@ -22,18 +22,18 @@ Accessible, engaging long-form writing on topics of genuine interest. The target
 
 ## Session phases (run in order each session)
 
-### 1. Research
-- Web search the selected topic(s) thoroughly — look for key facts, surprising angles, good analogies already in use, recent developments, and the thing most people get wrong
-- Identify 2–4 related topic candidates from research; add them to the Related Topics section of `topics.md` before moving to Phase 2
+### 1. Selection
+- Generate a random number within the Main Topics pool count in `topics.md`; look up the name in the Draw Index; read only that entry's full description — anything in the list is available
+- Note the intended angle before moving to Phase 2
 
-### 2. Selection
-- Choose 1 topic to write this session — draw from Main Topics, avoiding anything covered in recent pieces
-- You may use a Related topic if it is directly relevant to the chosen main topic
-- Note the angle and hook before writing
+### 2. Research
+- Web search the selected topic specifically and thoroughly — look for key facts, surprising angles, good analogies already in use, recent developments, and the thing most people get wrong
+- Identify 2–4 related topic candidates from research; add them to the Related Topics section of `topics.md`
+- Confirm or revise the angle and hook before writing
 
 ### 3. Writing
-- Write the piece and save to `pieces/working-title_DD-MM-YY.txt`; Modern Witchcraft pieces save to `pieces/modern witchcraft/working-title_DD-MM-YY.txt`
-- Main topics broad enough to revisit may stay in the list; narrow or fully-covered topics should be moved to Completed
+- Write the piece and save to `pieces/working-title_DD-MM-YY.txt`
+- Remove the written topic from the Main Topics list and Draw Index in `topics.md`; update the pool count
 - Flag any related topics that performed well for owner review
 
 ## Topic rules

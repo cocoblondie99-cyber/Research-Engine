@@ -194,3 +194,16 @@ Session complete. Here's what was done:
 [18:03:01] Syncing read folder from GDrive
 2026/06/01 18:03:06 Failed to create file system for "gdrive:Research Engine/read/": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token - maybe it has expired? - refresh with "rclone config reconnect gdrive:": oauth2: "invalid_grant" "Token has been expired or revoked."
 2026/06/01 18:03:12 Failed to create file system for "gdrive:Research Engine/modern witchcraft/read/": couldn't find root directory ID: Get "https://www.googleapis.com/drive/v3/files/root?alt=json&fields=id&prettyPrint=false&supportsAllDrives=true": couldn't fetch token - maybe it has expired? - refresh with "rclone config reconnect gdrive:": oauth2: "invalid_grant" "Token has been expired or revoked."
+Session complete. Here's what happened:
+
+**Piece written:** *The Pilot That Never Lands* — AI automation in large organisations  
+Saved to `pieces/the-pilot-that-never-lands_01-06-26.txt`
+
+**The angle:** The piece leads with the striking inversion — genuine service-desk wins at scale (one billion requests, 80% auto-resolution) alongside the 86–89% pilot failure rate. It covers why pilots stall (integration, data quality, org change, hidden costs), the $735 governance ratio as the central structural problem, blast-radius thinking as the solution the successful 11% are using, and what actually ships at scale beyond service desk.
+
+**3 related topics added** to topics.md: ITSM platforms and AI integration, AI agent identity and access management, The AI pilot failure problem.
+
+**Action needed:** The rclone GDrive OAuth token has expired. Run `rclone config reconnect gdrive:` then upload with the command in CLAUDE.md.
+[18:09:26] === Session complete ===
+[18:03:01] === Session start ===
+[18:03:01] Syncing read folder from GDrive

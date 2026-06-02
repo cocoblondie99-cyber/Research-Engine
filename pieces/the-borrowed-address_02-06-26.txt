@@ -1,0 +1,98 @@
+The Borrowed Address
+
+There is a number that means something went wrong. It starts with 169.254, and if you have ever been troubleshooting a device that insists it is connected to the Wi-Fi but cannot reach anything — no internet, no printers, no shared drives, nothing — and you check the device's IP address, this is the number you may find staring back at you. 169.254.something.something. Nobody gave the device this address. It made it up for itself, like a party guest who couldn't find their name on the seating chart and chose a random table. The technical term is APIPA: Automatic Private IP Addressing. The plain-English translation is: the system that was supposed to hand this device its network identity failed to do so, and the device panicked and invented one.
+
+Understanding why this happens — and more importantly, how to prevent it — means understanding one of the most fundamental and least glamorous systems in networking: DHCP, the Dynamic Host Configuration Protocol. It is the invisible front desk of every network, and it has been quietly handing out room keys to every device you have ever connected since before you were aware networks were a thing.
+
+---
+
+Before DHCP existed, giving a device access to a network meant assigning it an IP address by hand. An administrator would sit down, open a configuration file or a settings screen, type in a specific number — say, 192.168.1.45 — and record that assignment somewhere so no other device would accidentally be given the same one. On a network with a dozen devices, this was merely tedious. On a network with hundreds of computers, it was a recipe for constant conflict and administrative despair. Two devices with the same IP address would simply not work, and diagnosing whose fault it was involved physically tracking down machines and checking their settings one by one.
+
+DHCP solved this by making IP address assignment automatic and centralised. A DHCP server holds a pool of available addresses, and when a device joins the network, the two engage in a brief negotiation at the speed of milliseconds. The device gets an address. The server remembers it. When the device leaves, the address eventually goes back into the pool for someone else to use.
+
+The negotiation itself is elegant enough to deserve a name, and networking people gave it one: DORA. Discover, Offer, Request, Acknowledge.
+
+A device joins a network with no IP address and no knowledge of where the DHCP server is. It cannot address the server directly because it does not know its own address yet. So it does the only thing it can: it shouts into the void. The Discover message is a broadcast — essentially the device announcing to every other machine on the network, "I just arrived. Is there a DHCP server here?" Technically it sends this to 255.255.255.255, the broadcast address, which reaches everyone on the local network segment.
+
+The DHCP server hears this and responds with an Offer: "I have an address available. Here is 192.168.1.87, and here are the other configuration details — your subnet mask, your gateway, your DNS servers. This offer is yours if you want it." If there are multiple DHCP servers on the network (a more common arrangement in enterprise settings than you might expect), they all offer simultaneously, and the client hears them all.
+
+The client picks one — usually the first offer it receives — and sends back a Request: "I would like the address that 192.168.1.1 offered me." This Request is still a broadcast, not just a reply to the winning server, because the other DHCP servers on the network need to hear it too. They need to know their offer was declined so they can return those tentatively held addresses to their respective pools.
+
+Finally, the DHCP server sends an Acknowledge: "Confirmed. 192.168.1.87 is yours." At this point the device configures itself and is ready to talk to the network. Start to finish, this exchange typically takes less than a second. You never see it happen. It happens every time you connect to a new network, every time your laptop wakes from sleep on a different Wi-Fi, every time a mobile phone joins your home router for the first time.
+
+---
+
+The address the DHCP server hands out is not permanent. It comes with an expiry date. This is the lease — and the hotel metaphor is not merely illustrative; it is precise.
+
+When you check into a hotel, you are not given ownership of a room. You are given a key that works for a defined period. The room has a number; the number is yours for the duration of your stay; when you check out (or your booking expires), the room becomes available again. The hotel's ledger tracks which rooms are occupied, which are available, and when any given guest's time is up.
+
+DHCP works identically. The scope is the bank of available room numbers — the range of IP addresses the server is authorised to hand out. If a server manages the range 192.168.1.10 through 192.168.1.254, those 244 addresses are its pool. The lease duration is how long each address is reserved for the device that holds it. The server's lease database is the hotel ledger: a record of who has what address and when their reservation expires.
+
+A device does not wait for the lease to expire before asking to renew. The renewal mechanism has two checkpoints built in. At 50% of the lease duration — the T1 timer — the device sends a direct message to the DHCP server that gave it the address, asking politely to extend. If the server is available and the address is still valid, it resets the clock. If the server does not respond, the device keeps trying. At 87.5% of the lease — the T2 timer — it escalates: rather than contacting the original server directly, it broadcasts to any DHCP server on the network, requesting help from whoever will answer. Only if both attempts fail and the lease expires does the device lose its address entirely. At that point it restarts the DORA process, beginning again from zero.
+
+---
+
+The lease duration is where things get genuinely interesting, because there is no correct answer — only a set of tradeoffs that depend entirely on the nature of the network.
+
+A long lease means devices hang on to their addresses for days or weeks. This is efficient for a stable environment: desktops that rarely move, servers, printers, conference room screens. The devices renew quietly when their time is halfway up, the server hears from each device infrequently, and the pool turns over slowly. The DHCP server's broadcast traffic is minimal. Addresses feel like semi-permanent assignments.
+
+The problem with long leases appears when devices leave the network without returning. A laptop connecting to the guest Wi-Fi, using an address for an hour, and then leaving with a 7-day lease will not formally release that address. It just disappears. From the DHCP server's perspective, that device is still checked in. The room is still marked occupied. The address sits in the ledger as active until the full lease expires seven days later. In a pool of 50 addresses serving a guest network with constant turnover, this kind of phantom lease accumulation can exhaust the available pool entirely within days, leaving new arrivals unable to check in — unable to get an address — and producing exactly the 169.254.x.x self-assignment that started this piece.
+
+A short lease means addresses cycle back quickly. An 8-hour lease on a guest network means that even if a device leaves without checking out, its address is free again by morning. This is the right answer for networks with high transient device counts: coffee shop Wi-Fi, hotel networks, university halls, conference venues, any place where the population of connected devices is unpredictable and fluid.
+
+But short leases create their own problems. Every device renewing its address more frequently means more DHCP traffic on the network — not catastrophic, but measurable, particularly on congested wireless networks operating on the 2.4 GHz band. DNS records that were updated when the device got its address may not have time to expire gracefully before the address changes, creating brief periods of name-resolution confusion. Monitoring tools that track devices by IP may see the same machine appearing to change address. In DHCP failover setups, where two servers replicate their lease databases to each other for redundancy, very short leases create constant synchronisation traffic between the servers.
+
+The practical guidance that has emerged through experience:
+
+For a corporate wired office — mostly desktops and docked laptops that rarely change location — a lease of 7 to 8 days is reasonable. Renewal traffic is negligible, address churn is low, and the server can coast.
+
+For a corporate wireless network — laptops that come and go, remote workers connecting and disconnecting — 4 to 8 hours is a common choice. Addresses recycle daily, phantom leases are short-lived, but the network is not flooded with constant renewal traffic.
+
+For guest or public Wi-Fi — the highest device turnover, the most transient population — 1 hour is the conventional recommendation. Long enough for a working session; short enough that the pool recovers before it matters.
+
+For IoT devices — thermostats, sensors, cameras, smart displays — 12 to 24 hours is typical. These devices connect infrequently and stay connected; they need stable enough addressing for other systems to find them, but they do not warrant the static-IP treatment.
+
+---
+
+The scope itself — the defined range of addresses available for distribution — has its own layer of controls: exclusions and reservations.
+
+Exclusions are addresses within the scope's range that the server is told not to hand out. They exist because not every device on the network gets its address from DHCP. Routers, managed switches, servers, and network-critical devices typically have their addresses assigned manually, directly in their configuration. If you have defined the scope as running from 192.168.1.1 through 192.168.1.254, but the router lives at 192.168.1.1, the server itself is at 192.168.1.2, and the main switch has a management address at 192.168.1.3, those addresses need to be excluded — otherwise the DHCP server might cheerfully assign them to a new laptop on its first day at the office, causing an immediate collision with three of the most important devices on the network.
+
+Reservations are different. A reservation is not about keeping an address out of circulation; it is about ensuring a specific device always gets a specific address. The server links a particular MAC address — the hardware identifier baked into every network interface at manufacture — to a particular IP address. When a device with that MAC address joins the network and goes through the DORA process, the server checks its reservation table and hands out the designated address rather than a random one from the pool. The device still uses DHCP — it still goes through the negotiation — but the outcome is predetermined.
+
+Reservations are useful for devices that other systems need to locate reliably: printers, network-attached storage, IP phones, security cameras. A printer that might have any address from the pool today is a printer that helpdesk calls are made about. A printer with a reservation is always at 192.168.1.150, can be pointed to in documentation, and can be pre-configured on every workstation without ambiguity.
+
+The distinction between exclusions and reservations matters: exclusions prevent an address from being handed to anyone; reservations guarantee it to someone. An address cannot usefully be both.
+
+Alongside the IP address, a DHCP server delivers a bundle of other configuration — scope options. At minimum: the subnet mask (which defines the boundaries of the local network), the default gateway (where traffic should go if it is not addressed locally), and the DNS server addresses (where name resolution requests should go). But scope options can include much more: the domain name for the network, the address of a time server, the address of a software update service, the path to a boot file for diskless machines. The DHCP exchange is, in this sense, a complete onboarding briefing. A device arrives knowing nothing; it leaves with everything it needs to function.
+
+---
+
+A pool that cannot grow is one of the trickier problems in network administration. Perhaps the site was designed for 100 devices and now regularly hosts 180. Perhaps a /24 subnet — 254 usable addresses — was allocated years ago, and adding another IP range to the site would require a significant infrastructure change. What can actually be done?
+
+Shortening the lease duration is always the first lever to pull, precisely because it recovers phantom addresses faster. A pool being drained by ghost leases from transient devices will immediately benefit from moving from 7-day leases to 8-hour leases: within hours rather than days, the addresses held by departed devices will be released and available.
+
+Auditing the lease database comes next. Every modern DHCP server can show you its active leases — which addresses are assigned, to which MAC addresses, and when those leases expire. Comparing this list against the set of devices known to be legitimately on the network often reveals a quantity of phantom leases from devices long since departed. You cannot manually revoke these easily in most servers without understanding the exact cause, but shortening the lease duration achieves the same result over time.
+
+Creating reservations for all permanently-addressed devices is good practice that also has a scope-management benefit: it makes the dynamic pool smaller, but in a controlled, intentional way. Once you know exactly which addresses are used by routers, servers, printers, and cameras, you can define a lean dynamic range — say, 192.168.1.50 through 192.168.1.150 — and reserve the rest for the infrastructure that you explicitly configure. This gives you visibility into the true pressure on the dynamic pool.
+
+If these measures are insufficient, a superscope offers an architectural workaround. A superscope is a DHCP construct that allows a server to manage two separate address ranges on the same network segment as if they were a single combined pool. In practice, this means adding a second block of addresses — perhaps from a different subnet — and extending the pool without renumbering the existing devices. It is not elegant, and it comes with routing complexity, but for a site that genuinely cannot be renumbered and genuinely cannot get more addresses within its current subnet, it is a real option.
+
+The cleanest long-term solution, when circumstances allow, is VLAN segmentation: dividing the devices at a site into logical groups — staff wired, staff wireless, guest wireless, IoT — each on its own subnet, each with its own DHCP scope. This spreads the address demand across multiple pools and makes each pool independently tunable. It also gives you better security, better traffic visibility, and the ability to apply different policies to different device types. The address problem is usually just the presenting symptom; the underlying condition is an undivided network that has outgrown its original design.
+
+---
+
+One last consideration: a single DHCP server is a single point of failure. If that server goes down — hardware fault, OS crash, patch reboot — devices whose leases are current will continue working fine. They are still within their lease window and need do nothing until their T1 renewal timer fires. But any new device joining the network, and any device whose lease has expired, will go through DORA, hear nothing, and end up with a 169.254.x.x address. The whole site could be functional except for new connections, which is both better and more confusing than a total failure.
+
+Windows Server has offered DHCP failover since Server 2012: two DHCP servers that replicate their entire lease database to each other, either in hot-standby mode (one active, one waiting) or load-balance mode (both serving, splitting the pool between them). Both servers know about every lease; if one vanishes, the other continues without interruption. This is the right architecture for any environment where network access matters.
+
+The older approach — split scope — gave 70% of the addresses to a primary server and 30% to a backup. If the primary failed, the secondary could serve the minority of the pool it held. It was better than nothing but introduced address management complexity and still meant clients could be stranded if neither server had addresses available in its portion of the pool.
+
+---
+
+None of this infrastructure is visible in daily use. Every device that joins a network undergoes the DORA negotiation invisibly, in milliseconds, and emerges ready to function. Every lease renewal happens in the background, silently extending the device's claim on its address. Every scope option is delivered without ceremony. The system works so well, so reliably, that most people never think about it — which is, in a sense, the highest possible compliment an infrastructure system can receive.
+
+The 169.254.x.x address is the exception that reveals the rule: it is what happens when the invisible handshake fails. And when it fails, it fails for reasons that are almost always understandable and correctable — a pool exhausted by phantom leases, a server that went down unnoticed, a lease too long for the pace of a transient network. The fix is usually not dramatic. Shorten a lease. Clear a backlog. Add a standby server. The borrowed address is a generous and functional system, and it breaks gracefully. It just needs someone to occasionally pay attention to the ledger.
+
+Topics: DHCP lease and scope management
+Pending approval: IPv6 addressing and SLAAC (the radically different approach IPv6 takes to address assignment — stateless autoconfiguration vs DHCPv6, and why the two philosophies coexist), Dynamic DNS and DHCP coordination (how DHCP servers update DNS records automatically so device hostnames resolve without manual intervention), VLANs and network segmentation (how enterprises divide a flat network into logical segments, each with its own scope and policy)

@@ -18,14 +18,6 @@ for f in pieces/read/*.txt; do
     base="$(basename "$f")"
     [ -f "pieces/$base" ] && rm "pieces/$base"
 done
-# Also sync modern witchcraft read subfolder if it exists
-mkdir -p "pieces/modern witchcraft/read"
-rclone copy gdrive:"Research Engine/modern witchcraft/read/" "pieces/modern witchcraft/read/" >> "$LOG" 2>&1
-for f in "pieces/modern witchcraft/read/"*.txt; do
-    [ -f "$f" ] || continue
-    base="$(basename "$f")"
-    [ -f "pieces/modern witchcraft/$base" ] && rm "pieces/modern witchcraft/$base"
-done
 
 /home/coco/.local/bin/claude \
   -p "You are starting a research engine writing session. Read the CLAUDE.md in this directory first — it explains exactly what to do each session." \
