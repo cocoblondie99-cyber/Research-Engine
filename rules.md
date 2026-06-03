@@ -10,7 +10,7 @@ Accessible, engaging long-form writing on topics of genuine interest. The target
 - Plain text: title on the first line (no # prefix), blank line, then body
 - The **final lines of every piece** must be (no markdown, plain text, preceded by a blank line):
   Topics: [topics used in this piece]
-  Pending approval: [only related topics that are an offshoot of or directly relevant to the subject of this piece — omit unrelated pending topics; None if nothing qualifies]
+  Suggested topics: [2–4 related topics surfaced during research — brief name only, one line; owner flags any they want added to the main pool]
 
 ## Style
 - **Open with a hook** — a striking fact, a concrete scene, an unexpected question; earn the reader's attention before explaining anything
@@ -24,20 +24,21 @@ Accessible, engaging long-form writing on topics of genuine interest. The target
 
 ### 1. Selection
 - Generate a random number within the Main Topics pool count in `topics.md`; look up the name in the Draw Index; read only that entry's full description — anything in the list is available
-- Note the intended angle before moving to Phase 2
+- Check recency against completed pieces in `topics.md` — avoid a topic written last session; regenerate if needed
+- Write the selected topic name and its full description to `selected_topic.txt` — one line for the name, then the full entry text; Phase 2 and 3 read this instead of re-deriving from `topics.md`
 
 ### 2. Research
+- Read `selected_topic.txt` for the topic and its description — do not re-read `topics.md`
 - Web search the selected topic specifically and thoroughly — look for key facts, surprising angles, good analogies already in use, recent developments, and the thing most people get wrong
-- Identify 2–4 related topic candidates from research; add them to the Related Topics section of `topics.md`
-- Confirm or revise the angle and hook before writing
+- Write a brief angle and hook plan (2–4 sentences) to `selected_topic.txt` appended after the topic entry — Phase 3 reads this to begin writing without repeating the research pass
 
 ### 3. Writing
-- Write the piece and save to `pieces/working-title_DD-MM-YY.txt`
+- Read `selected_topic.txt` for the topic, description, and angle/hook plan — do not re-read `topics.md`
+- Read `rules.md` Content and Style sections and the Format section — do not re-read the phase instructions
+- Write the piece and save to `pieces/working-title_DD-MM-YY.txt`; upload to GDrive
 - Remove the written topic from the Main Topics list and Draw Index in `topics.md`; update the pool count
-- Flag any related topics that performed well for owner review
 
 ## Topic rules
 - Each piece takes one main topic as its primary focus
-- A related topic may appear as a secondary angle or connection — it should serve the main topic, not compete with it
-- A related topic graduates to the main list when the owner confirms it
 - Aim for variety across sessions — do not return to the same topic two sessions in a row
+- Suggested topics appear in the piece footer only — do not write them anywhere else; the owner adds them to the main pool manually if wanted

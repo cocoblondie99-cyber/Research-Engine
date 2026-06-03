@@ -207,3 +207,18 @@ Saved to `pieces/the-pilot-that-never-lands_01-06-26.txt`
 [18:09:26] === Session complete ===
 [18:03:01] === Session start ===
 [18:03:01] Syncing read folder from GDrive
+Upload confirmed. Session complete.
+
+---
+
+**Piece written:** *The Borrowed Address* — DHCP lease and scope management.
+
+The piece opens with the mysterious 169.254.x.x address that appears when DHCP fails — Wi-Fi connected, no internet, device talking to itself — and uses a hotel front desk metaphor throughout: the scope is the bank of available room numbers, the lease is the time-limited room key, the server's lease database is the occupancy ledger. It covers the DORA handshake, the T1/T2 renewal mechanism, the short-vs-long lease tradeoff with environment-specific guidance, exclusions vs reservations, scope options, phantom lease exhaustion and how to recover from it, and DHCP failover. ~2,500 words.
+
+**GDrive upload:** Succeeded.
+
+**Topics updated:** DHCP lease and scope management removed from main list (now 3 remaining). Three new related topics added for owner confirmation: IPv6 addressing and SLAAC, Dynamic DNS and DHCP coordination, VLANs and network segmentation.
+[18:08:21] === Session complete ===
+[16:33:01] === Session start ===
+[16:33:01] Syncing read folder from GDrive
+[16:33:03] Phase 1: Selection

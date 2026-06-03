@@ -6,20 +6,18 @@ An autonomous research writing engine that produces accessible, engaging long-fo
 ## Project Structure
 - `CLAUDE.md` — this file; session protocol and project overview
 - `rules.md` — style guide and full session phase instructions
-- `topics.md` — main topics (owner-curated) and related topics (auto-suggested, pending confirmation)
+- `topics.md` — main topics (owner-curated)
 - `pieces/` — completed pieces, one file each, named `YYYY-MM-DD_working-title.txt`
 - `run_session.sh` — cron launcher
 - `session.log` — output log from automated runs
+- `selected_topic.txt` — session artifact: topic + description written by Phase 1, angle plan appended by Phase 2, read by Phase 3; deleted at session start
 
 ## Session Protocol
-Read this file first, then follow these steps in order:
+Each phase runs as a separate invocation. Read only what each phase requires.
 
-1. **Read `rules.md`** — understand the style expectations and phase rules
-2. **Read `topics.md`** — note available main topics, related topics, and completed pieces; avoid repeating a topic covered recently
-3. **Scan `pieces/`** — read existing filenames and topic footers to track what's been written
-4. **Run Phase 1 — Selection**: use the Draw Index in `topics.md` — roll a number, look up the name, check recency; read only that entry's full description
-5. **Run Phase 2 — Research**: web search the selected topic specifically; find the angle, hook, and surprising details; add 2–4 related topic candidates to `topics.md`
-6. **Run Phase 3 — Writing**: write the piece; save to `pieces/`; update `topics.md`
+- **Phase 1 — Selection**: reads `topics.md` + Phase 1 rules; writes `selected_topic.txt`
+- **Phase 2 — Research**: reads `selected_topic.txt` only; web searches; appends angle plan to `selected_topic.txt`
+- **Phase 3 — Writing**: reads `selected_topic.txt` + Content/Style/Format rules only; writes piece; updates `topics.md`
 
 ## GDrive Upload — Always Required
 After saving each piece, upload only that specific file — do **not** copy the whole `pieces/` directory:
@@ -38,8 +36,8 @@ Uploading the whole folder re-uploads files the owner has moved to the "read" su
 This mirrors the owner's GDrive organisation locally and prevents re-uploads. Local `pieces/read/` is not uploaded to GDrive — it is a local archive only.
 
 ## Important Notes
-- Every piece must end with a topic footer: *Topics: [...] — Related: [...] or None*
-- Related topics need owner confirmation before moving to the main list — flag them clearly after use
+- Every piece must end with a topic footer: *Topics: [...] — Suggested: [2–4 topic names surfaced during research]*
+- Suggested topics appear in the piece footer only — do not write them to topics.md; owner adds them manually if wanted
 - Write for a curious non-expert: engaged, specific, and generous with analogy
 - This is an explanatory writing session, not an engineering task — prioritise clarity, voice, and genuine illumination over comprehensiveness
 
