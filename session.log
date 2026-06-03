@@ -225,3 +225,8 @@ The piece opens with the mysterious 169.254.x.x address that appears when DHCP f
 [16:33:39] Phase 1: in=26 cached=70197 out=3578 cost=$0.07644 dur=34144ms
 Phase 1 complete. Selected **Emotional literacy and interoception (CEN)** — topic 4 of 9. Written to `selected_topic.txt`. Ready for Phase 2 when needed.
 [16:33:39] Phase 2: Research
+[16:35:46] Phase 2: in=783 cached=258564 out=3381 cost=$0.44340 dur=126684ms
+Phase 2 complete. The angle plan is appended to `selected_topic.txt`.
+
+**Research summary for Phase 3:** The piece centres on the neuroscience of interoception (Barrett's constructed emotion theory — the brain builds emotions from raw body signals, not the other way round), how co-regulation in childhood installs the interpretive layer between sensation and feeling, and what CEN specifically breaks (the translation layer, not the signals themselves). The hook is the heartbeat detection exercise — immediately experiential, immediately diagnostic. Key research threads: alexithymia as a calibration failure rather than a personality trait; emotional neglect as the strongest predictor of difficulty distinguishing feelings from body sensations; affect labelling reducing amygdala activation by up to 50%; and the trainability of interoception through body scan, MABT, and somatic approaches. The piece closes on the reframe that matters most — recovery here isn't healing a wound, it's installing something that was never built.
+[16:35:46] Phase 3: Writing
