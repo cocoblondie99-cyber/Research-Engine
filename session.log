@@ -222,3 +222,6 @@ The piece opens with the mysterious 169.254.x.x address that appears when DHCP f
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:03] Phase 1: Selection
+[16:33:39] Phase 1: in=26 cached=70197 out=3578 cost=$0.07644 dur=34144ms
+Phase 1 complete. Selected **Emotional literacy and interoception (CEN)** — topic 4 of 9. Written to `selected_topic.txt`. Ready for Phase 2 when needed.
+[16:33:39] Phase 2: Research
