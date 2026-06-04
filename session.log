@@ -230,3 +230,22 @@ Phase 2 complete. The angle plan is appended to `selected_topic.txt`.
 
 **Research summary for Phase 3:** The piece centres on the neuroscience of interoception (Barrett's constructed emotion theory — the brain builds emotions from raw body signals, not the other way round), how co-regulation in childhood installs the interpretive layer between sensation and feeling, and what CEN specifically breaks (the translation layer, not the signals themselves). The hook is the heartbeat detection exercise — immediately experiential, immediately diagnostic. Key research threads: alexithymia as a calibration failure rather than a personality trait; emotional neglect as the strongest predictor of difficulty distinguishing feelings from body sensations; affect labelling reducing amygdala activation by up to 50%; and the trainability of interoception through body scan, MABT, and somatic approaches. The piece closes on the reframe that matters most — recovery here isn't healing a wound, it's installing something that was never built.
 [16:35:46] Phase 3: Writing
+[16:37:55] Phase 3: in=1807 cached=207853 out=7369 cost=$0.43834 dur=128123ms
+Phase 3 complete.
+
+**Piece written:** *The Letter That Was Never Opened* — 2,439 words, saved to `pieces/the-letter-that-was-never-opened_03-06-26.txt`.
+
+It opens with the heartbeat-counting test, then moves through the four-beat arc from the angle plan: Barrett's constructed-emotion theory (body supplies the signal, mind supplies the name), co-regulation as the childhood mechanism that builds the translation layer, what CEN actually breaks (the reader, not the signal — alexithymia), and bottom-up adult recovery (body scan/MABT, affect labelling, emotional granularity). The unopened-letter image runs through as the central reframe: not a defect to fix but a gap to fill.
+
+**Uploaded** to `gdrive:"Research Engine"` — exit 0, succeeded (no token issue this time).
+
+**topics.md updated:**
+- Removed *Emotional literacy and interoception (CEN)* from Main Topics and the Draw Index
+- Renumbered the index and dropped the count from 9 to 8
+- Logged the completed piece under 2026-06-03
+
+Four related topics surfaced during writing appear in the footer for the owner to consider (affect labelling, MABT, emotional granularity, Barrett's constructed emotion) — left out of topics.md per protocol.
+[16:37:55] === Session complete ===
+[16:33:01] === Session start ===
+[16:33:01] Syncing read folder from GDrive
+[16:33:02] Phase 1: Selection

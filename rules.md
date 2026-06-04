@@ -6,7 +6,7 @@ Accessible, engaging long-form writing on topics of genuine interest. The target
 ## Format
 - Pieces: 2000–3600 words; shorter only if the topic genuinely cannot support more depth
 - Each piece is self-contained
-- Save to `pieces/working-title_DD-MM-YY.txt`
+- Save to `pieces/topic-slug_DD-MM-YY.txt` — the slug must be a plain descriptive name of the actual topic (e.g. `docker-and-containers_28-05-26.txt`, `dhcp-lease-and-scope-management_02-06-26.txt`); never use a literary or metaphorical title as the filename
 - Plain text: title on the first line (no # prefix), blank line, then body
 - The **final lines of every piece** must be (no markdown, plain text, preceded by a blank line):
   Topics: [topics used in this piece]

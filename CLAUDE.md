@@ -7,7 +7,7 @@ An autonomous research writing engine that produces accessible, engaging long-fo
 - `CLAUDE.md` — this file; session protocol and project overview
 - `rules.md` — style guide and full session phase instructions
 - `topics.md` — main topics (owner-curated)
-- `pieces/` — completed pieces, one file each, named `YYYY-MM-DD_working-title.txt`
+- `pieces/` — completed pieces, one file each, named `topic-slug_DD-MM-YY.txt` (e.g. `docker-and-containers_28-05-26.txt`)
 - `run_session.sh` — cron launcher
 - `session.log` — output log from automated runs
 - `selected_topic.txt` — session artifact: topic + description written by Phase 1, angle plan appended by Phase 2, read by Phase 3; deleted at session start
