@@ -252,3 +252,8 @@ Four related topics surfaced during writing appear in the footer for the owner t
 [16:33:28] Phase 1: in=26 cached=59734 out=1721 cost=$0.03512 dur=24656ms
 Phase 1 complete. Selected **Enneagram SX 541: overview, struggles, and sexuality** (topic 10 from the draw index). The topic and its full description are written to `selected_topic.txt`. Ready for Phase 2 research when needed.
 [16:33:28] Phase 2: Research
+[16:36:31] Phase 2: in=3445 cached=283938 out=4146 cost=$0.68199 dur=181637ms
+Phase 2 complete. The angle plan is appended to `selected_topic.txt`.
+
+The research turned up strong material: the SX5 is the Enneagram's designated "counter-type" — more emotionally intense and romantically expressive than any other Five, yet still governed by the 5's deep compulsion to guard and withhold. The Naranjo/Chestnut tradition names their central passion "confidence" in the archaic sense — *confiding*, the longing to find the one person you can finally tell everything. That word does a lot of heavy lifting for this piece. The 4 layer adds idealization and shame; the 1 layer adds a perfectionist shadow over desire itself; the SX instinct drives the whole architecture toward an intimacy that the 5 simultaneously craves and can never quite trust enough to permit.
+[16:36:31] Phase 3: Writing
