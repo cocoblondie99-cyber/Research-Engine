@@ -249,3 +249,6 @@ Four related topics surfaced during writing appear in the footer for the owner t
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:02] Phase 1: Selection
+[16:33:28] Phase 1: in=26 cached=59734 out=1721 cost=$0.03512 dur=24656ms
+Phase 1 complete. Selected **Enneagram SX 541: overview, struggles, and sexuality** (topic 10 from the draw index). The topic and its full description are written to `selected_topic.txt`. Ready for Phase 2 research when needed.
+[16:33:28] Phase 2: Research
