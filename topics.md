@@ -13,8 +13,8 @@ Each piece takes one **main topic** as its primary focus. Suggested topics appea
 ## Draw Index
 *Use this section for Phase 1 selection. Generate a random number within the pool count, look up the name here, check recency against recent completed pieces — if covered recently, generate another number. Read the full entry (below) only for the selected topic.*
 
-**Main Topics — 9 total**
-1 AI qualifications and certifications · 2 Freudian development and CEN · 3 Schema therapy imagery rescripting · 4 The HPA axis and chronic stress (CEN) · 5 Co-regulation and the developing brain (CEN) · 6 Vagal tone and heart rate variability (CEN) · 7 Somatic experiencing and body-based trauma therapy (CEN) · 8 Dissociation and depersonalisation (CEN) · 9 CEN and autism overlap
+**Main Topics — 8 total**
+1 AI qualifications and certifications · 2 Schema therapy imagery rescripting · 3 The HPA axis and chronic stress (CEN) · 4 Co-regulation and the developing brain (CEN) · 5 Vagal tone and heart rate variability (CEN) · 6 Somatic experiencing and body-based trauma therapy (CEN) · 7 Dissociation and depersonalisation (CEN) · 8 CEN and autism overlap
 
 **Maintenance**: when a topic is added to or removed from the pool, update the count and the index line here. Related topics do not appear in the draw index until confirmed by the owner.
 
@@ -23,7 +23,6 @@ Each piece takes one **main topic** as its primary focus. Suggested topics appea
 ## Main Topics
 
 - **AI qualifications and certifications** — officially recognised courses and credentials in AI and machine learning; vendor certifications (Microsoft AI-900, Azure AI Engineer, Google Cloud, AWS); academic and professional body qualifications; what carries genuine weight with employers vs what is marketing; where to start depending on technical background
-- **Freudian development and CEN** — how Freud's stage model (oral, anal, phallic, latency, genital) maps onto cases of CEN; where early relational absence causes fixation or arrested development; the significance of the "quiet infant who didn't cry" as a potential marker of very early learned helplessness or shutdown — emotional suppression that begins before language; what this early onset means for character structure and adult presentation
 - **Schema therapy imagery rescripting** — the specific technique of entering a childhood memory imaginally to provide the corrective experience, in the context of childhood emotional neglect; how the therapist (or patient, in self-directed practice) enters the scene and meets the child's unmet needs in real time; how memory reconsolidation makes this emotionally corrective rather than merely cognitive; the emotional deprivation schema as the primary target; what the experience of receiving care in imagination actually does to the nervous system
 - **The HPA axis and chronic stress (CEN)** — in the context of CEN recovery: how childhood emotional neglect dysregulates the hypothalamic-pituitary-adrenal stress system; the difference between acute and chronic low-level HPA activation; what years of low-grade hypervigilance do to sleep, immunity, memory, metabolism, and emotional regulation; why the neglect-affected nervous system reads ordinary situations as threatening; what HPA repair looks like in practice
 - **Co-regulation and the developing brain (CEN)** — in the context of CEN recovery: how a caregiver's regulated nervous system literally teaches a child's nervous system to self-regulate; the neurological mechanism of attunement and what is missed when it is absent; what an adult who never received adequate co-regulation is actually missing and how it shows up; whether and how co-regulation can be experienced and internalised as an adult
