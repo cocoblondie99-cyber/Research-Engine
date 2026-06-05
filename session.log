@@ -275,3 +275,8 @@ No other phases run.
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:03] Phase 1: Selection
+[16:33:35] Phase 1: in=26 cached=58115 out=2979 cost=$0.04151 dur=30425ms
+Phase 1 complete. Selected topic **"Freudian development and CEN"** and written to `selected_topic.txt`. This topic explores how Freud's developmental stages map onto childhood emotional neglect cases, with particular attention to early learned helplessness and the "quiet infant" as a marker of pre-linguistic shutdown.
+
+Ready for Phase 2 (Research) when needed.
+[16:33:35] Phase 2: Research
