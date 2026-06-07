@@ -313,3 +313,8 @@ You've hit your weekly limit · resets 2pm (Europe/London)
 [16:33:24] Phase 1: in=26 cached=58063 out=1259 cost=$0.03089 dur=18978ms
 Phase 1 complete. Selected **AI qualifications and certifications** — a shift to professional development credentials and vendor certifications, providing topic variety after the recent CEN-focused sessions. Topic and description written to `selected_topic.txt`.
 [16:33:24] Phase 2: Research
+[16:35:13] Phase 2: in=865 cached=222159 out=2707 cost=$0.45045 dur=107858ms
+Phase 2 complete. The angle plan is appended to `selected_topic.txt`.
+
+The central hook is a productive paradox: in the most credential-hungry AI job market in history, certifications have proliferated so fast that "AI certified" has almost become meaningless — and what employers actually hire for is portfolio proof, not paper. The plan maps the full landscape (fundamentals → platform-tied vendor certs → platform-agnostic learning → degrees), flags the most surprising research finding (only 23% of AI certificate programmes carry recognised accreditation), and gives Phase 3 a clear three-reader structure to close on: the non-technical observer, the career-changer, and the practitioner signalling cloud expertise.
+[16:35:13] Phase 3: Writing

@@ -1,0 +1,89 @@
+The Certificate and the Country It Doesn't Let You Enter
+
+Here is a strange situation. We are living through what may be the fastest hiring scramble in the history of technology — companies fighting over anyone who can plausibly build with artificial intelligence, salaries climbing in a way that makes recruiters slightly giddy — and yet the single document designed to prove you can do the work is quietly losing its power to do exactly that.
+
+Type "AI certified" into a search bar and you will find thousands of courses promising to make you precisely that. Some are genuinely excellent. Some are a weekend of slides and a multiple-choice quiz with a downloadable badge at the end. And the uncomfortable truth — the one that everyone in the industry knows and very few of the people selling courses will say out loud — is that from the outside, with the badge sitting on a CV, the two can look almost identical. A phrase meant to signal competence has been printed so many times, by so many different presses, that it has started to mean nothing at all.
+
+So this is a piece about a map. If you want to learn AI, or hire someone who has, or simply stop feeling vaguely fraudulent in meetings where everyone nods at the word "embeddings," you need to know the terrain — which credentials carry real weight, which are useful but limited, and which are essentially decorative. Because they are absolutely not interchangeable, and the gap between them is where a great deal of money and time gets wasted.
+
+Let me start with the analogy I want to carry the whole way through, because it explains the central paradox better than anything.
+
+A certification is a vocabulary test. What employers are actually buying is a conversation.
+
+Think of it like learning a language. You can pass a vocabulary exam — name the tenses, define the grammar, score beautifully on a written test — and still freeze the moment you have to order a coffee in an actual café in an actual country where people talk fast and don't care about your exam. The vocabulary test proves you've studied. It does not prove you can speak. And in AI, more than almost any other field right now, employers have learned — sometimes the hard way — to stop confusing the two. The certificate tells them you know the words. They want proof you've held a conversation. In this field, the conversation is a project that actually runs.
+
+Hold onto that. Now let's walk the map, from the foothills up.
+
+THE FOOTHILLS: VOCABULARY, NOT A VISA
+
+At the base of the mountain sit the fundamentals certifications — and the most honest thing I can tell you is that this is exactly what they are for. Microsoft's AI-900 (its formal name is "Azure AI Fundamentals") and Google's AI Essentials are the headline examples. They are cheap, sometimes free, and you can pass them in a few days of casual study.
+
+What they give you is the vocabulary. After AI-900 you will know what a machine learning model is, the difference between classification and regression, what computer vision and natural language processing actually refer to, and roughly what happens when a company says it's "doing AI." You will be able to sit in the meeting and follow the conversation rather than nodding along while quietly panicking. For a project manager, a marketer, a lawyer, a founder, a teacher — anyone who needs to be conversant rather than capable — this is genuinely, unironically worth doing.
+
+But here is the line you must not cross in your own head: this is a phrasebook, not a passport. It teaches you to recognise the words. It does not let you build the thing. No serious engineering team is going to hire a machine learning developer because they hold an AI-900. The certification was never designed to do that work, and resenting it for failing to do so is like being cross that a tourist phrasebook didn't get you a job as a translator. Useful for the vocabulary. Not a visa.
+
+THE WALLED GARDENS: VENDOR CERTIFICATIONS
+
+Climb a bit higher and you reach the serious vendor certifications — the ones from the three companies that rent out most of the world's computing power: Amazon (AWS), Microsoft (Azure), and Google Cloud. AWS Certified Machine Learning – Specialty. Google's Professional Machine Learning Engineer. Microsoft's Azure AI Engineer Associate.
+
+These are a different animal entirely. They are hard. They demand real preparation — often months of it, ideally alongside hands-on experience — and they cover genuine engineering: how to build, train, deploy and monitor models inside that company's particular ecosystem of tools. People who pass these have done real work, and the certs command real respect.
+
+But — and this is the whole point — that respect is tied to the garden it grew in. Each of these certifications is, by design, a guided tour of one company's walled garden. The plants are beautiful and the paths are well laid, but the moment you climb over the wall into a different garden, a lot of what you learned turns out to be the names of gates and tools that only exist on that side of the wall. AWS calls its model-building service SageMaker; Google calls its equivalent Vertex AI. The underlying ideas are cousins, but the specific buttons, the specific quirks, the specific knowledge the exam tests — those belong to one vendor.
+
+Which leads to a simple, practical rule that will save you a great deal of wasted effort. A vendor certification is worth a lot if you already live in that vendor's garden — if your employer runs on AWS, get the AWS cert; it makes you measurably more useful and more promotable right where you stand. It is worth far less if you are collecting it speculatively, hoping it will open doors in general. Do not earn a Google Cloud certification because Google is a famous name. Earn it because the job you have, or the job you are genuinely aiming at, runs on Google Cloud. The cert is a key. A key is only valuable next to the lock it was cut for.
+
+THE OPEN COUNTRY: WHEN THE TEACHER IS THE CREDENTIAL
+
+Now we reach the most interesting tier, and the one most people overlook — partly because it doesn't fit neatly into the certificate-shaped hole in our brains.
+
+There is a category of AI education that is not tied to any cloud platform, that teaches the underlying craft rather than one company's tools, and that is — strangely, almost uniquely — respected more for who teaches it than for the certificate it hands you at the end. The two names that matter most here are Andrew Ng's DeepLearning.AI (and the famous Machine Learning and Deep Learning specialisations he runs through Coursera) and fast.ai, the free course built by the researcher Jeremy Howard.
+
+Here is why this is worth pausing on, because it inverts the usual logic completely. Normally a certificate borrows its authority from the institution that issues it — a degree means something because the university means something. But Andrew Ng is one of the people who actually built the modern field; he co-founded Google Brain and helped make Coursera itself. When a hiring manager sees that you completed his specialisation, the signal isn't "this person passed a test." It's "this person learned from the source, and chose the path serious people choose." The teacher's credibility flows straight through the course and into you. The certificate is almost beside the point — what carries weight is the name on the syllabus and, far more, the fact that these courses force you to actually build things.
+
+This is the tier where the language analogy comes fully alive. The vendor certs teach you the local dialect of one country. The DeepLearning.AI and fast.ai courses teach you to actually speak — the grammar of the field itself, the stuff that stays true no matter whose garden you eventually work in. For a career-changer with some technical footing, this is very often the smartest place to spend your effort. Not because of the badge. Because of what you can do by the end of it.
+
+THE OLD CAPITAL: THE DEGREE QUESTION
+
+And then there is the degree — the master's, the PhD — which the rise of the certificate was supposed to make irrelevant, and conspicuously has not.
+
+The numbers tell the story cleanly. Roughly two-thirds of advanced machine learning job postings — the senior roles, the research positions, the ones building genuinely novel systems rather than wiring together existing tools — still list a master's degree as a preference or a requirement. At the frontier, where the work means inventing methods rather than applying them, the formal degree remains the dominant currency. It hasn't been dethroned; it's just been joined by other things.
+
+But here is the figure I want you to sit with, because it's the one that explains the whole strange landscape in a single line. Studies of the AI education market have found that only around 23% of AI certificate programmes carry any recognised accreditation — some independent body verifying that the thing teaches what it claims to teach. For degree programmes, the figure is roughly 89%.
+
+Read those two numbers next to each other again. Nearly nine in ten degrees are quality-checked by someone outside the institution selling them. Fewer than one in four certificates are. That gap is the entire reason "AI certified" has drifted toward meaninglessness as a phrase. It's not that certificates are inherently worthless — many are superb. It's that the category as a whole is wildly, almost chaotically uneven, and from the outside there is often no reliable way to tell the rigorous ones from the decorative ones. The badges look the same. The presses behind them are not.
+
+This is why, when a recruiter who has been doing this for a couple of years sees "AI certified" with no other context, their eyes do something subtle. They don't dismiss it. They simply withhold belief until they see the thing it's supposed to prove. Which brings us back, finally, to the conversation.
+
+WHAT EMPLOYERS ARE ACTUALLY BUYING
+
+If certificates have become an unreliable signal, what filled the gap? The portfolio.
+
+In AI hiring right now, the most persuasive thing you can put in front of an employer is not a badge but a deployed project — something you actually built, that actually runs, that someone can actually click on. A model you trained to do a specific thing. A small application with a working AI feature inside it. A public code repository where a stranger can read what you wrote and see that it functions. This is the café, not the exam hall. This is the proof that you can hold the conversation and not just pass the vocabulary test.
+
+There's a reason this shift happened, and it's not fashion. AI work is unusually unforgiving of fakery. You can memorise the definition of "overfitting" for an exam; you cannot fake a model that actually generalises to data it has never seen. The doing and the knowing come apart more visibly here than in almost any other field, and so employers have rationally learned to weight the doing. A portfolio is hard to fake because the thing either works or it doesn't. The certificate tells them you studied. The project tells them you can speak.
+
+None of this means certifications are a waste. It means they have a specific, honest job: they get you in the door, give you structure and vocabulary, and prove you can finish something. They are the opening line of the conversation. They were simply never the whole conversation, and the market has finally stopped pretending otherwise.
+
+THE MAP, FOR THREE TRAVELLERS
+
+So where should you actually start? It depends entirely on who you are and where you're standing, so here is the practical version — three travellers, three routes.
+
+If you are a non-technical professional who simply wants to follow the conversation — to stop feeling lost when your colleagues talk about models and prompts and training data, and to make sensible decisions about AI in your own work — your route is the foothills, and you should feel no shame about staying there. Microsoft's AI-900 or Google's AI Essentials. A few days of effort, a cheap or free exam, and you emerge genuinely fluent in the vocabulary. Don't over-buy. You need a phrasebook, not a degree, and a phrasebook is exactly what these are.
+
+If you are a career-changer with some technical background — you can write a bit of code, you're not frightened of mathematics, and you want to actually build — skip straight past the speculative vendor certs and go to the open country. Andrew Ng's DeepLearning.AI specialisation, or fast.ai if you prefer to learn by diving into the deep end. Then — and this is the part that matters more than any certificate you will ever earn — build three real projects and put them somewhere a stranger can see them. Three things that run. That portfolio will do more for you than any badge, because it is the conversation itself, not a test about the conversation.
+
+And if you are already a working practitioner who wants to signal serious, deployable cloud expertise — you're employed, you know how to code, you want to level up where you stand — then the vendor certifications are genuinely worth the months of preparation. But choose with the walled-garden rule firmly in mind: earn the certification that matches the platform your organisation actually runs on. If your company lives on Azure, the Azure AI Engineer cert makes you more valuable tomorrow morning. Match the key to the lock you already stand in front of. Don't collect keys to gardens you'll never visit.
+
+THE CLOSING THOUGHT
+
+There's a temptation, looking at all this, to feel cynical — to conclude that the certificates are a racket and the whole thing is noise. That would be the wrong lesson. The right one is gentler and more useful.
+
+A certification is a vocabulary test, and vocabulary tests are good things. They give you words you didn't have, structure you couldn't have built alone, and the confidence to walk into a room you'd otherwise have avoided. Take the test. Learn the words. It is a real and worthwhile beginning.
+
+But never mistake the phrasebook for the journey. The thing employers are actually buying — the thing that turns "AI certified" from a tired phrase back into a real signal — is the proof that you took the words out of the exam hall and into the world, and made something with them that actually worked. The certificate says you've studied the language. What everyone is really listening for is the moment you open your mouth, in a real café, in a country you've actually visited, and order the coffee without thinking about it at all.
+
+Learn the vocabulary. Then go and have the conversation. The second part is the whole job.
+
+
+Topics: AI qualifications and certifications
+Suggested topics: How vendor cloud ecosystems lock in skills, Portfolio-based hiring in tech, Andrew Ng and the democratisation of ML education, Accreditation and the credentialing industry
