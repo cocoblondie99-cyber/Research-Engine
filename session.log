@@ -310,3 +310,6 @@ You've hit your weekly limit · resets 2pm (Europe/London)
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:04] Phase 1: Selection
+[16:33:24] Phase 1: in=26 cached=58063 out=1259 cost=$0.03089 dur=18978ms
+Phase 1 complete. Selected **AI qualifications and certifications** — a shift to professional development credentials and vendor certifications, providing topic variety after the recent CEN-focused sessions. Topic and description written to `selected_topic.txt`.
+[16:33:24] Phase 2: Research
