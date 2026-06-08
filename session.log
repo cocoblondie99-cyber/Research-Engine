@@ -334,3 +334,6 @@ One thing I noticed but left alone (outside this phase's scope): the Draw Index 
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:03] Phase 1: Selection
+[16:33:38] Phase 1: in=26 cached=58031 out=3609 cost=$0.04535 dur=34318ms
+Phase 1 complete. Selected **Somatic experiencing and body-based trauma therapy (CEN)** (topic 5) and saved to `selected_topic.txt`. Ready for Phase 2 research when needed.
+[16:33:38] Phase 2: Research
