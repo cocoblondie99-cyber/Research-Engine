@@ -337,3 +337,14 @@ One thing I noticed but left alone (outside this phase's scope): the Draw Index 
 [16:33:38] Phase 1: in=26 cached=58031 out=3609 cost=$0.04535 dur=34318ms
 Phase 1 complete. Selected **Somatic experiencing and body-based trauma therapy (CEN)** (topic 5) and saved to `selected_topic.txt`. Ready for Phase 2 research when needed.
 [16:33:38] Phase 2: Research
+[16:35:22] Phase 2: in=1800 cached=182156 out=2259 cost=$0.33348 dur=102373ms
+Phase 2 complete. The angle plan appended to `selected_topic.txt` centres on three moves:
+
+1. **The opening puzzle** — talk therapy wants a story; neglect is the absence of one. This frames why the standard approach misfires before a word of explanation is needed.
+
+2. **Levine's animal insight as the throughline** — the frozen discharge, and how titration and pendulation work to thaw it without re-flooding the system.
+
+3. **Alexithymia as the emotional core** — many CEN survivors can't feel their feelings because interoception was never developed. Somatic work isn't a detour to the same destination as CBT; it's the only road into a pre-verbal layer that thought can't reach.
+
+The closing image is quiet rather than dramatic: not catharsis, but the novel experience of one's own body as a safe place.
+[16:35:22] Phase 3: Writing
