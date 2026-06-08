@@ -318,3 +318,19 @@ Phase 2 complete. The angle plan is appended to `selected_topic.txt`.
 
 The central hook is a productive paradox: in the most credential-hungry AI job market in history, certifications have proliferated so fast that "AI certified" has almost become meaningless — and what employers actually hire for is portfolio proof, not paper. The plan maps the full landscape (fundamentals → platform-tied vendor certs → platform-agnostic learning → degrees), flags the most surprising research finding (only 23% of AI certificate programmes carry recognised accreditation), and gives Phase 3 a clear three-reader structure to close on: the non-technical observer, the career-changer, and the practitioner signalling cloud expertise.
 [16:35:13] Phase 3: Writing
+[16:37:25] Phase 3: in=1817 cached=91533 out=6688 cost=$0.35553 dur=130423ms
+Done. Phase 3 complete.
+
+**Piece written:** *The Certificate and the Country It Doesn't Let You Enter* — AI qualifications and certifications (~2,400 words), saved to `pieces/ai-qualifications-and-certifications_07-06-26.txt`.
+
+It runs on a single sustained analogy — a certification as a vocabulary test, real hiring as a conversation in an actual café — and maps the landscape in tiers: the fundamentals foothills (AI-900, Google AI Essentials = phrasebook, not visa); the vendor walled gardens (AWS/Azure/Google, valuable only next to the lock they're cut for); the open country where the teacher *is* the credential (DeepLearning.AI, fast.ai); and the old capital of the degree (~two-thirds of advanced ML roles still want a master's). The number it lingers on: ~23% of AI certificate programmes carry recognised accreditation vs ~89% of degrees — the reason "AI certified" has drifted toward meaninglessness. Closes with the three-traveller practical map and the portfolio-over-badge turn.
+
+**Uploaded to GDrive** ("Research Engine") — confirmed.
+
+**topics.md updated** — removed "AI qualifications and certifications" from Main Topics and the Draw Index, renumbered the index, and dropped the pool count from 8 to 7.
+
+One thing I noticed but left alone (outside this phase's scope): the Draw Index count doesn't include the "Recovery from CEN as an enneagram SX 541" entry in the Main Topics list — a pre-existing discrepancy worth a glance next time you're curating.
+[16:37:25] === Session complete ===
+[16:33:01] === Session start ===
+[16:33:01] Syncing read folder from GDrive
+[16:33:03] Phase 1: Selection
