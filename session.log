@@ -368,3 +368,8 @@ Footer suggested topics surfaced: polyvagal theory and the freeze response, Euge
 [16:33:23] Phase 1: in=26 cached=58124 out=1219 cost=$0.03072 dur=19332ms
 Phase 1 complete. Selected **The HPA axis and chronic stress (CEN)** and written to `selected_topic.txt`. Ready for Phase 2 (Research) when you call it.
 [16:33:23] Phase 2: Research
+[16:34:54] Phase 2: in=1059 cached=184479 out=2539 cost=$0.33224 dur=90678ms
+Research complete. The angle plan is appended to `selected_topic.txt`.
+
+The central finding that shapes the piece: CEN's signature on the HPA axis is often *hypocortisolism* — not chronic over-activation but eventual collapse into flatness and blunted stress response — which is why neglect-affected adults so often present as exhausted and numb rather than visibly anxious. The hook is the cortisol awakening response as a literal measurable trace of emotional absence, detectable in saliva decades later. The smoke-detector metaphor (exquisitely recalibrated to a more dangerous world, still misfiring — or finally burning out) threads the piece together and connects to the somatic repair work already covered in earlier entries in this series.
+[16:34:54] Phase 3: Writing

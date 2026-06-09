@@ -13,8 +13,8 @@ Each piece takes one **main topic** as its primary focus. Suggested topics appea
 ## Draw Index
 *Use this section for Phase 1 selection. Generate a random number within the pool count, look up the name here, check recency against recent completed pieces — if covered recently, generate another number. Read the full entry (below) only for the selected topic.*
 
-**Main Topics — 7 total**
-1 Schema therapy imagery rescripting · 2 The HPA axis and chronic stress (CEN) · 3 Co-regulation and the developing brain (CEN) · 4 Vagal tone and heart rate variability (CEN) · 5 Dissociation and depersonalisation (CEN) · 6 CEN and autism overlap · 7 Releasing body-stored tension (CEN, enneagram 541)
+**Main Topics — 6 total**
+1 Schema therapy imagery rescripting · 2 Co-regulation and the developing brain (CEN) · 3 Vagal tone and heart rate variability (CEN) · 4 Dissociation and depersonalisation (CEN) · 5 CEN and autism overlap · 6 Releasing body-stored tension (CEN, enneagram 541)
 
 **Maintenance**: when a topic is added to or removed from the pool, update the count and the index line here. Related topics do not appear in the draw index until confirmed by the owner.
 
@@ -23,7 +23,6 @@ Each piece takes one **main topic** as its primary focus. Suggested topics appea
 ## Main Topics
 
 - **Schema therapy imagery rescripting** — the specific technique of entering a childhood memory imaginally to provide the corrective experience, in the context of childhood emotional neglect; how the therapist (or patient, in self-directed practice) enters the scene and meets the child's unmet needs in real time; how memory reconsolidation makes this emotionally corrective rather than merely cognitive; the emotional deprivation schema as the primary target; what the experience of receiving care in imagination actually does to the nervous system
-- **The HPA axis and chronic stress (CEN)** — in the context of CEN recovery: how childhood emotional neglect dysregulates the hypothalamic-pituitary-adrenal stress system; the difference between acute and chronic low-level HPA activation; what years of low-grade hypervigilance do to sleep, immunity, memory, metabolism, and emotional regulation; why the neglect-affected nervous system reads ordinary situations as threatening; what HPA repair looks like in practice
 - **Co-regulation and the developing brain (CEN)** — in the context of CEN recovery: how a caregiver's regulated nervous system literally teaches a child's nervous system to self-regulate; the neurological mechanism of attunement and what is missed when it is absent; what an adult who never received adequate co-regulation is actually missing and how it shows up; whether and how co-regulation can be experienced and internalised as an adult
 - **Vagal tone and heart rate variability (CEN)** — in the context of CEN recovery: how vagal tone reflects nervous system flexibility and why it is typically reduced in people with CEN histories; HRV as a measurable proxy for emotional resilience; how low vagal tone shows up in daily life; evidence-based practices for deliberately improving vagal tone and what that actually changes in emotional experience and regulation
 - **Dissociation and depersonalisation (CEN)** — in the context of CEN recovery: how dissociation develops as an adaptive response to an environment with no emotional attunement; the dorsal vagal shutdown response and its relationship to the emotional blunting common in CEN; the spectrum from everyday numbing to clinical depersonalisation; why reconnecting with feeling can initially feel destabilising; how recovery involves gradually tolerating presence rather than absence

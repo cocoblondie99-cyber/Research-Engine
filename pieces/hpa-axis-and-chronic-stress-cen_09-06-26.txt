@@ -1,0 +1,102 @@
+The Detector That Burned Out
+
+You can find the evidence in a few drops of spit.
+
+Spit into a small plastic tube within the first hour of waking, on three or four mornings, and a lab can read something about your childhood that you may never have put into words. In most people, the moment of waking triggers a sharp, reliable surge of the stress hormone cortisol — it climbs by something like fifty per cent in the half hour after the eyes open, then tapers off across the day. Scientists call it the cortisol awakening response, and it is one of the most dependable rhythms in human biology. It is the body lifting the engine to idle, getting ready to meet the day.
+
+In a significant number of adults who grew up with emotional neglect — homes where the lights were on and the fridge was full but no one was emotionally present — that morning surge is flattened. Blunted. Sometimes it is barely there at all. The body that learned, very early, that no one was reliably coming has, decades later, stopped bothering to brace for the morning.
+
+This is the strange, quiet fingerprint at the centre of what follows. Childhood emotional neglect — the absence of attunement rather than the presence of abuse — leaves a measurable mark on the system that governs how the body handles stress. And the mark is not the one most people expect. We tend to assume that a difficult childhood leaves the alarm permanently switched on: jumpy, anxious, wired. Sometimes it does. But the more curious and more common endpoint, after enough years, is the opposite. The alarm doesn't scream forever. Eventually, in many people, it burns out its own battery.
+
+To understand why, we need to meet the machine that does the bracing.
+
+A thermostat made of glands
+
+Deep in the brain sits a small, ancient structure called the hypothalamus. Think of it as the body's thermostat — not for heat, but for threat. When it registers something alarming, it sends a chemical message down to the pituitary, a pea-sized gland just below it. The pituitary relays the message, via the bloodstream, to two glands that sit like little caps on top of the kidneys: the adrenals. The adrenals release cortisol. Cortisol travels everywhere, telling the body to mobilise — raise blood sugar, sharpen attention, postpone digestion and repair, get ready to deal with the thing.
+
+This chain — hypothalamus, pituitary, adrenal — is the HPA axis. It is the slow, hormonal arm of the stress response, the one that works in minutes and hours rather than the instant electrical jolt of adrenaline. And it is built around a feature that turns out to be everything: it has a brake.
+
+Cortisol, once it has done its job, circles back to the brain and switches off the very signal that produced it. The system is designed to flood and then drain. Surge, and recede. A healthy HPA axis is not one that never fires — it is one that fires cleanly and then resets, like a wave that breaks and pulls back, leaving the sand flat again before the next one.
+
+Here is the part worth slowing down for. This whole system is not finished at birth. It is calibrated by experience, and the calibration happens in the first years of life, tuned almost entirely by another person. A baby cannot regulate its own stress chemistry. When an infant is distressed and a caregiver responds — picks them up, softens their voice, settles them — the caregiver is physically lowering the baby's cortisol from the outside. Do this thousands of times and the baby's brain slowly internalises the pattern: distress comes, and then distress passes. The brake gets installed. Researchers call this co-regulation, and it is, quite literally, how a nervous system learns where to set its thresholds.
+
+So what happens when the response doesn't reliably come?
+
+The exquisitely sensitive smoke detector
+
+Imagine a smoke detector. A good one is calibrated to the actual risk of the building — sensitive enough to catch a real fire, not so sensitive that toast sets it shrieking.
+
+In a home marked by emotional neglect, the developing child installs a detector tuned to a far more dangerous environment than smoke. The danger isn't physical. It is the withdrawal of connection — a parent's flat tone, a silence that means something is wrong, a face that goes cold and unreadable. To a small child, the loss of a caregiver's emotional availability is a genuine survival threat, because for most of human history a child without an engaged adult did not survive. So the child does something remarkable and adaptive: they tune the detector to the faintest signals. The micro-shift in a parent's mood. The quality of a silence. The temperature of a room.
+
+This isn't a conscious skill. It runs below thought, in what the scientist Stephen Porges named neuroception — the nervous system's continuous, automatic scanning for safety and threat, faster than awareness. A neglected child often becomes a virtuoso of neuroception, reading the emotional weather of a household with a precision that would put a diplomat to shame. It keeps them safe. It also means their HPA axis is firing, low and often, year after year, in response to threats no one else can even see.
+
+And this is where the story of stress takes its real turn — because what happens to a system that is asked to brace, quietly, for fifteen years without a proper rest?
+
+Two kinds of too much
+
+There is acute stress, and there is chronic stress, and the difference between them is the difference between a sprint and a posture.
+
+Acute stress is the wave: it breaks, it recedes, the system resets. This is what the HPA axis is built for. A near-miss in traffic, a hard conversation, a deadline — cortisol surges, you handle it, the brake engages, you drain back to baseline. No harm done. Arguably, good for you.
+
+Chronic low-grade activation is something else entirely. It is not a wave but a tide that never fully goes out. The neglect-affected child is rarely in screaming crisis; the homes are usually quiet. What they live in is a steady, ambient, never-quite-safe hum — a low-level hypervigilance maintained day after day, season after season. The HPA axis never gets the long flat stretch it needs to recalibrate. The brake is being asked to work constantly, and brakes that work constantly wear down.
+
+For years, the dominant assumption in stress research was that chronic stress simply meant chronically high cortisol — the system jammed on, flooding the body with a hormone that, in excess and over time, does real damage. And in some people, that is exactly what you see, particularly earlier in the process.
+
+But then the data did something inconvenient. When researchers measured cortisol in people with long histories of early adversity and neglect, a large subgroup showed not high cortisol but low. Flattened awakening responses. Blunted reactions to laboratory stress tests. A whole pattern that earned its own ungainly name: hypocortisolism. The alarm wasn't stuck on. It had gone quiet.
+
+When the alarm runs out of battery
+
+How does a system that fires too much end up producing too little?
+
+The leading explanation is almost poignant in its logic. Cortisol in large, sustained quantities is itself harmful — it erodes the structures it touches, including the brain regions that regulate the HPA axis. Faced with years of overactivation, the system appears to protect itself by turning down its own sensitivity. The brain's cortisol receptors, swamped for too long, become less responsive — a bit like a nose that stops smelling a perfume after a few minutes in the room. The brake gets stronger and stickier. The output drops. The body, having been on high alert for a decade or more, essentially recalibrates downward into a state of energy conservation.
+
+The smoke detector that screamed for years has burned through its battery, and now it can barely chirp.
+
+This sounds, on paper, like it might be a relief. It is not. A flattened, downregulated HPA axis does not feel like peace. It feels like flatness — and the two are easy to confuse from the inside, which is part of what makes this condition so hard for people to recognise in themselves.
+
+Consider what cortisol is actually for. It is the hormone of mobilisation, the thing that lets you rise to meet a demand. When the morning surge is missing, mornings can feel like wading through wet sand — not anxious, just heavy, slow to start, unable to get the engine above idle. When the system can't mount a clean stress response, ordinary challenges that should produce a brief, useful spike of energy instead produce a kind of collapse or shutdown. People describe numbness rather than fear. Exhaustion that sleep doesn't touch. A blunted, greyed-out quality to feeling itself. This is the freeze end of the threat spectrum — not fight, not flight, but the older, deeper response of an animal that has learned its struggle changes nothing, so the system conserves what it can.
+
+The cruel twist is that this presentation is so often misread, by sufferers and sometimes by clinicians, as laziness, depression, or simply a personality — quiet, low-energy, hard to rouse. The person rarely connects their flatness to a childhood that, on the surface, contained no catastrophe. Nothing happened, they will say. And they are right that nothing happened. The injury was in what didn't.
+
+The cost, spread across the body
+
+Because cortisol touches nearly every system in the body, a dysregulated HPA axis doesn't stay politely in its lane. It leaks into everything, and the spread of its effects is one of the most underappreciated facts in this whole field.
+
+Sleep goes first and worst. The cortisol rhythm and the sleep-wake cycle are intertwined — cortisol is supposed to be low at night and surge in the morning. When that rhythm flattens, sleep becomes shallow, broken, unrefreshing; people lie awake with a body that won't fully stand down, or sleep nine hours and wake unrestored. And because sleep is when the HPA axis does much of its own repair, poor sleep deepens the dysregulation, which worsens the sleep — a loop that feeds itself.
+
+Immunity wobbles. Cortisol is a powerful regulator of inflammation, and when its signalling goes awry, the body's inflammatory control slips. Chronic low-grade inflammation is now linked to early-life adversity with striking consistency, and it is part of why these histories correlate, decades later, with higher rates of cardiovascular and metabolic disease. The childhood shows up in the bloodwork of a fifty-year-old.
+
+Memory and attention suffer, because the hippocampus — central to forming memories — is dense with cortisol receptors and is one of the structures most vulnerable to prolonged exposure. People describe a fog, a porousness, words that won't come.
+
+Metabolism shifts, because cortisol governs blood sugar and fat storage; dysregulation is linked to weight gain around the middle and to insulin resistance.
+
+And emotional regulation — the capacity to feel something without being flooded or flattened by it — runs directly through this system. The window of tolerance, that band of arousal in which a person can stay present and thinking, is narrowed by HPA dysregulation. Push past the top edge and they tip into overwhelm; drop past the bottom and they go numb. The neglect-affected nervous system often lives with a narrow window and very little warning before it tips. Things that look like overreaction or shutdown to an observer are, underneath, a stress system that was never taught where its edges should be.
+
+None of this is a character flaw. It is the long mechanical consequence of a thermostat set, early and without the owner's consent, to the wrong temperature.
+
+Retuning the detector
+
+Here is the question that matters, and the genuinely hopeful part: can the calibration change?
+
+It can. Not by force, and not quickly, but it can — and the way it happens tells you something about how the system was built in the first place. The HPA axis was tuned, originally, by relationship, by sleep, and by the body. Those are precisely the levers that retune it.
+
+Start with relationship, because it is the most counterintuitive and the most important. The same co-regulation that should have installed the brake in childhood can, astonishingly, still do its work in adulthood. When a person spends time in the presence of someone safe, attuned, and reliably responsive — a good friend, a partner, a skilled therapist — their nervous system borrows that other person's regulation, exactly as an infant does. Repeated enough, and over enough time, this lays down a new pattern: the felt experience of distress arriving and then being met. This is the mechanism behind earned secure attachment — the well-documented finding that a meaningful share of securely attached adults did not have secure childhoods. They built it later. The detector can be re-tuned by the very thing whose absence mis-tuned it.
+
+Then the body, directly. Because so much of HPA dysregulation lives below language, body-based approaches reach it in a way that talking sometimes cannot. Somatic therapies work with interoception — the sense of the body's internal state — helping a person notice the early, faint signals of activation and learn, in real time, that they can come down again. Slow breathing, particularly long exhales, engages the vagus nerve and the parasympathetic system — the physiological brake — and over time strengthens what is called vagal tone, the body's capacity to recover after stress. These are not relaxation gimmicks. They are reps for a muscle that was never properly trained, deliberately giving the system the experience of surge-and-recede it didn't get enough of.
+
+And sleep, the unglamorous foundation under all of it. Protecting sleep — consistent timing, morning light to anchor the cortisol rhythm, the genuinely hard work of letting a hypervigilant body learn that the dark is safe — directly supports the axis's own repair machinery. It is slow and it is boring and it matters enormously.
+
+The honest shape of recovery is worth stating plainly. This is not a switch that flips. It is a recalibration measured in months and years, with the texture of slow weather rather than a single clearing. People often report that the first sign of change is not feeling better but feeling more — that the grey numbness gives way to actual emotion, including uncomfortable emotion, as a system that had downregulated into flatness slowly comes back online. Feeling worse, in this one specific way, can be the shape of getting better. The thaw is not always comfortable.
+
+What the spit knew
+
+Come back, at the end, to the tube of saliva and the missing morning surge.
+
+What that flattened curve records is not weakness or damage in any moral sense. It is a faithful, intelligent adaptation — a body that read its early environment correctly and configured itself to survive it. The detector was set to catch the faintest withdrawal of love because, once, catching it was the most important thing in the world. That it kept firing into adulthood, and eventually wore itself down into flatness, is not a malfunction. It is the system doing exactly what it was built to do, for far too long, in the absence of the thing that was supposed to switch it off.
+
+And the same fact that makes this sad is the fact that makes it hopeful. A system calibrated by experience can be recalibrated by experience. The thermostat that was set by another person's absence can be reset, slowly, by another person's presence — and by sleep, and breath, and the patient retraining of a body that is, even now, still listening for the signal that it is finally safe to stand down.
+
+The detector can learn that the building is no longer on fire. It just has to be shown, again and again, until it believes it.
+
+Topics: The HPA axis and chronic stress, childhood emotional neglect, cortisol and the stress response, co-regulation, earned secure attachment, somatic and body-based repair
+Suggested topics: The polyvagal theory and neuroception, Allostatic load, The cortisol awakening response, Interoception and emotional awareness
