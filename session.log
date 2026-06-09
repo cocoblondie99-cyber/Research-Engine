@@ -365,3 +365,6 @@ Footer suggested topics surfaced: polyvagal theory and the freeze response, Euge
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:03] Phase 1: Selection
+[16:33:23] Phase 1: in=26 cached=58124 out=1219 cost=$0.03072 dur=19332ms
+Phase 1 complete. Selected **The HPA axis and chronic stress (CEN)** and written to `selected_topic.txt`. Ready for Phase 2 (Research) when you call it.
+[16:33:23] Phase 2: Research
