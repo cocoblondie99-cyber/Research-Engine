@@ -13,8 +13,8 @@ Each piece takes one **main topic** as its primary focus. Suggested topics appea
 ## Draw Index
 *Use this section for Phase 1 selection. Generate a random number within the pool count, look up the name here, check recency against recent completed pieces — if covered recently, generate another number. Read the full entry (below) only for the selected topic.*
 
-**Main Topics — 6 total**
-1 Schema therapy imagery rescripting · 2 The HPA axis and chronic stress (CEN) · 3 Co-regulation and the developing brain (CEN) · 4 Vagal tone and heart rate variability (CEN) · 5 Dissociation and depersonalisation (CEN) · 6 CEN and autism overlap
+**Main Topics — 7 total**
+1 Schema therapy imagery rescripting · 2 The HPA axis and chronic stress (CEN) · 3 Co-regulation and the developing brain (CEN) · 4 Vagal tone and heart rate variability (CEN) · 5 Dissociation and depersonalisation (CEN) · 6 CEN and autism overlap · 7 Releasing body-stored tension (CEN, enneagram 541)
 
 **Maintenance**: when a topic is added to or removed from the pool, update the count and the index line here. Related topics do not appear in the draw index until confirmed by the owner.
 
@@ -29,6 +29,7 @@ Each piece takes one **main topic** as its primary focus. Suggested topics appea
 - **Dissociation and depersonalisation (CEN)** — in the context of CEN recovery: how dissociation develops as an adaptive response to an environment with no emotional attunement; the dorsal vagal shutdown response and its relationship to the emotional blunting common in CEN; the spectrum from everyday numbing to clinical depersonalisation; why reconnecting with feeling can initially feel destabilising; how recovery involves gradually tolerating presence rather than absence
 - **CEN and autism overlap** — the relationship between childhood emotional neglect and autism spectrum presentations: where the two genuinely correlate (alexithymia, social withdrawal, sensory sensitivity, masking); where CEN can false-flag as autism (acquired emotional blunting mistaken for innate social deficit); where autism increases CEN risk (atypical children more likely to receive misattuned caregiving); what the research actually says about co-occurrence rates; how to distinguish acquired vs innate presentation in adults; what the distinction means for treatment approach
 - **Recovery from CEN as an enneagram SX 541** - schema therapy (especially the Defectiveness/Shame, Emotional Deprivation, and Social Isolation schemas), IFS (internal family systems, which maps beautifully onto the tritype's three centers), and somatic approaches that work around the 5's intellectualization defense.
+- **Releasing body-stored tension (CEN, enneagram 541)** — how long-term childhood emotional neglect causes tension to become chronically held in the body; the specific mechanisms (bracing, armoring, hypertonic muscle patterns, interoceptive dissociation); active practices (TRE/neurogenic tremoring, shaking, somatic movement, yoga nidra, expressive movement); passive practices (progressive muscle relaxation, restorative yoga, float therapy, weighted blankets, Yin yoga); self-massage techniques (jaw release, neck and shoulder work, hip flexor release, psoas-targeted approaches); the 5's particular challenge (intellectualizing the body rather than inhabiting it); how to work with rather than around the 541's tendency to observe sensation from a distance rather than feel it
 
 ---
 

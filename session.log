@@ -348,3 +348,20 @@ Phase 2 complete. The angle plan appended to `selected_topic.txt` centres on thr
 
 The closing image is quiet rather than dramatic: not catharsis, but the novel experience of one's own body as a safe place.
 [16:35:22] Phase 3: Writing
+[16:37:17] Phase 3: in=1817 cached=91323 out=6472 cost=$0.34900 dur=114348ms
+Phase 3 complete.
+
+**Piece written:** *The Story That Was Never Told* — somatic experiencing and body-based trauma therapy for CEN recovery (~2,600 words).
+
+It builds through the angle plan: opens on the mismatch between talk therapy's need for a narrative and neglect's signature absence of one; Levine's gazelle-shaking observation and undischarged survival energy; how a non-responsive caregiver registers as threat and produces a frozen, pre-verbal wound; the emotional core on alexithymia and interoception (the inward sense learned relationally, never built when the narrator was absent); titration and pendulation explained via their chemistry/physics roots; and closes on the quiet destination — the body becoming a safe place to live, and attention finally turned inward.
+
+**Done:**
+- Saved to `pieces/somatic-experiencing-body-based-trauma-therapy_08-06-26.txt`
+- Uploaded to GDrive "Research Engine" (rclone exit 0)
+- Updated `topics.md`: removed the topic from Main Topics and Draw Index, renumbered, count 7 → 6
+
+Footer suggested topics surfaced: polyvagal theory and the freeze response, Eugene Gendlin and Focusing, the felt sense in psychotherapy, co-regulation and attunement in infancy.
+[16:37:17] === Session complete ===
+[16:33:01] === Session start ===
+[16:33:01] Syncing read folder from GDrive
+[16:33:03] Phase 1: Selection
