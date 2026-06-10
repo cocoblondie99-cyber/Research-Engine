@@ -387,3 +387,8 @@ Suggested topics surfaced in the footer (not added to the pool — owner's call)
 [16:33:01] === Session start ===
 [16:33:01] Syncing read folder from GDrive
 [16:33:03] Phase 1: Selection
+[16:33:37] Phase 1: in=26 cached=59047 out=2898 cost=$0.04225 dur=32575ms
+Phase 1 selection complete. Topic **CEN and autism overlap** has been written to `selected_topic.txt` with its full description. This topic addresses the distinction between acquired emotional blunting from neglect and innate autism spectrum presentations — a clinically important differentiation that hasn't been covered in recent sessions.
+
+Ready for Phase 2 when needed.
+[16:33:37] Phase 2: Research
