@@ -1,0 +1,88 @@
+The Fog That Arrives by Two Roads
+
+Imagine being asked the simplest question in the world — "How do you feel?" — and finding nothing there. Not sadness you're hiding, not anger you're swallowing. Just a kind of static. You know something is happening in your body; your chest is tight, your jaw is set, your stomach has folded itself into a small hard knot. But the words that are supposed to sit on top of those sensations — sad, scared, ashamed, furious — won't attach. It is like trying to read in a dream: the letters are right there, and they refuse to resolve into meaning.
+
+There is a clinical name for this. It is called alexithymia, from the Greek for, roughly, "no words for feelings," and it is one of the strangest and most under-discussed conditions in mental health, partly because the people who have it are, almost by definition, the least able to tell you about it. Alexithymia is not an inability to feel. The feelings are there, churning away. It is an inability to find and name them — to turn the weather inside the body into something the conscious mind can recognise and use.
+
+And here is the thing that makes alexithymia worth a whole essay. It sits at a crossroads. It is one of the most reliable features of autism — it appears in roughly half of all autistic people, against perhaps one in ten of the general population. But it is also one of the clearest fingerprints of childhood emotional neglect, the quiet developmental injury that happens when a child's inner world is never noticed, named, or responded to. The same fog can roll in from two entirely different directions. And which road it travelled down changes almost everything about how you'd help the person lost in it.
+
+This is a piece about that crossroads — about where autism and childhood emotional neglect look identical, where they are secretly tangled up in each other, and why getting the two confused is not a harmless mistake but a wrong turn that can send a person years down the wrong therapeutic road.
+
+A note before we start. Both of these are real, and both are commonly missed. Autism is a neurodevelopmental difference you are born with — a different operating system, present from the beginning. Childhood emotional neglect, or CEN, is something that happens to you: a childhood in which your emotions were consistently met with absence rather than attunement. Neither is anyone's fault, and as we'll see, the most important thing about untangling them is that the untangling has nothing to do with blame.
+
+A FOG WITH TWO WEATHER SYSTEMS
+
+To understand why these two conditions get confused, you have to understand that alexithymia comes in two flavours, and they are produced by completely different machinery.
+
+The first kind, which researchers call primary alexithymia, is wired in. It comes bundled with how a brain is built — particularly with differences in the regions that route bodily sensation up into conscious, verbal awareness. This is the alexithymia associated with autism. The autistic brain often processes interoception — the sense of what is happening inside your own body — differently. The signals are there, but the pathway that converts "tight chest, fast heart" into "I am anxious" is laid down differently from birth. The fog, in this case, is part of the original architecture.
+
+The second kind, secondary alexithymia, is learned. It is what happens when a child's emotional signals are repeatedly sent out and never answered. A baby cries; nobody comes, or somebody comes but is overwhelmed, or absent, or actively annoyed. A toddler is frightened; the fear is dismissed — "don't be silly, there's nothing to be scared of." A ten-year-old is quietly miserable and nobody ever asks why. Over thousands of these small non-events, the child learns a lesson their conscious mind will never remember learning: emotions are not worth attending to, because attending to them gets you nowhere. So the child stops attending. The internal channel that would have learned to name feelings simply never gets built out — or gets actively shut down, because feeling things that no one will help you with is just a source of pain.
+
+This is childhood emotional neglect, and its signature is precisely this second kind of alexithymia. The fog here is not part of the original architecture. It is scar tissue grown over a wound.
+
+Now hold those two side by side. A primary, neurological fog and a secondary, environmental fog. From the outside — to a partner, a friend, even a hurried clinician — they can look exactly the same. The same blank pause when asked how you feel. The same flatness. The same sense of a person living behind glass. Two roads, one destination, and from where you're standing you can't always see which road they came in on.
+
+WHEN NEGLECT WEARS AUTISM'S CLOTHES
+
+Let's take the first direction of overlap: cases where childhood emotional neglect produces something that genuinely resembles autism.
+
+Severe early deprivation can blunt a child socially and emotionally in ways that look strikingly autistic. The clearest, most heartbreaking evidence comes from studies of children who spent their early years in grossly under-staffed institutions — orphanages where there were too few adults and far too little individual attention to go around. A meaningful number of these children developed what researchers carefully call "quasi-autistic" patterns: difficulty reading social cues, emotional withdrawal, repetitive behaviours, a flatness that mimicked the real thing. Some of it softened once they were placed in attentive homes — which is itself the tell, because genuine autism does not dissolve when you change a child's environment.
+
+This is the territory where misdiagnosis lives. A clinician meeting a withdrawn, emotionally unreachable adult who struggles to name feelings and seems to hold others at a distance might reasonably reach for autism as an explanation. But if the real cause is a childhood in which emotion was never safe, then "autism" is the wrong map entirely. The social difficulty isn't an innate difference in wiring; it is a learned strategy of self-protection — a person who withdrew because connection had only ever brought disappointment, and who went blank inside because feeling things had only ever brought pain.
+
+The stakes of this confusion are not abstract. Tell someone their emotional flatness is innate and permanent — just how their brain is — and you may quietly close a door that didn't need to be closed. Because, as we'll see, the learned fog can lift in a way the wired-in fog may not.
+
+WHEN AUTISM MANUFACTURES NEGLECT
+
+Now the second direction, which is darker and more important, because it is so rarely talked about. It runs the opposite way: autism, in a child, can actively create the conditions for emotional neglect.
+
+To see how, you need one of the most quietly revolutionary ideas in recent autism research: the double empathy problem. For decades, the standard story was that autistic people have an empathy deficit — that they simply can't read other people. But researchers began noticing something the old story couldn't explain: autistic people often understand each other perfectly well. The breakdown happens specifically between autistic and non-autistic people, and crucially, it runs in both directions. The neurotypical person fails to read the autistic person just as much as the reverse. It isn't a deficit located inside one party. It is a mismatch — two different operating systems trying to run the same social software and throwing errors at each other.
+
+Now drop that mismatch into a family home, into the most important relationship a developing human ever has: the one between a baby and its parent. Attunement — the parent's ability to read the child's inner state and respond to it — is the soil in which emotional development grows. It is how a child learns, over thousands of tiny exchanges, that their feelings are real, legible, and worth responding to. It is, in fact, exactly the process whose absence produces childhood emotional neglect.
+
+Here is the trap. An autistic infant may signal distress, hunger, joy, or fear in ways a neurotypical parent doesn't instinctively recognise. The baby's cues are real and clear — to another autistic person they might be perfectly readable — but they don't match the templates the parent's brain is using. The parent reaches for the child's inner world and keeps missing. Not from coldness. Not from neglectful intent. From a genuine, structural mismatch in how the two of them encode emotion.
+
+And the result, functionally, can be neglect. Not the dramatic, culpable kind, but the quiet kind: a child whose emotional signals consistently go unread, who learns the same bleak lesson as the neglected child in the orphanage — that emotions don't get answered — and who grows the same secondary fog over the wound. The autism was innate. The emotional neglect that grew alongside it was a tragic by-product of two people who loved each other speaking incompatible languages.
+
+The numbers here are sobering. Autistic children are maltreated at substantially higher rates than their neurotypical peers — by many estimates around three times as often. And the downstream mental-health toll is staggering: studies have found that something like 44% of autistic adults meet criteria for PTSD, against single-digit percentages in the general population. Some of that trauma comes from a world built for other nervous systems. But some of it begins much earlier and much closer to home, in the ordinary tragedy of a child whose distress was never quite decoded.
+
+This is why the blame framing is so important to set aside. A neurotypical parent can emotionally neglect an autistic child with no malice whatsoever — can be, by every conventional measure, a loving and devoted parent — and still leave that child with the fog. The double empathy problem means the misattunement is nobody's moral failure. It is a translation error, repeated daily, for years.
+
+THE TELLS: WHAT NEGLECT CANNOT FAKE
+
+So if the fog looks the same from both roads, and if the two conditions can be tangled together in the same person, how does anyone tell them apart? Is the distinction even real?
+
+It is, and the place to find it is in the features that childhood emotional neglect simply cannot produce.
+
+Neglect can make a child withdrawn, flat, socially wary, and unable to name their feelings. What neglect does not do — cannot do, no matter how severe — is manufacture the core neurological features of autism. The two big ones are restricted and repetitive behaviours and sensory differences.
+
+Restricted and repetitive behaviours are the deep, often soothing patterns of autistic life: intense focused interests pursued with a thoroughness that looks more like devotion than hobby; a powerful need for routine and sameness; repetitive movements that regulate an overloaded nervous system. These don't arise from a lack of emotional attention in childhood. They arise from how an autistic brain is organised, and they tend to show up early and persist across every environment.
+
+Sensory sensitivity is the other tell. The autistic nervous system frequently experiences the ordinary sensory world at a different intensity — fluorescent lights that hum like a dentist's drill, a clothing label that feels like a blade, a crowded room that arrives as physical assault. A neglected child may be anxious and hypervigilant, but they don't typically experience the world's raw sensory volume turned up to a level that overwhelms the system. That dial is set by neurology, not by parenting.
+
+So the clinician's real question is not "Is there a fog?" — there obviously is — but "What else is in the picture?" If the social and emotional flatness comes bundled with lifelong sensory intensity, deep repetitive interests, and a need for sameness that was there long before any childhood adversity, you are looking at autism, possibly with neglect layered on top. If the flatness stands more or less alone — withdrawal and emotional numbness without the sensory and repetitive signature, in someone whose history points clearly to an emotionally absent childhood — you may be looking at childhood emotional neglect wearing autism's clothes.
+
+WHY THE DISTINCTION IS WORTH THE TROUBLE
+
+This is where the whole thing stops being an academic puzzle and becomes a matter of someone's life getting better or not.
+
+Remember the two flavours of alexithymia. The secondary kind — the learned fog of childhood emotional neglect — responds to therapy. It can lift. The channel that was never built can, with patient work, be built in adulthood. This is the heart of the treatment for CEN: slowly relearning that emotions exist, that they have names, that they carry information, that they can be felt and survived and shared. People who spent forty years behind glass can learn to feel the weather inside themselves and put words to it. It is slow, and it is real.
+
+The primary kind — the wired-in fog of autism — is a different proposition. It may not lift in the same way, because it isn't scar tissue over a wound; it is part of the original architecture. That doesn't mean nothing helps. Autistic people develop sophisticated workarounds, learn to map bodily sensations to emotion labels cognitively rather than intuitively, and build lives of real richness. But the goal is accommodation and translation, not repair of something broken — because nothing is broken. It's a different operating system, not a damaged one.
+
+Now you can see the cost of getting the road wrong. Treat an autistic person's alexithymia as if it were learned neglect, and you may push them through years of emotion-excavation therapy chasing a buried feeling-world that was never structured that way to begin with — an exhausting, shaming hunt for something that isn't lost so much as differently arranged. Treat a neglected person's alexithymia as if it were innate autism, and you may tell them the fog is permanent — close the door on the very repair that could have given them back their inner life. Same symptom. Opposite prescriptions. One wrong turn at the crossroads and the person walks for years in the wrong direction.
+
+And then there is the most tangled case of all: the person in whom both are true. The autistic adult who was also, because of the double empathy problem, emotionally neglected as a child — who carries primary and secondary alexithymia at once, two fogs from two roads layered over each other. For them the work is to tell the two apart inside themselves: to find the part of the flatness that can lift, and make peace with the part that is simply how they are built. That is delicate, careful work, and it can only begin once someone has stopped insisting it must be one thing or the other.
+
+THE RIGHT MAP FOR THE REPAIR
+
+What I find quietly moving about this whole territory is that it dismantles the instinct to find someone to blame.
+
+It is tempting, when we hear "emotional neglect," to picture a cold or cruel parent. But the double empathy problem shows us a version where the neglect grows in a home full of love — where a devoted parent and a much-wanted child simply could not read each other, and the child grew up under-attuned-to not because anyone failed at caring but because caring, for them, required a translation neither party knew how to perform. The injury is real. The villain is absent. There is only a mismatch, and the long shadow it casts.
+
+That reframing matters because it changes what repair looks like. If the question is "who's to blame," everyone loses — the parent to guilt, the child to resentment, the truth to a fight nobody can win. If the question is instead "which fog is this, and which road did it come down," something becomes possible. You can begin to sort the learned from the innate. You can lift what will lift and accommodate what won't. You can hand someone the right map at last.
+
+Because that, in the end, is what the crossroads is really about. Not a label. A direction. The fog feels identical from inside whichever road you took to get there — but the way out runs differently depending on how you came in. And the kindest, most consequential thing anyone can do for a person living behind that glass is to figure out, carefully and without blame, which road they walked — and then point them, finally, toward the one that leads back out.
+
+Topics: childhood emotional neglect and autism overlap, alexithymia, the double empathy problem, primary vs secondary alexithymia, attunement and emotional development
+Suggested topics: The double empathy problem, Interoception and the sense of the inner body, Autistic masking and burnout, Reactive attachment disorder
