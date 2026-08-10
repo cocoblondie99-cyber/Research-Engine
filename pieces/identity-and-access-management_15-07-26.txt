@@ -1,0 +1,101 @@
+Grant and Forget
+
+It's 2am on a Tuesday. A production database has gone silent and the on-call engineer — let's call her Priya — needs access to the server that's dying. Normally Priya has read permissions and not much else. But the incident is live, users are angry, and the fastest path to fixing it is to give her admin rights now and ask questions later. Someone senior makes the call. A Slack message confirms it. The access is granted.
+
+By 3am, the crisis is resolved. By 4am, everyone is asleep. By 8am, the incident postmortem is being written and the learnings are being catalogued. And Priya still has admin access to production — because in the chaos and the relief and the several other things that landed on everyone's desk that week, no one removed it.
+
+Six months later, Priya clicks a link in what looks like an internal IT email. Her credentials are harvested. And the attacker who now holds them has administrative access to the production database — not because of some sophisticated breach, not because the firewall failed, not because of any particular malice on anyone's part. Because a keycard that should have expired in February is still active in July.
+
+This is an IAM failure. And it is by far the most common kind.
+
+
+Identity and Access Management — IAM, in the shorthand — is the layer of infrastructure that answers three questions: who are you, what are you allowed to do, and which things are you allowed to do it to? In a small organisation running on-premises software, this might be as simple as a list of usernames and passwords on a server. In a large cloud-native organisation with dozens of services, thousands of users, hundreds of automated processes, and infrastructure spread across multiple cloud providers, IAM is a sprawling, continually updated map of every entity that can touch every resource, and the exact permissions each one holds.
+
+Getting IAM right is the difference between a breach that stops at a single compromised account and one that takes down an entire organisation. And getting it wrong, in practice, almost always looks less like a clever hacker exploiting a novel vulnerability and more like Priya's keycard — permissions that were reasonable to grant, and never reasonable enough to revoke.
+
+
+The vocabulary of IAM is worth unpacking, because the terms get used loosely and the distinctions matter.
+
+An identity is any entity that can interact with a system: a person, yes, but also a service, an application, an automated script, or a cloud function. Modern cloud environments have far more of the latter than the former. When you add the machine identities — service accounts, API keys, deployment pipelines, Lambda functions calling other Lambda functions — human users become a rounding error.
+
+A resource is anything that can be accessed: a database, an S3 bucket, a Kubernetes cluster, a secret stored in Vault, a message queue, a VM. In a large cloud environment, there may be thousands of resources.
+
+A permission is a specific action an identity can take on a resource: read, write, delete, execute, list. IAM policies are collections of permissions, usually expressed as rules: this identity can perform these actions on these resources.
+
+The main organisational patterns are users (individual human accounts), groups (collections of users that inherit a shared policy), roles (sets of permissions that can be assumed temporarily), and service accounts (machine identities used by applications and services). Well-designed IAM leans heavily on roles and groups rather than per-user permissions — assigning permissions directly to individual accounts means every offboarding and onboarding is a manual audit, which is exhausting and error-prone.
+
+Least privilege is the guiding principle of the whole discipline: any identity should have exactly the permissions it needs to do its job, and nothing more. If a service only needs to read from a specific database table, it should not have permissions to write, to delete, or to access any other table. If a developer needs to view logs, she should not have the ability to modify them. The principle sounds obvious. Its practical application is one of the hardest ongoing problems in enterprise security.
+
+
+Here is the analogy that makes least privilege intuitive, and makes its failure mode visceral.
+
+Imagine you work in a large building — hundreds of rooms, dozens of floors, separate wings. When you first join, someone cuts you a keycard with access to the front door, your office, the kitchen on your floor, and the car park. That's your starting set. Over the years, things happen. You need to enter the server room for a one-off task — a key is cut. You take on a project that requires access to a different floor — a key is cut. You need to get into the archive for a compliance audit — a key is cut. You help out with a late-night production crisis, and someone gives you temporary access to the comms room — a key is cut.
+
+Keys are almost never taken back. Who has time? And besides, you might need the server room again next month. Why create friction?
+
+After a few years, your keycard opens most of the building. You haven't been in the archive for two years. You've been in the server room once. But you carry those keys, and they're valid, and if someone steals your wallet, they can walk into most of the building uncontested.
+
+Least privilege is the discipline of going through your keyring regularly and removing the keys you don't actually use. It is tedious, it has no visible reward when it goes well, and it prevents a class of disaster that is entirely invisible until the moment it isn't.
+
+The reason organisations fail at least privilege is structural, not moral. Granting access is a quick action that solves a visible problem: Priya needs to fix production. Revoking access is a slow action that solves an invisible problem: Priya might be compromised at some future date. The first is socially rewarded — you unblocked work, you moved fast, good job. The second is invisible — if you do it well, nothing ever happens and no one ever thanks you. In any organisation without deliberate, enforced access review processes, the natural drift is toward over-permissioning. The system, left to itself, gains permissions and rarely loses them.
+
+
+The "grant broad now, tighten later" pattern is so common it has become the default.
+
+An engineer needs to connect a new service to a database. The expedient grant is database admin. The intention is to figure out exactly which tables the service actually touches and tighten the permissions once things are stable. Later, the service is in production and working, and touching it feels risky. Later still, the original engineer has moved to another team and no one knows what this service actually does. Later never comes. The admin grant stays.
+
+This is not a failure of individual judgment. It is the predictable output of how organisations work under time pressure, with imperfect handover documentation, and without enforcement mechanisms that make tightening permissions feel normal and achievable.
+
+Least privilege as commonly articulated tells you what to aim for. What it doesn't tell you is how to maintain it over time in an environment that is constantly changing — new services being added, old ones being decommissioned, engineers joining and leaving, projects starting and ending. Least privilege is not a configuration you set once. It is a discipline you exercise continuously, against the grain of how momentum actually works.
+
+
+This is already hard for human identities. The problem is dramatically worse for machine identities, and this is where the scale of the modern IAM crisis becomes clear.
+
+In a typical cloud environment, the ratio of non-human to human identities is roughly 144 to 1. A hundred engineers might work at a company. That company might also have thousands of service accounts, API keys, Lambda functions, deployment pipelines, background workers, health checkers, and automated compliance scripts — each of them capable of taking actions on cloud resources, each holding some set of permissions.
+
+A 2025 industry report found that 97% of machine identities in cloud environments carry excessive privileges. Not some — 97%. The permissions exist, they are in use, and in almost every case they are broader than they need to be.
+
+Why? Because IAM was designed, implicitly, around human identities — and the model depends on a natural offboarding moment. Humans leave organisations. When they do, their accounts get disabled and their permissions are reviewed. There is a forcing function: the departure. Machine identities have no equivalent event. A service account created for a project in 2021 might still be active in 2026 even if the project was wound down, because no one explicitly decommissioned it, and because automated processes don't resign or hand in their notice.
+
+The result is a long tail of machine identities — some active, some dormant, some genuinely abandoned — each carrying permissions that were once needed, or thought to be needed, and were never removed. Each one is a potential surface for an attacker. If an API key for a deployment service is leaked in a code commit and not rotated, an attacker can use that key to assume whatever permissions the service account holds — which, if "grant broad now, tighten later" applied to its creation, may be quite a lot.
+
+
+This shifts IAM from a configuration concern to an ongoing operational discipline, and it has changed how the industry thinks about what "the perimeter" means.
+
+In the old model of enterprise security, there was a network perimeter: a firewall that separated the internet (untrusted) from the internal network (trusted). If you were inside the network, you were implicitly trusted. IAM mattered, but it was layered on top of a physical or network boundary that already filtered who could even reach a resource.
+
+In a cloud-native environment, there is no perimeter in that sense. Resources live in AWS or Azure or GCP, accessible over the internet by any identity with the right credentials. The developer working from a coffee shop is on the same network as the attacker sitting two tables over. The only thing separating authorised access from unauthorised access is the credential and the permission attached to it.
+
+This makes IAM the perimeter. The identity is the boundary. Which is another way of saying that over-permissioned identities are not a minor hygiene problem — they are the thing that determines whether a compromised credential becomes a minor inconvenience or a catastrophic breach.
+
+The 2020 SolarWinds attack — one of the most studied supply chain breaches in recent history — exploited over-permissioned service accounts to move laterally through victim environments. The attackers didn't break through a firewall. They acquired credentials that already had the access they needed, because the natural drift toward over-permissioning had run unchecked for long enough that the damage surface was vast.
+
+
+What does doing IAM well actually look like?
+
+The first practice is access review on a cadence — not when it seems necessary, but on a schedule. Quarterly reviews, where every account and every service identity's permissions are examined against a documented business need, are table stakes. Most organisations don't do them, or do them perfunctorily. The ones that do catch the Priya keyrings before they become breach vectors.
+
+The second practice is just-in-time access for sensitive operations. Rather than granting elevated permissions permanently and trusting that they'll only be used appropriately, JIT systems grant elevated permissions for the duration of a specific task and revoke them automatically when the task is done. Priya needs admin access at 2am? She requests it, it's granted for two hours, and it expires automatically when the window closes. The breach scenario at the top of this piece never happens, because by the time the phishing email arrives six months later, there's nothing elevated to steal. The key was cut, used, and taken back. JIT access requires tooling — Azure Privileged Identity Management, AWS IAM Identity Center session policies, or third-party platforms like CyberArk — but the concept is straightforward: make temporary the thing that should only ever be temporary.
+
+The third practice — still emerging as a mainstream discipline — is machine identity lifecycle management: treating service accounts and API keys like software products, with creation policies, rotation schedules, and explicit decommission procedures. If a service account is not actively used, it should not exist, or should exist in a minimal-permission state. API keys should rotate automatically, not sit static for years waiting for an accidental commit to expose them.
+
+The fourth practice is the one that makes all the others work: least privilege should be the default, not the aspiration. The correct starting point for any new identity is zero permissions, with access added as it is proven necessary. The current default in most organisations is broad permissions, with access narrowed in theory and rarely in practice. Reversing that default is a cultural and tooling change as much as a policy one — it requires that the people who provision access feel the cost of over-provisioning, not just the reward of moving fast.
+
+
+Modern IAM tooling has improved substantially. AWS IAM Access Analyzer can examine policies and identify permissions that have never been exercised. Azure Entra ID has Privileged Identity Management built in. Zero Trust architecture — "never trust, always verify" — bakes the assumption of no implicit trust into network and application design, so IAM checks happen continuously rather than once at the perimeter.
+
+These tools help. But they don't resolve the fundamental tension: that maintaining least privilege requires sustained effort in an environment that rewards moving fast and granting access, and punishes nothing when a dormant service account sits quietly for two years holding admin rights to the production database.
+
+The honest story of IAM is that the technical problem is largely solved. We know how to structure permissions. We know how to write least-privilege policies. We know how to rotate credentials and enforce time-bounded access. What is harder — and what determines whether IAM actually works in a given organisation — is whether there is the will to do the slow, thankless, invisible work of maintenance.
+
+
+The keyring keeps growing. That's the physics of it. Every door you need to get through generates a key, and keys are not costly to cut, and the friction of taking them back is real. The discipline of least privilege is the discipline of going through your keyring regularly and being willing to discard keys you might theoretically need someday, because the risk of carrying them is worse than the inconvenience of cutting a new one.
+
+It is not a problem you solve once and check off. It is a problem you manage continuously, against the grain of how organisations naturally operate, in full knowledge that you will never be thanked for the breaches that never happened.
+
+The 97% statistic about machine identities is not a surprise. It is the predictable output of entropy, unchecked.
+
+The question is not whether to fight the entropy. The question is whether your organisation fights it deliberately, on a schedule, before something forces the issue — or only after.
+
+Topics: IAM, Identity and Access Management, cloud security, least privilege, machine identities, Zero Trust
+Suggested topics: Zero Trust architecture, OAuth and OpenID Connect, Secrets Management, SSRF

@@ -1,0 +1,98 @@
+The Server in Singapore
+
+Picture a user in Sydney opening a webpage. The site — a news outlet, a retailer, a software product — is hosted on a server in London. The HTML file arrives in a fraction of a second, the browser reads it, and discovers forty-eight additional resources it needs: images, stylesheets, font files, JavaScript bundles, video thumbnails. Each one requires a round-trip across the planet and back. Roughly 17,000 kilometres each way. At the speed of light through fibre-optic cable, the physics alone impose something like 270 milliseconds of unavoidable delay per round-trip, before the server has even had time to think. Multiply that by forty-eight resources and you have a page that loads not in a blink but in a long, grinding sequence — each element staggering into view while the connection races back and forth across the equator.
+
+Now take the same user, the same page, the same forty-eight resources. A CDN is involved. Most of those resources are answered not from London but from a server in Singapore, eighteen hundred kilometres away. The round-trip is 20 milliseconds instead of 270. The page loads so quickly that the user never thinks about it. She doesn't know a CDN exists. She doesn't know a server in Singapore answered her request. She just knows the page felt fast — or she knows the other site felt slow, without being able to say why.
+
+That gap, 20 milliseconds versus 270, invisibility versus frustration, is the CDN's reason for being. And the infrastructure that produces it is one of the most quietly consequential layers of the modern internet.
+
+**The Problem With Distance**
+
+Network latency is the time a piece of data takes to travel from one point to another. It is bounded by physics: signals move through fibre at about two-thirds the speed of light, and no amount of engineering changes that. What engineering can change is how far the signal has to travel.
+
+This is not a trivial constraint. A modern webpage is not a single file. It is a document that, when parsed, issues dozens of requests for additional assets — CSS stylesheets that define the layout, JavaScript files that power the interactive elements, images, fonts, tracking scripts, third-party widgets. Some of these can be fetched in parallel; many cannot, because the browser has to evaluate one file to know what else to request. The result is that latency compounds. A page that feels snappy if you're sitting near the server feels sluggish from twelve time zones away, even on a fast connection.
+
+The naive solution is to put your server somewhere central. But there is no single location that is close to users in Sydney, São Paulo, Cairo, and Helsinki at the same time. A server in Frankfurt is excellent for Western Europe and poor for almost everyone else. The physics doesn't care about your hosting strategy.
+
+The CDN's answer is to abandon centrality entirely and become everywhere at once.
+
+**Shadow Copy**
+
+A Content Delivery Network is, at its core, a geographically distributed fleet of servers — hundreds of them, placed in data centres around the world, from Singapore to São Paulo to Stockholm to Seattle. These servers don't run your application. They don't process orders or authenticate users or query databases. What they do is store copies of your content: images, stylesheets, JavaScript bundles, video files, software packages — everything that doesn't change with every request and doesn't require your origin server's involvement to serve.
+
+When a user in Sydney requests your site, the CDN intercepts the request and checks whether it holds a fresh copy of the requested resource. If it does, it answers immediately from its nearest server, and the origin in London never knows the request happened. If it doesn't, it fetches the resource from London, serves it to the user, and keeps a local copy for the next person who asks.
+
+The net effect is that your website acquires a shadow: a distributed replica of its static content, perpetually refreshed, that appears to live wherever the user happens to be. The origin server — the machine actually running your application — becomes something that mostly talks only to the CDN. Users see the shadow. They never reach the source.
+
+**The Vending Machine**
+
+The vending machine is the best way to hold this in your head.
+
+A manufacturer doesn't sell products directly to every customer in every city. They stock vending machines near where people already are — offices, train stations, sports grounds, hospital lobbies. When you want a drink, you buy it from the machine twenty metres away, not from the factory. The factory never sees your transaction. You get served in seconds from inventory that's been waiting nearby for you.
+
+The origin server is the factory. The CDN's servers — in industry terminology, its Points of Presence, or PoPs — are the vending machines. Every major city in the world has at least one. When your browser asks for an image, it's the nearest vending machine that answers.
+
+Each slot in the machine holds a product for a limited time. Vending machines don't stock their shelves indefinitely — perishables expire. CDNs work the same way. Every cached resource has a Time To Live, or TTL: a freshness window defined by cache headers attached to the server's response. When the TTL expires, the cached copy is treated as stale, and the next request for that resource triggers a fresh fetch from the factory. The CDN is always serving the freshest version of the product it's currently permitted to hold.
+
+There are two models for stocking the machines. Pull CDNs — the dominant model for ordinary web assets — work on demand. The machine starts empty. The first customer to request something triggers a fetch from the factory, which stocks the machine for every subsequent customer until the product expires. The machine self-populates based on what people actually ask for. Push CDNs work differently: the manufacturer pre-loads every machine before launch day, pushing the inventory out in advance rather than waiting for demand to arrive. Push is used for large files — video, software installers, game updates — where you know demand will be high and you want to guarantee the asset is cached everywhere before the first request lands, not assembled on the fly after it.
+
+**How Your Request Finds the Nearest Machine**
+
+Here is where CDNs do something that sounds simple but is quietly remarkable: every PoP in the CDN's network announces the same IP address.
+
+When you type a URL into a browser, that domain resolves to an IP address — a number that identifies where on the internet to send the request. You might expect each CDN server to have its own unique address, and for some routing logic to figure out which one to use. CDNs mostly don't work this way. Instead, using a technique called Anycast, every one of their hundreds of PoPs announces the same IP address to the global routing system simultaneously.
+
+The routing system — the network of protocols called BGP that manages how traffic flows between the thousands of independent networks that together constitute the internet — receives all these competing announcements and, following its own rules about path length and proximity, automatically routes each user's connection to the topologically nearest PoP making that announcement.
+
+In practice: when a user in Sydney reaches out to a CDN IP address, BGP routes the request to Singapore. When a user in Helsinki reaches out to the same IP address, BGP routes them to Stockholm. Both users believe they're talking to the same server — and they are technically correct, in the sense that the address is the same. But the physical machine that answers is different for each of them, on different continents, and neither of them knows. No configuration change was required on the user's end. No logic in the browser decided. The global routing system just did what it does, and the nearest vending machine answered.
+
+**The Control Layer**
+
+The vending machine analogy earns its keep most clearly when you look at the freshness problem.
+
+The reason CDNs don't just cache everything forever is that content changes. A product image is updated, a stylesheet is refactored, a JavaScript file is patched for a bug. If the CDN held cached copies indefinitely, users would see stale versions long after the origin had moved on. The mechanism that coordinates the shadow copy with reality is the cache header — specifically, the `Cache-Control` header that the origin server attaches to each response.
+
+Think of it as the expiry date printed on the packaging. `Cache-Control: max-age=86400` means this product is good for 24 hours; after that, treat it as expired and reorder. `Cache-Control: no-cache` doesn't actually mean "don't cache" — it means "revalidate before serving," which is the CDN asking the origin "is the copy I'm holding still current?" before it uses it. `Cache-Control: no-store` means what `no-cache` implies it means: don't cache this at all, which is appropriate for responses containing session-specific or personal data.
+
+Getting these settings right is where real CDN engineering happens. TTLs set too short mean constant traffic back to the origin, negating most of the CDN's value. TTLs set too long mean users get stale content after an update. The solution for assets that change infrequently but matter when they do — CSS, JavaScript bundles, images — is cache-busting. The filename of each asset includes a hash derived from its contents. When the asset changes, the hash changes, the filename changes, and the CDN treats it as a brand new resource with no cached history. The old filename continues serving from cache until it expires harmlessly. You tell the CDN: this URL is good forever, because the moment the content changes, I'll use a different URL.
+
+This means the origin can set a TTL of a year on hashed assets without ever worrying about users getting stale files. The URL change is the invalidation.
+
+**The Empty Slot**
+
+What happens when the nearest vending machine doesn't have what you want?
+
+A cache miss — a request for a resource the PoP doesn't hold, or holds an expired copy of — triggers a fetch from upstream. In a simple setup, that means a request all the way back to the origin in London. But for large CDN operators, routing every cache miss to origin would recreate the latency problem at reduced scale. So most CDNs introduce a middle tier: the origin shield.
+
+An origin shield is a single designated PoP that acts as the exclusive point of contact with the origin server. Every other PoP in the network, when it misses its cache, goes to the shield first — not to the origin directly. The shield might be a server in Amsterdam, chosen because it has fast and reliable connectivity to the London origin. The Sydney PoP misses and goes to Amsterdam. The São Paulo PoP misses and goes to Amsterdam. Stockholm misses, Frankfurt misses, Mumbai misses — all of them go to Amsterdam. Only Amsterdam goes to London, and only when Amsterdam misses.
+
+This is the central warehouse in the vending machine model. The factory's address is known only to the warehouse. The vending machines know only the warehouse. The factory never receives a delivery truck it wasn't expecting.
+
+The benefits compound. The origin server sees a fraction of the requests it would otherwise handle — the shield collapses hundreds of independent PoP misses into one. And because only the shield's IP address ever contacts the origin, you can configure your origin's firewall to reject every connection that doesn't come from the shield. The factory is off the grid. The public internet cannot reach it.
+
+**A Side Effect That Turned Into a Feature**
+
+That invisibility produced a benefit no one fully designed for.
+
+A DDoS attack — a Distributed Denial of Service attack — works by directing so much traffic at a target that the target becomes too busy to serve legitimate users. The attack's power comes from volume: a botnet of a million compromised machines generates requests that no single server can absorb. If your origin is directly exposed to the internet, a large enough flood overwhelms it.
+
+If your origin is behind a CDN with an origin shield, the flood hits the CDN. And here the arithmetic changes.
+
+A major CDN might have 200 PoPs around the world, each with significant processing capacity. Anycast routing means the incoming flood is automatically distributed across all 200 — no single PoP is targeted, because all of them announce the same address and BGP divides the traffic geographically. A million-request flood becomes five thousand requests per PoP. Five thousand requests is not an unusual traffic rate for a well-resourced data centre. The PoP barely registers it. The shield sees elevated miss traffic from the PoPs. The origin server sees nothing, because the shield rate-limits its own connections to the origin regardless of what's happening upstream.
+
+This was not, originally, the marketing pitch. CDNs sold performance. But the same architecture that distributes content to absorb latency also distributes attacks to absorb volume. The two properties come from the same design. Being geographically present everywhere with Anycast addressing makes you fast for normal users and effectively untargetable by volumetric attacks simultaneously. Every major CDN provider now sells DDoS protection as a primary product line. The infrastructure is identical to what serves content. What changed was recognising what had always been there.
+
+**The Layer Nobody Sees**
+
+Most users have never heard of a CDN. This is, in a sense, the measure of how well the technology works.
+
+The user in Sydney doesn't know she's talking to a server in Singapore. She doesn't know that twenty PoPs across Asia-Pacific each hold a copy of every image on the site she's browsing. She doesn't know that when the retailer updated its homepage banner at 3am, the cache headers expired cleanly and the new version propagated to every PoP within minutes. She knows the page loaded quickly. That's the only fact visible from where she sits.
+
+This is a defining characteristic of infrastructure. Infrastructure is successful when it's invisible. The moment users notice it is the moment it has failed: the slow page load, the outage during a product launch, the video that buffers. CDNs have been invisible long enough, and comprehensively enough, that most people have absorbed the speed they produce as simply what the internet is like. They have no mental model of what it would be like without them, because they have never experienced the internet without them — at least not on any site with a meaningful budget.
+
+You have experienced both, without knowing it. When a site loaded slowly because its assets were hosted on a single server in a distant region, you probably decided the site was badly made, or your connection was misbehaving, or the internet was just slow today. When a site loaded instantly because a CDN PoP three hundred kilometres away answered every resource request in the time it takes to blink, you assumed the developers had done something right. Neither judgment was quite accurate. You were mostly experiencing geography — and whether someone had put a layer of vending machines between the factory and you.
+
+The modern web is fast, broadly and consistently, because someone built a shadow copy of almost every website and positioned it near the people who visit. The web's speed is not a property of the websites themselves. It is a property of the infrastructure underneath them — running silently, updating its cache, routing your request to the nearest PoP, answering before you thought to wait. The server in Singapore has been serving you for years. You simply never knew it was there.
+
+Topics: CDN, content delivery networks, web performance, network infrastructure, latency, Anycast routing, caching
+Suggested topics: HTTP/2 and HTTP/3, DNS resolution and TTLs, TCP vs UDP, edge computing and edge functions

@@ -62,22 +62,25 @@ done
 # Phase 1: Selection — reads topics.md only; writes selected_topic.txt
 log "Phase 1: Selection"
 run_claude "Phase 1" $CLAUDE --model claude-haiku-4-5-20251001 \
+  --max-tokens 1500 \
   --append-system-prompt "$SYSTEM" \
   --permission-mode bypassPermissions \
-  -p "Research engine session — Phase 1 (Selection) only. Read CLAUDE.md and the '### 1. Selection' section of rules.md only. Read topics.md. Select a topic following the Phase 1 rules — avoid anything written last session. Write the selected topic name and its full description to selected_topic.txt. Do not research or write the piece. Do not run any other phases."
+  -p "Research engine session — Phase 1 (Selection) only. Read CLAUDE.md and the '### 1. Selection' section of rules.md only. Read topics.md. Check the last entry of completed.md for recency — avoid a topic written last session. Select a topic and write the selected topic name and its full description to selected_topic.txt. Your output goes to a log — the next phase reads selected_topic.txt, not your text. Confirm in one line what was selected. Nothing else."
 
 # Phase 2: Research — reads selected_topic.txt only; appends angle plan
 log "Phase 2: Research"
 run_claude "Phase 2" $CLAUDE --model claude-sonnet-4-6 \
+  --max-tokens 4000 \
   --append-system-prompt "$SYSTEM" \
   --permission-mode bypassPermissions \
-  -p "Research engine session — Phase 2 (Research) only. Read CLAUDE.md and the '### 2. Research' section of rules.md only. Read selected_topic.txt for the topic — do not re-read topics.md. Web search the topic thoroughly: key facts, surprising angles, good analogies, recent developments, the thing most people get wrong. Then append a brief angle and hook plan (2–4 sentences) to selected_topic.txt. Do not write the piece. Do not run any other phases."
+  -p "Research engine session — Phase 2 (Research) only. Read CLAUDE.md and the '### 2. Research' section of rules.md only. Read selected_topic.txt for the topic — do not re-read topics.md. Web search the topic: 4–5 targeted searches maximum, stop when you have enough. Append a structured angle plan to selected_topic.txt (Hook / Angle / Key facts / Analogy) as specified in rules.md. Your output goes to a log — Phase 3 reads selected_topic.txt, not your text. Confirm in one line when done. Nothing else."
 
 # Phase 3: Writing — reads selected_topic.txt only; saves piece and updates topics.md
 log "Phase 3: Writing"
-run_claude "Phase 3" $CLAUDE --model claude-opus-4-8 \
+run_claude "Phase 3" $CLAUDE --model claude-sonnet-4-6 \
+  --max-tokens 8500 \
   --append-system-prompt "$SYSTEM" \
   --permission-mode bypassPermissions \
-  -p "Research engine session — Phase 3 (Writing) only. Read CLAUDE.md and the Content, Style, and Format sections of rules.md (stop before the Session phases section). Read selected_topic.txt for the topic, description, and angle/hook plan — do not re-read topics.md. Write the full piece (2000–3600 words); save to pieces/; upload to GDrive: rclone copy the saved file to gdrive:\"Research Engine\". Then update topics.md: remove the written topic from the Main Topics list and Draw Index, update the pool count. Do not run any other phases."
+  -p "Research engine session — Phase 3 (Writing) only. Read CLAUDE.md and the Content, Style, and Format sections of rules.md (stop before the Session phases section). Read selected_topic.txt for the topic, description, and angle/hook plan — do not re-read topics.md. Write the full piece (2000–3600 words); save to pieces/; upload to GDrive: rclone copy the saved file to gdrive:\"Research Engine\". Then: (1) update topics.md — remove the written topic from the Main Topics list and Draw Index, update the pool count; (2) append one line to completed.md in the existing format: '- **YYYY-MM-DD** — *Title* — brief description'. Your output goes to a log only. Confirm in one line when done. Nothing else."
 
 log "=== Session complete ==="

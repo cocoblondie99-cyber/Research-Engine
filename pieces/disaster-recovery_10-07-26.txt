@@ -1,0 +1,102 @@
+The Drill You Never Run
+
+On July 19, 2024, a software company called CrowdStrike pushed a routine content update to its security software. The file was 40 kilobytes — smaller than a photograph. Within ninety minutes, 8.5 million Windows machines around the world had displayed the blue screen of death and refused to restart. Airlines grounded aircraft because check-in systems had stopped responding. Hospitals postponed surgeries. Banks froze trading operations. The update had slipped past automated testing and landed on production machines before anyone noticed something was wrong. By the time the smoke cleared, the incident had cost Fortune 500 companies an estimated $5.4 billion.
+
+No fire. No flood. No ransomware gang. Just a config file.
+
+This is worth sitting with, because most people's mental model of a disaster recovery scenario involves something dramatic — a data centre submerged by a burst pipe, a hurricane taking out a region, a criminal organisation encrypting every drive on the network. Those things happen. But the CrowdStrike outage was triggered by a software update that looked like thousands of other software updates. The kind of thing that happens on a Tuesday afternoon. The kind of thing an organisation's disaster recovery plan might not explicitly cover, because disaster recovery plans are usually written to address the scenarios people imagined at the time they wrote the plan.
+
+This is the first of several uncomfortable truths about disaster recovery. The second is that most organisations have a plan and have never tested it. And the third is that the untested plan is not, in any meaningful sense, a plan.
+
+---
+
+Before getting to the testing problem, it helps to understand what disaster recovery is actually trying to do — and the two numbers that define it.
+
+Every organisation that depends on IT systems has, whether it knows it or not, a tolerance for two kinds of loss: how much data it can afford to lose, and how long it can afford to be down. These tolerances are usually implicit. They live in the gut feelings of whoever would be handling a crisis, shaped by vague intuitions about what customers can accept and what regulators would permit. Disaster recovery planning is the discipline of making those tolerances explicit — converting gut feelings into numbers, and then designing systems that can actually meet those numbers.
+
+The first number is the Recovery Point Objective, or RPO. This is the maximum age of the data you can restore to. If your RPO is four hours, it means that in the worst case — if disaster strikes and you have to restore from your most recent backup — you can tolerate losing four hours of work. Everything entered, processed, or recorded in those four hours is gone. The RPO drives backup frequency: if you back up once a day but your RPO is four hours, there's a mismatch, and the mismatch will hurt when it matters.
+
+The second number is the Recovery Time Objective, or RTO. This is how long you're allowed to take getting back up. If your RTO is two hours, your systems must be restored and operational within two hours of a disaster being declared. The RTO drives infrastructure investment: you cannot achieve a two-hour RTO if your recovery procedure requires a technician to fly to a data centre, reinstall an operating system, and restore from tape.
+
+The relationship between these two numbers is one of the most clarifying framings in infrastructure thinking. Once you've committed to an RPO and an RTO, a large fraction of your architectural decisions follow directly. How often do you back up? Where do you replicate data? Do you need a standby environment, and if so, how warm does it need to be? How much do you spend on all of this? The numbers create a shape that the infrastructure has to fit.
+
+The harder question — and this is where the framing exercise becomes genuinely valuable — is deciding what the numbers should be.
+
+---
+
+The conversation about RPO and RTO targets tends to start with vague aspirations and quickly become a negotiation with reality. Everyone wants zero data loss and instant recovery. The question is what they're willing to pay for it.
+
+The financial services industry offers a useful extreme: for a trading platform or a payments processor, losing even a few seconds of transaction data is unacceptable, and downtime measured in minutes can trigger regulatory action. Banks with serious DR programmes target RPOs of near-zero — continuous replication means the secondary site is always a few milliseconds behind the primary — and RTOs measured in seconds. Achieving this requires running fully active infrastructure in multiple locations simultaneously, always on, always synchronised. It is enormously expensive. For a bank, it is worth it.
+
+Move across the industry spectrum and the targets shift. A healthcare organisation might tolerate an RPO of a few hours on administrative systems but near-zero for patient records where data loss could affect care. A manufacturing company might set an RPO of four hours and an RTO of eight hours for most systems, accepting that a production line will be down for up to half a shift before things are running again. An e-commerce platform might choose an RTO of one hour, reasoning that one hour of revenue loss is painful but recoverable.
+
+The key word in all of these is "accept." Setting an RPO and an RTO is not a technical exercise — it is a business decision about acceptable loss, translated into engineering constraints. The RPO says: this is the most data we are willing to lose. The RTO says: this is the longest our customers, our staff, and our finances can function without us. Those answers come from the business, not from the infrastructure team. Getting them answered before a disaster is the work.
+
+---
+
+Once the targets exist, they determine where on a spectrum of readiness the organisation needs to sit.
+
+Think of that spectrum as having three broad bands, each with a different relationship between cost and recovery speed. The metaphor is borrowed from power generation: you have cold capacity (idle plant that takes hours to spin up), warm capacity (plant that can come online in minutes with some preparation), and hot capacity (running in parallel right now, ready to pick up load instantly).
+
+In disaster recovery terms, cold standby is the bare minimum: backups exist, recovery procedures are documented, but there is no live duplicate of the environment. When disaster strikes, someone opens the runbook and starts building. This takes hours — sometimes days. It is cheap to maintain and slow to recover. It is appropriate for systems where extended downtime is tolerable.
+
+Warm standby takes the standby environment and keeps it partially alive: a smaller version of the production infrastructure running in a secondary location, with data being replicated to it continuously. It cannot take production load without being scaled up first, but it can reach that state in minutes rather than hours. The trade-off is cost: you are paying for a second environment that sits mostly idle.
+
+Hot standby — or active-active operation — means both environments are serving real traffic all the time. There is no failover to trigger, because both sites are always active. If one disappears, the other simply absorbs all the load. Recovery time approaches zero. This is the most expensive configuration by a significant margin, and it introduces its own complexities around data synchronisation and split-brain scenarios. It is appropriate where downtime is measured in money at a rate that makes the infrastructure investment worthwhile.
+
+The choice between these tiers is not purely a matter of preference. The RPO and RTO targets make it for you. A two-minute RTO is incompatible with cold standby. A near-zero RPO is incompatible with daily backups. Once the business has committed to what it can tolerate, the infrastructure requirements follow. The framing exercise produces the architecture.
+
+---
+
+There is a detail in the warm and cold standby models that deserves specific attention, because it is the source of more quiet disasters than almost anything else in this space.
+
+Backups are not the same as recovery capability.
+
+This sounds obvious but is persistently misunderstood. An organisation might have robust, encrypted, offsite backups running every four hours. Those backups represent the data as it existed at the time they were taken. They do not represent a tested recovery path. The backup has been made — but restoring it into a working system, in a reasonable time, with the right dependencies in place, is a separate problem that has only one reliable test: actually doing it.
+
+The numbers on this are alarming. Around sixty percent of organisations do not perform regular backup restoration tests. Seventy-one percent do not conduct failover testing. The backup strategy is conceived, implemented, monitored for completion, and then trusted — without ever being verified against the scenario it was designed for.
+
+The failure mode is not dramatic. It is quiet. The backups run. The confirmation emails arrive. The reports show green. And then, when a crisis arrives and someone tries to restore from those backups, they discover that the procedure written three years ago references software versions that no longer exist, or that the restore process takes fourteen hours instead of the two that the RTO requires, or that the backup files are intact but were never tested against the schema version the application now expects. The plan failed at the moment of maximum pressure, in exactly the way that drills are supposed to prevent.
+
+This is not hypothetical. The Sophos 2024 research into ransomware recovery found that only seven percent of affected organisations could restore operations within twenty-four hours. Thirty-four percent took more than a month. Those organisations had backups — the attackers specifically targeted them. Ninety-three percent of ransomware incidents in recent years involved attacks on backup repositories, precisely because the attackers understood that the backup is what the victim's recovery depends on.
+
+The drill is the only way to find out whether the plan works before you need it to.
+
+---
+
+The fire drill analogy holds up well enough to pursue. A fire drill is not primarily about teaching people where the exits are. That information could be delivered by a sign on the wall. The purpose of the drill is to discover, under something approaching real conditions, all the things the sign does not know: that the fire door sticks unless you push hard on the lower left corner, that the stairwell on the east side is used for storage and is currently half-blocked, that the procedure for accounting for staff at the assembly point takes twenty minutes in practice rather than the five minutes the plan assumes. The drill surfaces the gap between the plan and reality.
+
+A disaster recovery drill serves the same function. The runbook says: spin up the secondary environment, redirect traffic, verify application health, restore the database from the last snapshot. The drill discovers that the secondary environment's SSL certificate expired two months ago and nobody noticed, that the traffic redirection procedure requires DNS changes that take up to an hour to propagate, and that the person who knows how to perform the database restore is on parental leave. None of these things appear in the documentation. All of them would appear in a drill.
+
+There are different intensities of DR testing, ranging from tabletop exercises (talking through the procedure in a meeting room, identifying theoretical gaps) to full production failovers (actually cutting traffic to the primary environment and running on the secondary). Between these extremes sits simulation testing, where the secondary environment is brought up and tested without touching production traffic, and partial failover testing, where individual systems rather than the whole stack are failed over in sequence.
+
+Even the least intensive form — the tabletop — is vastly better than nothing. Having the relevant people in a room, walking through the runbook step by step and asking "what would happen here?" surfaces a remarkable number of gaps. Who has access to the secondary environment's management credentials? Where are they stored? What happens if the person who normally handles this is unreachable? What external dependencies does the system have that won't automatically redirect? The questions tend to cluster around handoffs, credentials, and external dependencies — exactly the things most likely to be missing or stale.
+
+The recommendation for most organisations is quarterly drills for critical systems, with at minimum an annual full failover test. The full failover is the one that actually proves the plan — it is the only test that includes the full recovery path from beginning to end, under something close to real conditions. It is also the test most organisations skip, because it is disruptive and uncomfortable and requires making the production environment deliberately vulnerable for a period of time.
+
+That discomfort is the point.
+
+---
+
+There is one more dimension to modern disaster recovery that has shifted the threat model considerably: the rise of ransomware as the most likely reason you will need your DR plan in the near future.
+
+The scenario people imagine when thinking about disaster recovery has traditionally been infrastructure failure: a server dies, a storage array loses power, a data centre floods. These things still happen, and they are worth planning for. But the 2024 data tells a different story about what actually triggers DR responses in practice. Ransomware — malicious software that encrypts an organisation's files and demands payment for the decryption key — is now the leading cause of major recovery operations, with recovery costs averaging $2.73 million per incident in 2024, up from $1.82 million the previous year. The Change Healthcare attack in February 2024 compromised the personal information of over one hundred million people.
+
+Ransomware attacks the premise of the conventional DR playbook in a specific way. The traditional model assumes the disaster is contained in time: the data centre floods on Tuesday, and you recover to a backup from Monday. The backup predates the disaster. But ransomware often sits dormant in a network for weeks or months before it activates, quietly infecting and encrypting files in ways that are initially indistinguishable from normal file writes. When it detonates, the backups from the past several weeks may also contain encrypted files. Recovering to last Monday's backup might not escape the infection.
+
+This changes what good DR looks like in an environment with a realistic ransomware threat model. Backups need to be immutable — once written, they cannot be modified or deleted, even by an account with administrative credentials. Air-gapped backups (physically isolated from the network) provide the strongest protection against a ransomware attack that targets backup repositories. Long retention windows allow recovery to a point before the infection arrived, even if that means accepting some data loss. And multiple backup tiers — local for fast recovery, offsite for resilience, offline or immutable for ransomware scenarios — provide defence in depth against an attacker who knows exactly what they're trying to destroy.
+
+None of this makes ransomware recovery easy. But it changes the conversation from "do we have backups?" (almost everyone does) to "do we have backups that a sophisticated attacker who has been inside our network for three months cannot compromise?" That is a harder question, and it is the right one.
+
+---
+
+Return, finally, to July 2024. CrowdStrike's update cascaded through 8.5 million machines not because organisations had no disaster recovery plans, but because their disaster recovery plans mostly assumed the disaster would come from outside — from a failed disk or a ransomware attack or a natural event. A defective update from a trusted security vendor, deployed globally in minutes, was not the scenario most runbooks covered.
+
+The lesson is not that disaster recovery is futile in the face of novel failure modes. The lesson is that disaster recovery, done well, builds a kind of organisational muscle rather than just a document. Organisations that test their recovery procedures regularly develop something that cannot be written down: an operational familiarity with the process of bringing things back. They know where the credentials are stored, who makes the calls, how long each step actually takes. That familiarity transfers to scenarios the runbook didn't anticipate, because the underlying capability — knowing how to recover, having practised it — is more durable than any specific set of instructions.
+
+The organisations that struggled most on July 19, 2024 were not necessarily those without recovery plans. They were those who had never rehearsed what it actually felt like to restore a large number of machines from scratch, under pressure, in parallel. The drill builds more than compliance. It builds capability.
+
+And capability is the thing that works when the scenario is one nobody wrote down.
+
+Topics: Disaster Recovery
+Suggested topics: Business Continuity Planning, Ransomware Defence Architecture, Immutable Backups and Storage, Incident Command and Crisis Communication

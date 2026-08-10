@@ -1,0 +1,75 @@
+Somebody's Best Guess
+
+In March 2016, a developer named Azer Koçulu got into a dispute with npm, the package registry that most of the JavaScript world uses to share and install code. The dispute was over the name of one of his packages — a trademark complaint from a company called Kik. Koçulu felt strongly enough about it that he did something registries technically allow but almost nobody does: he pulled every package he'd ever published, all at once, in protest.
+
+One of those packages was eleven lines long. It was called left-pad, and all it did was add spaces or zeros to the front of a string until it hit a certain length — the kind of thing a competent programmer could write in under a minute, and plenty had, in countless other contexts, without a second thought. Nobody would have called it infrastructure.
+
+Within a few hours of it disappearing, builds started failing across the internet. Babel, one of the most widely used tools in the entire JavaScript ecosystem, broke. Parts of Facebook's toolchain broke. Thousands of projects broke, all at the same time, for the same invisible reason: somewhere down their dependency chain — sometimes three, four, five layers deep, in packages their authors had never heard of and never inspected — something depended on left-pad, and left-pad was gone.
+
+The people debugging those failures that morning weren't asking "why did an eleven-line function disappear." They were asking a much more useful question, one that turns out to sit underneath almost every modern software system: how do you trust code you've never read, written by someone you've never met, when you have no real way of knowing what changed?
+
+The answer the industry had already settled on, seven years earlier, was a numbering scheme. Three integers, separated by dots: 2.4.1. It's called semantic versioning, semver for short, and it is one of the quieter, more interesting examples of an idea that looks like engineering but actually works like a promise.
+
+**A number that means something**
+
+Most of us have a rough instinct that "version numbers go up when software changes." Semver's contribution, formalized by GitHub co-founder Tom Preston-Werner in 2009, was to make each of the three numbers mean something specific, so that the number itself communicates information rather than just tracking time.
+
+The format is MAJOR.MINOR.PATCH. Bump the PATCH number (2.4.1 to 2.4.2) and you're saying: I fixed a bug, nothing about how you use this changed. Bump the MINOR number (2.4.1 to 2.5.0) and you're saying: I added something new, but I didn't take anything away — your existing code still works exactly as before. Bump the MAJOR number (2.4.1 to 3.0.0) and you're saying something much bigger: I broke compatibility. Code that worked with the old version may not work with this one. Read the changelog before you upgrade.
+
+That's the whole system. It sounds almost too simple to be worth naming. But before semver, and in places that still don't use it, version numbers were essentially vibes — every project invented its own private scheme, and the only way to know if an upgrade was safe was to read that project's specific documentation, assuming it existed, assuming it was current, assuming you had the time. Preston-Werner's insight was that if enough projects agreed to use the same three-number grammar, a maintainer could stop writing paragraphs of prose explaining their compatibility policy. The string "semver" did the explaining for them. You could look at 2.4.1 → 3.0.0 and know, without reading a word of documentation, that something might break.
+
+This is why semver caught on so fast and so widely — it's not a technical requirement of any programming language, nothing forces you to follow it, and yet huge swaths of the software world adopted it voluntarily, the way a country might adopt a shared unit of currency. It's infrastructure built entirely out of agreement.
+
+And once you see it that way, the interesting question stops being "how does the numbering work" — that part takes about thirty seconds to learn — and becomes: what actually happens when tens of thousands of independent people, none of whom coordinate with each other, all rely on the same three-number promise?
+
+**The word doing all the work**
+
+Here is the sentence that makes semver either trivial or profound, depending on how hard you look at it: a major version bump means you made a "breaking change."
+
+What counts as breaking?
+
+You'd think this was obvious. It is not. Renaming a public function is obviously breaking — anyone calling it by its old name gets an error. But what about adding a new function to a library? That seems safe; nobody's code should break just because new capability appeared that they weren't using. Except in some languages it isn't safe at all. Rust's own tooling treats adding a new public item to a module as a technically breaking change, because Rust allows "glob imports" — a shorthand that pulls in everything from a module at once — and if your new function happens to share a name with something the importing project already defined locally, you've just created a naming collision that fails to compile. The Rust compiler doesn't care that this scenario is rare. Its versioning guidance treats the possibility as sufficient grounds to call the change breaking, full stop.
+
+Contrast that with the instinct most developers have, which is that adding something new is definitionally not breaking — that's what the middle number is for. Two reasonable engineering cultures, looking at the exact same kind of change, arrive at opposite verdicts about whether it counts as a promise violation.
+
+Multiply that ambiguity across a dependency tree with dozens or hundreds of packages, each maintained by a different person with a different threshold for what counts as "significant enough to bump the major number," and you start to see the shape of the actual problem. Semver doesn't remove the judgment call of "is this breaking" — it just gives that judgment call a very confident-looking home. The three dots make it feel like a fact. It was always somebody's opinion.
+
+**What the data says people actually do**
+
+If "breaking" were a clean, mechanical category, you'd expect the discipline of bumping major versions to be applied fairly consistently. It isn't. A large-scale mining study of npm packages published in 2023 found that roughly 28.6 percent of non-major version updates — updates explicitly labeled "this won't break you" — introduced changes that did, in fact, break something downstream. Not a fringe failure rate. Better than one in four.
+
+Separate research on the Maven ecosystem (Java's equivalent of npm) documented the same underlying pattern from a different angle: maintainers show what researchers have described as a "collective hesitance" to bump the major version number, even when a change genuinely warrants it. Bumping to a new major version carries social cost. It signals disruption. It might discourage adoption, generate a wave of confused issues, or simply feel like an admission that you didn't get the design right the first time. So instead, maintainers develop elaborate justifications for classifying a change as "minor" or "just a fix" — this only affects an edge case, this function was undocumented anyway, nobody should have been relying on that behavior. Sometimes those justifications are entirely fair. Often they're motivated reasoning wearing an engineering costume.
+
+None of this makes the maintainers dishonest, exactly. It reveals something more structural: the "breaking or not" call is being made by the one party in the relationship who is least equipped to see all the ways it could go wrong. The maintainer knows their own code intimately. They usually have no idea what the thousands of projects downstream are actually doing with it — which undocumented behaviors people have quietly come to depend on, which edge cases somebody built a business around. Left-pad is the extreme illustration of this blindness: nobody maintaining any of the thousands of affected projects had any idea that function sat somewhere in their dependency graph, let alone that its disappearance could take down their build.
+
+**The forecast, not the warranty**
+
+The most useful way to hold all of this is to stop thinking of a semver number as a guarantee and start thinking of it as a forecast.
+
+A weather forecast that says "10% chance of rain" is not lying to you if it rains. It was never a promise about what would happen — it was a compressed, confident-sounding summary of somebody's best professional judgment, made under real uncertainty, using a model that's good but not perfect. The number feels precise. Ten percent, not "probably fine." But the precision is doing social work more than descriptive work: it lets you make a fast decision (bring the umbrella or don't) without forcing you to read a full meteorological report first.
+
+A version number does exactly the same job. 2.4.1 to 2.4.2 looks like a fact — patch release, safe to take. But behind that tidy little increment sits one person's (or one team's) judgment about what "safe" means, made without full visibility into how you specifically use their code, under whatever incentives were operating that week — ship velocity, community goodwill, the desire to avoid a scary-looking major-version jump. You, downstream, treat the number as a guarantee because that's what the format invites you to do. It was only ever somebody's best call, and there's a well-documented pull toward rounding that call optimistically toward "safe," because the safe label costs the maintainer nothing today and the cost of being wrong lands on someone else, later, possibly in a country's worth of broken builds before breakfast.
+
+This is not a criticism of semver as a design. It's a description of what it actually is: a coordination device for compressing an enormous amount of distributed, subjective human judgment into a three-number token that other humans can act on quickly. Judged against the alternative — no shared convention at all, every project writing its own bespoke compatibility prose that nobody reads until it's too late — semver is a genuine improvement. It just isn't the mechanical certainty its clean numeric format implies.
+
+**The paradox that gets worse with success**
+
+There's a second layer to this, which is that semver's core mechanism gets harder to honor precisely in proportion to how successful a piece of software becomes.
+
+A brand-new library used by three projects can make a breaking change relatively cheaply. The maintainer emails the three teams, or at worst, three GitHub issues get filed and resolved over a weekend. A library used by three hundred thousand projects — left-pad's actual situation, more or less, at the moment it vanished — cannot make any change, however small, without it rippling outward through a tree whose full shape the maintainer cannot see and does not control. Popularity converts even minor decisions into effectively public infrastructure choices, made unilaterally by whoever happens to hold the keys to the repository that week.
+
+This is the semver paradox in a sentence: a package earns broad adoption by being useful and stable, and that same broad adoption is what makes a legitimate, well-justified breaking change nearly impossible to ship without inflicting collateral damage on people who have no relationship with the maintainer at all, may not even know the package exists, and had no say in how it evolves. The version number doesn't fix this. It just gives everyone a shared vocabulary for arguing about whose fault the resulting breakage was.
+
+You can see maintainers responding to this pressure in real time across the ecosystem — the aforementioned reluctance to bump major versions, the tendency to keep deprecated functions around for years past their sell-by date, the rise of tooling specifically built to warn you before an upgrade rather than trust the version number alone. All of that is the ecosystem quietly admitting that the number, on its own, isn't sufficient — that trust has to be reconstructed through other means, because the promise embedded in three integers turns out to be more fragile at scale than it looks at the scale of one project.
+
+**What the number is actually for**
+
+None of this means you should distrust semver, or that the developers relying on it are naive. It means the number is doing a more modest job than it appears to. It is not a mechanical verification that nothing will break. It's a shared, lightweight vocabulary that lets a maintainer signal their intent and lets a consumer make a fast, informed-enough bet about how much scrutiny an upgrade deserves — full regression tests before touching production, or a quick skim of the changelog and go.
+
+That's actually a remarkable thing for three integers to accomplish. It just requires holding two facts at once: the numbering convention is genuinely one of the more elegant pieces of coordination infrastructure the software world has produced, largely voluntary and largely effective — and underneath the numbers sits an unresolved, ecosystem-wide disagreement about what "breaking" even means, made by people who can't see the full blast radius of their own decisions, under incentives that quietly favor optimism.
+
+Left-pad broke because thousands of people, mostly without realizing it, had extended trust to a single stranger's eleven lines of code, on the strength of a number that told them it was safe to. The number wasn't wrong, exactly — nothing about left-pad had changed in a way any version scheme would have flagged. It simply vanished, which is a failure mode no numbering system was ever designed to predict. But the deeper lesson sits one level up from that specific incident: every dependency you take on, no matter how the version number reads, is a bet on a stranger's judgment, made under conditions you can't fully audit. Semver doesn't remove that bet. It just gives it a number, which is often exactly what you need — right up until the moment it isn't.
+
+Topics: semantic versioning, software dependency management, npm and package registries, software engineering practices
+
+Suggested topics: The left-pad incident and dependency fragility in package ecosystems; how deprecation policies work as a softer alternative to breaking changes; supply chain security in open-source software; the economics of unpaid open-source maintenance

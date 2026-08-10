@@ -1,0 +1,103 @@
+Ninety Seconds Behind
+
+Your traffic just tripled. Kubernetes noticed — thirty seconds ago. The new pods are starting up now. In the meantime, the pods you already have are on their knees, each one handling two or three times the requests it was designed for, slowing, timing out, failing health checks. By the time the new instances are ready to help, the spike may be over. Or it may still be growing, and you're already behind again.
+
+This is not a malfunction. It is autoscaling working exactly as designed — and understanding why that gap exists, and why it can never be fully closed, explains more about how production infrastructure is really built and tuned than almost any other single fact in the discipline.
+
+Start with the simplest version of the problem. You are running a web service. Traffic varies: low overnight, higher in the morning, peaks around midday and early evening. You could run enough servers to handle peak traffic all the time, but that costs a fortune for capacity that sits idle most of the day. Alternatively, you could run lean and accept that peak periods degrade your service — not great. What you really want is a system that watches the traffic, sees when things are getting busy, and quietly spins up more capacity; then scales back down when things quieten, to avoid waste.
+
+That is, precisely, what autoscaling is. Kubernetes implements it through the Horizontal Pod Autoscaler, or HPA — a controller that watches resource metrics for a set of pods (CPU utilisation, memory pressure, or more sophisticated custom metrics you define yourself) and decides, on each polling cycle, how many instances should be running. It does a straightforward calculation: if current utilisation is above target, add pods; if it is below, remove some.
+
+Simple in concept. The complication is that this is not an instantaneous operation. Every step takes time.
+
+
+Think about a thermostat. Your house has a thermostat that measures the room temperature every ten seconds. When the room drops below 19°C, it sends a signal to the boiler. The boiler takes forty seconds to fire up and start producing heat. The radiators take another thirty seconds to warm up enough to push warm air into the room. From the moment the temperature dropped below threshold to the moment the room actually starts getting warmer: eighty seconds. A whole minute and twenty seconds of cold air.
+
+During that time, the thermostat might measure the temperature again, several times. The room is cold. Still cold. Still cold. Each reading confirms the problem that is already being addressed — but addressed with a lag. The room will be warmer in a minute. The thermostat does not know that yet.
+
+Every decision in autoscaling — every tuning choice, every architectural recommendation, every best practice you will encounter — is really a decision about how to live well inside that eighty-second delay.
+
+
+In Kubernetes, the delay is not eighty seconds. It is typically somewhere between sixty and ninety. Here is where those seconds go.
+
+The first chunk is metrics collection. Kubernetes does not know in real time what CPU your pods are using; it has to ask. The metrics-server, which aggregates resource usage data across the cluster, collects that data on its own cycle — which itself takes thirty to sixty seconds to reflect a change in behaviour. A pod that suddenly started working three times as hard will not show that in the metrics until the collector has completed its next round.
+
+The second chunk is the HPA's own polling cycle. By default, the HPA reads metrics every fifteen seconds and recalculates the desired pod count. But it can only read the metrics that exist — and those metrics are already thirty to sixty seconds stale. So the HPA's first signal that something is wrong can arrive sixty to ninety seconds after the thing actually started going wrong.
+
+Then: the scaling decision is made. New pods are requested. But pods do not appear fully formed. Kubernetes has to schedule them onto nodes — which requires nodes with spare capacity; if the cluster is already full, nodes may need to be provisioned first, which adds minutes. Then the container image has to be pulled to that node, if it is not already cached. Then the container starts. Then the application inside it initialises: connects to databases, pre-loads caches, performs its startup sequence. Then the readiness probe has to pass, which may require the application to have handled a certain number of warmup requests.
+
+All of that before a single user request is served by the new pod.
+
+In a well-configured cluster with a pre-pulled image and a fast application startup, this can take ten to thirty seconds. In a realistic enterprise cluster with cold nodes and a Java application performing database connection pool warmup: several minutes is not unusual.
+
+Add it all together and you have a system where a traffic spike can be sixty to ninety seconds old before Kubernetes even decides to add capacity, and then more time again before that capacity is actually serving traffic. The delay between a problem appearing and the solution being ready is the moment when the system is most stressed. That is the gap.
+
+
+This is why the thermostat analogy runs so deep. It is not just that there is a delay — it is that the delay is structural. It comes from the laws of measurement and causality. You cannot know something is wrong until you measure it. You cannot measure it until time has passed. You cannot have heat until the radiator is warm. There is no version of a control system — thermostatic or computational — that has zero lag. The gap is the price of the system.
+
+What changes between a badly configured autoscaling setup and a well-tuned one is not the elimination of the gap. It is how you govern your behaviour in the knowledge that the gap exists.
+
+
+The first practical implication is asymmetry. Engineers deliberately configure autoscaling to behave differently when scaling up versus scaling down, and the difference is drastic.
+
+The stabilisation window for scaling up — the window over which the HPA averages its metrics before deciding to add pods — is short. Thirty seconds, sometimes less. When traffic spikes, you want to react as quickly as the system allows, because every second of delay is a second of overloaded pods and degraded service.
+
+The stabilisation window for scaling down is typically five minutes — 300 seconds, the Kubernetes default. When load drops, you wait before removing pods.
+
+This sounds counterintuitive. Waiting to scale down means carrying capacity you are paying for and not using. Why wait? Because scaling down is a trap that asymmetric consequences make dangerous to rush.
+
+Imagine your traffic spike lasts twelve minutes. During that spike, the HPA scales you up from three pods to nine. The spike subsides. Traffic drops back to baseline. If your scale-down window is short — say, sixty seconds — the HPA will observe low traffic, conclude you only need three pods, and terminate six. Then traffic spikes again two minutes later. Now you are back to three pods, behind again, running the full startup lag a second time. This is thrashing: a cycle of scale-up and immediate scale-down in response to short spikes, where you repeatedly pay the startup lag penalty and repeatedly expose users to the gap.
+
+The five-minute cooldown prevents this. It says: traffic may have dropped, but it has not been low for long enough to be sure. We will carry the extra capacity until we are confident. The cost is a few minutes of over-provisioning. The benefit is avoiding repeated restarts into the gap.
+
+The asymmetry reflects a considered judgment about which error is worse. Terminating pods too soon and restarting them — that costs users real degradation and costs the system real work. Keeping pods running for a few extra minutes — that costs a small amount of money. Autoscaling chooses the cheaper error, deliberately.
+
+
+There is a second implication, deeper and more architectural. It concerns the distinction between stateless and stateful services.
+
+A stateless service is one where every instance is identical and interchangeable. Any request from any user can be served by any pod. A new pod that starts up can immediately handle requests with full capability; it does not need to know anything that happened before it existed. A REST API that queries a database, a web frontend that fetches data fresh each request, a computational service that transforms inputs to outputs without memory — these are stateless services.
+
+Autoscaling was built for this kind of service. Adding a new pod to a stateless cluster is like adding another identical cashier to a queue: the queue shortens, throughput increases, and everyone is better served. The maths is clean.
+
+A stateful service is different. A database cluster. A cache that holds session data. A message queue that tracks consumer offsets. When you add a new node to a stateful cluster, it does not just appear and start serving traffic. It has to acquire state. It has to synchronise data with existing nodes — potentially a large volume of data, replicated from scratch across the network. Until that synchronisation is complete, the new node is not only useless but potentially a liability, consuming cluster resources without contributing.
+
+This is why the standard advice in distributed systems — make your services stateless — is not aesthetic preference. It is a prerequisite for autoscaling to work as advertised. The gap is already the problem; synchronisation makes the gap far worse. A stateless service might have a startup lag of twenty seconds. A stateful service, requiring full data synchronisation, might be twenty minutes. The thermostat is now waiting for the boiler to be built before it can fire it up.
+
+The unsolved problems in distributed systems — Kafka cluster rebalancing, PostgreSQL read-replica lag, Redis Cluster node addition — are largely variations on this theme. Stateful autoscaling is not a solved problem. The guidance in most production environments is to handle stateless services with autoscaling and to handle stateful services by other means: vertical scaling, connection pooling, read replicas pre-provisioned, or simply keeping the cluster larger than strictly necessary at baseline.
+
+Which leads to the third implication: running hotter than zero is not waste. It is gap management.
+
+
+If the lag is sixty to ninety seconds, and you know your application can handle X requests per pod, you do not configure your autoscaling target to trigger when pods hit 95% utilisation. At 95%, you are already in trouble. By the time new pods are ready, you will have blown through 100% and into timeout territory.
+
+Instead, you set a lower target threshold — 60%, 70% — which means pods are well under capacity before autoscaling kicks in. This gives you a buffer. Traffic can climb substantially before you hit the danger zone; new pods will be ready before you get there. The system is carrying capacity in advance of needing it.
+
+This is sometimes called running warm. And it connects to another technique: pre-warming. Some systems use predictive autoscaling — looking at historical traffic patterns and pre-scaling before the expected peak rather than reacting to it. If your traffic reliably spikes at 9am on weekdays, you can scale up at 8:50 and have the capacity ready before users arrive. The lag does not matter if you moved before the spike.
+
+All of this costs money. Warm pods are running pods; running pods consume CPU and memory; CPU and memory cost money. The entire economic logic of autoscaling — its reason for existing — is that running at baseline most of the time and paying for surge capacity only when needed is cheaper than provisioning for peak all the time. But "only when needed" turns out to mean "a few minutes before needed, plus a few minutes after," not "exactly when needed." The gap has a financial shadow.
+
+
+There is something worth pausing on here. Autoscaling is usually sold as the solution to the problem of traffic variance. And it is — up to a point. But the solution contains the problem within it. The gap is not a bug in the design; it is derived from first principles. Any system that must detect a condition before responding to it will have a lag between condition and response. The lag is the cost of not knowing the future.
+
+The most honest engineering advice about autoscaling is not "tune your HPA correctly and the gap goes away." It is: "tune your HPA with the gap in mind, design your services so the gap does not kill them, and run with enough baseline capacity that the gap is survivable." That is not a trick or a hack. That is the engineering.
+
+The gap also shapes how you think about application design. A service that cannot survive a sixty-second window of high load — because it has no retry logic, no backpressure, no circuit breakers — is not a service that is ready for autoscaling. Horizontal scaling is not a substitute for resilience. It is an additional layer on top of resilience. The pods that exist during the gap have to hold until help arrives; that requires them to fail gracefully under pressure rather than cascading.
+
+In practice, this means exponential backoff on retries, so that spiking traffic does not compound into an avalanche of retries on top of the original load. It means circuit breakers that fail fast and return an honest error rather than piling up in-flight requests behind a stalled dependency. It means readiness probes configured so that a pod under internal stress can remove itself from the load balancer rather than serving requests it cannot fulfil. The gap is a design constraint, and good architecture is shaped around it.
+
+
+There is a version of this problem that appears in physical infrastructure. A power grid cannot ramp generation output up or down instantly — the physics of turbines and reactors do not allow it. Grid engineers have to carry baseload generation, manage fast-responding peaker plants, and increasingly manage storage buffers, because the gap between demand change and supply change is both unavoidable and potentially catastrophic if mismanaged. The autoscaling problem and the grid management problem share the same shape: how do you run a system whose supply cannot respond instantly to demand?
+
+The answers look the same. Carry more than you need at baseline. Use faster-responding supplementary resources for short spikes. Pre-position for predicted peaks. Smooth out demand where you can. Make your demand side more tolerant of supply fluctuations. None of these eliminate the gap. All of them make the gap survivable.
+
+
+One more thing worth sitting with.
+
+The gap is not equally distributed. If you are running a service used by a few hundred people during a predictable working day, autoscaling lag is a minor footnote — you can tune it away with generous headroom and never think about it again. If you are running infrastructure that serves millions of requests per minute, where a sixty-second degradation window means millions of failed user interactions, the gap is a strategic problem. The size of the gap in time does not change; the cost of the gap scales with the volume.
+
+This is why the largest technology companies build systems that look nothing like conventional Kubernetes autoscaling — reserved instance pools kept warm at global scale, traffic shedding and load shedding protocols, dedicated over-provisioning budgets, entire engineering teams focused on capacity prediction. They have learned the same lesson, at a scale where learning it the wrong way is measurably expensive.
+
+The gap is the gap. The thermostat has always taken ninety seconds. The question is what you build around it.
+
+Topics: Autoscaling, Kubernetes, horizontal pod autoscaling, Kubernetes HPA
+Suggested topics: Cloud cost optimisation, Kubernetes Cluster Autoscaler (node-level scaling), load testing and traffic simulation, circuit breakers and resilience patterns

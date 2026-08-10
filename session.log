@@ -397,3 +397,124 @@ Phase 2 complete. The angle plan is appended to `selected_topic.txt`.
 
 The piece will be structured around alexithymia as the symptom at the crossroads — the same emotional fog arriving via two different roads — and move through three directions: CEN mimicking autism (RAD and quasi-autistic presentations), autism generating the conditions for CEN (the double empathy problem starting at home, the staggering 44% PTSD rate in autistic adults), and what clinically distinguishes acquired from innate presentation. The closing thought is about blame vs. the right map for repair.
 [16:35:06] Phase 3: Writing
+[16:37:12] Phase 3: in=1948 cached=115228 out=7201 cost=$0.37398 dur=125115ms
+Phase 3 complete.
+
+**Piece written:** *The Fog That Arrives by Two Roads* — childhood emotional neglect and autism overlap, ~2,500 words.
+
+Built around alexithymia as the symptom at the crossroads, structured into the three directions of overlap from the angle plan:
+- **Neglect mimicking autism** — quasi-autistic patterns from severe early deprivation, and the misdiagnosis risk
+- **Autism manufacturing neglect** — the double empathy problem playing out in the family home; the 3× maltreatment rate and 44% PTSD figure
+- **What distinguishes innate from acquired** — restricted/repetitive behaviours and sensory sensitivity as the tells neglect can't fake; primary vs secondary alexithymia and why secondary lifts in therapy while primary calls for accommodation
+
+Closed on the no-blame reframing — a loving neurotypical parent can misattune to an autistic child through pure translation error — and the idea that the real task is handing someone the right map for the road they actually walked.
+
+**Done:**
+- Saved to `pieces/cen-and-autism-overlap_10-06-26.txt`
+- Uploaded to GDrive "Research Engine" (confirmed)
+- Removed the topic from the Main Topics list and Draw Index; pool count updated 9 → 8 and the index renumbered
+[16:37:12] === Session complete ===
+[16:33:01] === Session start ===
+[16:33:01] Syncing read folder from GDrive
+[16:33:03] Phase 1: Selection
+[16:33:03] Phase 1: stats unavailable: Expecting value: line 1 column 1 (char 0)
+[16:33:03] Phase 2: Research
+[16:33:03] Phase 2: stats unavailable: Expecting value: line 1 column 1 (char 0)
+[16:33:03] Phase 3: Writing
+[16:33:04] Phase 3: stats unavailable: Expecting value: line 1 column 1 (char 0)
+[16:33:04] === Session complete ===
+[16:33:01] === Session start ===
+[16:33:01] Syncing read folder from GDrive
+[16:33:02] Phase 1: Selection
+[16:33:02] Phase 1: stats unavailable: Expecting value: line 1 column 1 (char 0)
+[16:33:02] Phase 2: Research
+[16:33:03] Phase 2: stats unavailable: Expecting value: line 1 column 1 (char 0)
+[16:33:03] Phase 3: Writing
+[16:33:03] Phase 3: stats unavailable: Expecting value: line 1 column 1 (char 0)
+[16:33:03] === Session complete ===
+[18:02:21] Research Phase 1 (haiku): tokens=20998 dur=5267903ms
+[18:03:22] Research Phase 2 (sonnet): tokens=21047 dur=53295ms
+[18:05:42] Research Phase 3 (sonnet): tokens=25891 dur=129711ms
+[18:05:42] === Session complete ===
+[16:34:51] Research Phase 1 (haiku): tokens=19998 dur=7435ms
+[16:36:00] Research Phase 2 (sonnet): tokens=20934 dur=60530ms
+[16:38:09] Research Phase 3 (sonnet): tokens=25025 dur=115011ms
+[16:38:09] === Session complete ===
+[16:34:57] Research Phase 1 (haiku): tokens=20545 dur=18163ms
+[16:36:22] Research Phase 2 (sonnet): tokens=20941 dur=75954ms
+[16:38:30] Research Phase 3 (sonnet): tokens=24866 dur=117375ms
+[16:38:30] === Session complete ===
+[16:34:57] Research Phase 1 (haiku): tokens=20323 dur=25068ms
+[16:36:17] Research Phase 2 (sonnet): tokens=22155 dur=70555ms
+[16:38:37] Research Phase 3 (sonnet): tokens=25358 dur=126876ms
+[16:38:37] === Session complete ===
+[16:34:36] Research Phase 1 (haiku): tokens=20017 dur=8636ms
+[16:35:55] Research Phase 2 (sonnet): tokens=22414 dur=69545ms
+[16:38:06] Research Phase 3 (sonnet): tokens=24947 dur=116921ms
+[16:38:06] === Session complete ===
+[16:34:51] Research Phase 1 (haiku): tokens=20383 dur=15219ms
+[16:36:16] Research Phase 2 (sonnet): tokens=23020 dur=73793ms
+[16:38:45] Research Phase 3 (sonnet): tokens=26141 dur=136143ms
+[16:38:45] === Session complete ===
+[16:34:30] RESEARCH skipped — topic pool is empty
+[16:34:33] RESEARCH skipped — topic pool is empty
+[16:34:21] RESEARCH skipped — topic pool is empty
+[16:34:30] RESEARCH skipped — topic pool is empty
+[16:36:24] RESEARCH skipped — topic pool is empty
+[16:35:27] RESEARCH skipped — topic pool is empty
+[16:34:22] RESEARCH skipped — topic pool is empty
+[16:35:24] RESEARCH skipped — topic pool is empty
+[16:34:31] RESEARCH skipped — topic pool is empty
+[16:38:23] RESEARCH skipped — topic pool is empty
+[16:34:27] RESEARCH skipped — topic pool is empty
+[16:36:22] RESEARCH skipped — topic pool is empty
+[16:34:26] RESEARCH skipped — topic pool is empty
+[16:34:54] Research Phase 1 (haiku): tokens=24818 dur=18400ms
+[16:36:06] Research Phase 2 (sonnet): tokens=25172 dur=60832ms
+[16:38:47] Research Phase 3 (sonnet): tokens=31051 dur=143917ms
+[16:38:47] === Session complete ===
+[16:35:04] Research Phase 1 (haiku): tokens=24758 tool_uses=5 dur=13419ms
+[16:36:15] Research Phase 2 (sonnet): tokens=26347 tool_uses=10 dur=61235ms
+[16:38:49] Research Phase 3 (sonnet): tokens=30286 tool_uses=11 dur=141723ms
+[16:38:49] === Session complete ===
+[16:41:21] RESEARCH session complete: tokens=56023
+[16:35:29] Research Phase 1 (haiku): tokens=41977 tool_uses=4 dur=51232ms
+[16:37:24] Research Phase 2 (sonnet): tokens=27609 tool_uses=10 dur=105649ms
+[16:42:01] Research Phase 3 (sonnet): tokens=50332 tool_uses=11 dur=265340ms
+[16:42:01] === Session complete ===
+[16:35:30] Research Phase 1 (haiku): tokens=41271 tool_uses=6 dur=58250ms
+[16:37:09] Research Phase 2 (sonnet): tokens=26246 dur=87744ms
+[16:40:08] Research Phase 3 (sonnet): tokens=47755 dur=170035ms
+[16:40:08] === Session complete ===
+[16:34:38] Research Phase 1 (haiku): tokens=37652 dur=15586ms
+[16:35:39] Research Phase 2 (sonnet): tokens=30099 dur=51949ms
+[16:38:18] Research Phase 3 (sonnet): tokens=68312 dur=147628ms
+[16:38:18] === Session complete ===
+[16:34:51] Research Phase 1 (haiku): tokens=39131 dur=20810ms
+[16:38:12] Research Phase 2 (sonnet): tokens=31270 dur=49056ms
+[16:38:12] Research Phase 3 (sonnet): tokens=61343 dur=133979ms
+[16:38:12] === Session complete ===
+[16:34:41] Research Phase 1 (haiku): tokens=37675 dur=20271ms
+[16:35:42] Research Phase 2 (sonnet): tokens=29348 dur=50852ms
+[16:38:04] Research Phase 3 (sonnet): tokens=46017 dur=130337ms
+[16:38:04] === Session complete ===
+[16:36:54] Research Phase 1 (haiku): tokens=42506 dur=31570ms
+[16:37:51] Research Phase 2 (sonnet): tokens=34829 dur=50136ms
+[16:40:17] Research Phase 3 (sonnet): tokens=43761 dur=134336ms
+[16:40:17] === Session complete ===
+[16:37:05] Research Phase 1 (haiku): tokens=50256 dur=101429ms
+[16:38:06] Research Phase 2 (sonnet): tokens=38579 dur=54347ms
+[16:40:15] Research Phase 3 (sonnet): tokens=45241 dur=119463ms
+=== Session complete ===
+[16:36:50] Research Phase 1 (haiku): tokens=49172 dur=82117ms
+[16:37:46] Research Phase 2 (sonnet): tokens=32407 dur=48620ms
+[16:39:52] Research Phase 3 (sonnet): tokens=43978 dur=114956ms
+[16:39:52] === Session complete ===
+[16:35:36] Research Phase 1 (haiku): tokens=47802 dur=72339ms
+[16:36:36] Research Phase 2 (sonnet): tokens=34568 dur=52245ms
+[16:38:46] Research Phase 3 (sonnet): tokens=42742 dur=121034ms
+[16:38:46] === Session complete ===
+[16:39:17] Research Phase 1 (haiku): tokens=44264 dur=49631ms
+[16:40:21] Research Phase 2 (sonnet): tokens=35350 dur=56627ms
+[16:42:38] Research Phase 3 (sonnet): tokens=45632 dur=128855ms
+[16:42:38] === Session complete ===

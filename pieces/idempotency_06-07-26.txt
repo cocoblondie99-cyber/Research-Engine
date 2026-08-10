@@ -1,0 +1,102 @@
+Already Handled
+
+The flight appears in the search results at exactly the right time: London Heathrow to Barcelona, 6:45am, two seats left. The price is fine. You fill in the passenger details, reach the payment screen, enter the card number, and hit Pay.
+
+The spinner appears. It keeps spinning. Your WiFi drops for a fraction of a second — long enough for the connection to time out at the browser end. The page shows a generic error. "Something went wrong. Please try again."
+
+Here is what actually happened during that fraction of a second. Your browser sent a payment request to the airline's server. The server received it, processed it, charged your card for £247, reserved the seats, and sent back a confirmation message. That message was in transit when your WiFi blinked out. Your browser never received it. From your perspective, the transaction failed. From the server's perspective, the transaction succeeded, completely.
+
+You click Pay again.
+
+This is the moment where the presence or absence of a single engineering decision — one that most users have never heard of and that most developers don't think about until after something has gone wrong — determines whether you get charged once or twice.
+
+---
+
+That decision is called idempotency. The word comes from mathematics, where an operation is idempotent if applying it multiple times has the same effect as applying it once. Multiplying anything by zero is idempotent: 0 × 5 = 0, and doing it again gives you the same answer. Multiplying by two is not: 2 × 5 = 10, and doing it again gives you 20.
+
+In software, idempotency means the same thing, mapped onto real-world actions. A button click, a network request, an API call. If you can safely repeat that action multiple times and end up in the same state as if you had done it once, the action is idempotent. If repeating it produces a different outcome — another charge, another order, another row in the database — it is not.
+
+The reason idempotency matters is that networks fail in a very specific way. When a network request fails, you often cannot tell which kind of failure occurred. Did the request never arrive? Did it arrive but fail to process? Did it arrive, process successfully, but the response got lost on the way back? From the sender's perspective, all three scenarios look identical: silence, and then a timeout. The sender cannot tell a request that never landed from a request that succeeded and just didn't reply.
+
+If you want a reliable system, you need to be able to retry. But safe retries require idempotency. The two are inseparable: you cannot have one without the other.
+
+---
+
+HTTP, the protocol that carries most web traffic, has a built-in opinion about which operations are idempotent and which are not. Understanding where that opinion stops is where the interesting engineering begins.
+
+GET requests are idempotent. Fetching a webpage, reading a database record, loading an image — asking for something does not change it. You can send a GET request a hundred times and the state of the world is the same as if you had sent it once. The HTTP specification goes further and says GET requests should have no side effects at all, which is why browsers feel comfortable speculatively pre-fetching linked pages.
+
+PUT requests are also idempotent. If you send PUT /users/42/email with a new address, the user's email is updated. Send the same PUT request twice with the same address and the email is updated to the same value twice — which is the same state as updating it once. Nothing accumulates.
+
+DELETE is more interesting, and it is worth slowing down for a moment on DELETE because the way the specification handles it reveals something important about what idempotency actually means.
+
+Sending a DELETE request to /orders/1234 should delete order 1234. What happens if you send it twice? The first request deletes the order. The second request finds nothing to delete and returns a 404: Not Found. The first response was a 200 or 204. The second was a 404. Different response codes. Yet the HTTP specification considers DELETE idempotent.
+
+How can two different responses represent the same outcome?
+
+The answer is that idempotency is not about what the server says back to you. It is about what happens to the state of the world. After the first DELETE, order 1234 is gone. After the second DELETE, order 1234 is still gone. The world is in the same state either way. The 404 is a message about what the server found — or did not find — but it does not change the fact that the operation's goal has been achieved. The order is absent. It was absent before the second request, and it remains absent after.
+
+This distinction carries weight in practice. A client that retries a DELETE because it did not receive the first response might treat a 404 as an error and panic unnecessarily. It should instead treat any response (including 404) as confirmation that the order is gone, and proceed accordingly. What the client actually cares about is not the specific response code — it is the state of the resource.
+
+Then there is POST. POST is the odd one out, and it is not idempotent by design. POST means "create something new" or "trigger this action." Each call is supposed to produce a new result. POST to a payments endpoint means "charge this card." POST twice means "charge this card twice." That is not a bug in POST; it is the contract it was designed to deliver. The problem arises when you need to retry a POST that may or may not have succeeded — when, in other words, you need POST to temporarily behave like something it is not.
+
+---
+
+This is exactly the problem that idempotency keys were invented to solve.
+
+An idempotency key is a unique identifier, generated by the client, that the server stores alongside the result of the first successful request. When the client retries — whether because the response was lost, the connection dropped, or a timeout fired — it includes the same key in its second attempt. The server checks whether it has seen that key before. If it has, it returns a copy of the original response instead of processing the request again.
+
+Think of it as a numbered deposit slip at a bank. In the days before electronic banking, if you wanted to deposit a cheque, you filled out a deposit slip and handed it to the teller. The teller checked their ledger: has this slip number already been processed today? If not, they deposited the cheque and recorded the slip number in the register. If you came back an hour later and tried to deposit the same slip again — because you weren't sure the first deposit had gone through — the teller checked the ledger, found the slip number, and handed you back a copy of the original receipt. No second deposit. No confusion. The numbered slip was the idempotency key; the teller's register was the server's record.
+
+The client generates the key, typically a random string (a UUID works well), before it sends the request. It keeps that key for as long as it might need to retry. The server receives the request, checks for the key in its store, processes the request if the key is new, records the result alongside the key, and returns the result. On retry, the check happens first, before any processing takes place. The client receives what looks like a successful first response. From the client's perspective, the payment went through cleanly on the first try.
+
+---
+
+Stripe, the payments company, publishes the details of its idempotency implementation as a worked example of the trade-offs involved.
+
+Stripe stores idempotency keys for exactly 24 hours from the time the first request was processed. The 24-hour window is a deliberate choice on both ends: long enough that any reasonable retry scenario — a dropped connection, a client restart, a network partition lasting minutes or even hours — falls inside the safe zone. Short enough that Stripe is not obligated to keep keys forever, which would grow the storage requirement without limit.
+
+Stripe's implementation also includes a guard against a different kind of mistake. If you send the same idempotency key twice but with different request parameters — a different amount, a different card number — Stripe rejects the second request with an error rather than silently processing it. This catches two failure modes at once: accidental reuse (you meant to generate a new key but recycled an old one) and deliberate replay attempts (someone trying to replay an authenticated request with modified parameters). The key is not just an identifier; it binds a specific operation to specific parameters, and that binding is enforced by the server.
+
+This enforcement might seem pedantic until you consider what it prevents. An idempotency key that could be reused with different parameters would be useful for replay attacks in a way that undermines much of its purpose. The binding between key and operation is part of what makes the guarantee trustworthy.
+
+---
+
+Idempotency keys handle the case of a single client retrying a single request. The problem has a larger-scale cousin that emerges when entire services fail and recover.
+
+Consider a payment processing service handling ten thousand requests per second. It goes down for three minutes — a database timeout, a memory spike, a brief infrastructure failure. During those three minutes, requests have been arriving and failing. Clients have been queuing them in retry buffers, each one waiting patiently for the service to recover.
+
+Then the service comes back.
+
+In essentially the same moment, every waiting client retries. They don't coordinate with each other; they just notice that the service is available again and fire their queued requests simultaneously. The service, which has just barely recovered from whatever caused the outage, is immediately hit with roughly 1.8 million requests — three minutes of backlog arriving at once. This is a retry storm, and it is frequently the mechanism by which a brief outage becomes a catastrophic one. The service collapses again under the weight of its own backlog, and the cycle repeats.
+
+Exponential backoff with jitter is the standard defence against retry storms: clients wait a random interval that grows with each failed attempt, staggering the retries rather than synchronising them. But idempotency is the precondition that makes safe retrying possible in the first place. A system without idempotency cannot afford to retry aggressively, because each retry risks duplicating a transaction. A system with idempotency can retry without fear of duplication, which means exponential backoff becomes viable, which means the system can absorb an outage and recover gracefully rather than collapsing under its own backlog.
+
+The two mechanisms reinforce each other in a way that neither achieves alone.
+
+---
+
+The harder engineering question is when to build idempotency into a system: at the start, or retroactively once you have noticed the problem.
+
+Designing for idempotency from the beginning is far easier. The key-check is built into the request handler before anything else happens. The database schema includes a key column alongside the result. Retry logic generates keys before firing requests, stores them persistently, and reuses them if an attempt fails. The whole system is built around the assumption that any operation might arrive more than once.
+
+Retrofitting idempotency onto an existing system is harder, because operations that weren't designed to be idempotent tend to have side effects that compound. The most common problem is a database write that creates a new row each time it's called. Adding a uniqueness constraint on an idempotency key column will prevent duplicate rows from being created — but only if the key check happens before the charge-the-card step, not after. If your payment processor call fires before your database write, and the database write fails, then the retry will charge the card a second time before the key has been stored. Retrofitting idempotency requires re-examining the entire sequence of operations, not just adding a check at the entry point.
+
+The definition of "same operation" also requires deliberate design. For a payment, the combination of customer identifier, amount, currency, and a client-generated key makes for a clear uniqueness boundary. But some operations are harder to scope. Two users submitting identical orders at the same instant are not duplicates — they are distinct requests that happen to look alike. A user deliberately re-submitting an order they think didn't go through is exactly the scenario idempotency is meant to handle. Choosing what fields the key covers, and who generates it, determines the semantics of what "same" means in your system. Get it wrong and the system either treats legitimate operations as duplicates or allows genuine duplicates through.
+
+---
+
+There is something worth pausing on in how idempotency distributes responsibility between client and server.
+
+In a typical HTTP exchange, the server bears most of the responsibility. It receives requests, processes them, returns results. The client sends and waits. Idempotency complicates this in a specific way: it requires the client to generate a key before it sends a request, store that key persistently, and resend it faithfully if a retry becomes necessary. The server cannot make an operation idempotent on its own, any more than a bank teller can create a numbered deposit slip on behalf of a customer who forgot to bring one. The guarantee depends on both parties honouring the contract.
+
+This means idempotency failures can live on either side. A client that generates a new key for each retry request — treating each attempt as a fresh operation — defeats the server's entire key-checking mechanism. A server that stores keys in a cache with too short a TTL may expire a key before the client's retry window has closed. A server that checks the key after the non-reversible action has already occurred provides an illusion of safety without delivering the actual guarantee. Each of these failures produces a system that appears to handle retries but doesn't, and the evidence only surfaces in customer complaints and bank disputes.
+
+---
+
+Most networked systems receive duplicate requests every second, silently and automatically, because clients retry failed operations as a matter of routine. Load balancers retry. Message queues deliver at least once. Mobile apps retry when connections drop. Browsers retry form submissions. None of this is visible to the user, and none of it registers as a problem unless the underlying operations were designed without idempotency in mind.
+
+The WiFi-drop scenario that opened this piece is striking because the duplication is visible — you clicked twice and know it. In production systems at scale, the duplication is usually invisible. The request retried automatically, in a background thread, in a library your application depends on, in infrastructure you didn't write. The question is not whether your system will receive duplicate requests. The question is whether you have made a promise about what to do with them — and whether that promise is being kept.
+
+Topics: Idempotency
+Suggested topics: Retries, Exponential Backoff, Message Queues, Webhooks
