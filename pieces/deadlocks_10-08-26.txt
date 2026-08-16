@@ -1,0 +1,78 @@
+Neither Will Let Go
+
+Two bank transfers happen at the same instant. Transaction A locks Account 1, then reaches for Account 2 to complete the transfer. Transaction B, running a fraction of a second behind, has already locked Account 2, and now reaches for Account 1. Both are holding exactly what the other one needs. Neither will release what it's got until it finishes — and neither can finish until the other lets go first. So they wait. And wait. Forever, if nothing steps in.
+
+This is a deadlock, and it's one of the strangest failure modes in computing, because nothing actually went wrong. Every individual step was correct. Transaction A followed the rules. Transaction B followed the same rules. The database followed its own rules perfectly, granting each lock exactly when it was supposed to. And yet the system as a whole has ground to a permanent, silent halt — two processes standing nose to nose, each waiting on the other, neither one ever backing down.
+
+That's the thing worth sitting with before we go any further: a deadlock is not a bug in the way a null pointer exception is a bug, or the way a typo in a SQL query is a bug. There's no single line of broken code to point at. It's an emergent trap — the product of several separately reasonable rules colliding at exactly the wrong moment. Understanding it means understanding not what went wrong, but what was *true* the whole time, waiting for the right unlucky timing to become visible.
+
+**Walking into the trap**
+
+Let's slow the bank example down and actually watch it happen, because the mechanism only clicks once you've seen it step by step.
+
+Account 1 has $500. Account 2 has $300. Two transfers are requested at nearly the same moment:
+
+Transaction A: move $50 from Account 1 to Account 2.
+Transaction B: move $30 from Account 2 to Account 1.
+
+To move money out of an account, a transaction has to lock that account first — this is completely ordinary. Locking prevents a second transaction from reading a balance, or worse, writing a new balance, while the first transaction is still in the middle of its own change. Without locks, you'd get corrupted numbers: two transfers both reading "$500," both calculating their own updates from that same stale figure, and one of them silently overwriting the other's work. Locking is the thing that keeps a bank's numbers trustworthy. It is not the problem. It's the solution to a different problem, and it's about to collide with itself.
+
+Here's the sequence, in slow motion:
+
+1. Transaction A locks Account 1 (it needs to subtract $50 from it).
+2. Transaction B locks Account 2 (it needs to subtract $30 from it).
+3. Transaction A now tries to lock Account 2, to add the $50 there. But Account 2 is locked by B. A has to wait.
+4. Transaction B now tries to lock Account 1, to add the $30 there. But Account 1 is locked by A. B has to wait.
+
+And there it is. A is waiting for a lock that B is holding. B is waiting for a lock that A is holding. Each transaction is holding one piece of a two-piece puzzle, and each is asking the other for the missing piece — a piece the other has no intention of surrendering, because *it* is still waiting to receive its own missing piece first. Draw an arrow from A to whatever it's waiting on, and from B to whatever it's waiting on, and the arrows point at each other in a perfect, closed loop. That loop is the deadlock. Nobody made a mistake. The trap was built entirely out of correct behavior, one careful step at a time, and it only became visible on the step where the loop closed.
+
+Left alone, both transactions would simply sit there, indefinitely, each convinced it's one small step from finishing. Neither one has any way of knowing it's stuck — from the inside, "waiting for a lock" looks identical whether the wait is about to end in a millisecond or never end at all.
+
+**The four ingredients**
+
+Once you can see this one example clearly, it turns out every deadlock — no matter how complicated the real system, no matter how many processes or resources are involved — is built from the same four ingredients. Computer scientist Edward Coffman named them in 1971, and they're now simply called the Coffman conditions. Look back at the bank example and you'll find all four sitting there, plain as day:
+
+**Mutual exclusion.** A resource can only be held by one process at a time. Account 1's lock belongs to A alone; B is locked out entirely, not sharing partial access. This is why locking exists in the first place — but it's also condition one of the trap.
+
+**Hold and wait.** A process keeps what it already has while it waits for more. Transaction A doesn't release Account 1 while it waits for Account 2 — it holds on, because releasing it partway through an unfinished transfer would leave the books in an inconsistent state. That instinct to hold on is exactly what keeps the trap locked shut.
+
+**No preemption.** Nothing can forcibly strip a resource away from a process that's holding it. The database can't reach in and yank Account 1's lock out of Transaction A's hands to hand it to B; a lock can only be released voluntarily, by the process that holds it, when that process is good and ready.
+
+**Circular wait.** The chain of "waiting on" relationships loops back on itself. A waits on B, B waits on A. In a bigger system this might be A waits on B, B waits on C, C waits on A — any length of chain works, as long as it eventually closes the loop.
+
+The genuinely important thing about these four conditions is that *all four have to be true simultaneously* for a deadlock to be possible. Not three. Not "mostly." All four, at once, or deadlock cannot occur — full stop. Which means, unglamorously but usefully, that every strategy for dealing with deadlocks is really just a strategy for breaking one of these four legs off the stool. You don't have to solve the whole tangled mess. You just have to make one of the four ingredients permanently unavailable, and the trap structurally cannot form, no matter how badly timed your transactions get.
+
+In practice, engineers almost always go after circular wait. Mutual exclusion is usually non-negotiable — you generally *want* exclusive locks, because that's what keeps data correct. Hold-and-wait and no-preemption are both technically possible to break, but doing so tends to be expensive or awkward (imagine a database that could yank a lock away from a transaction mid-write — now you need a whole new layer of logic to figure out what to do with the half-finished write it just orphaned). Circular wait, on the other hand, is comparatively cheap to eliminate, and it's where the two real, load-bearing solutions both live.
+
+**Two philosophies for the same trap**
+
+There are exactly two honest ways to deal with deadlocks, and they represent genuinely different philosophies about how to handle a trap you can't fully engineer away in advance.
+
+The first is *detect and kill*. This is what most production databases actually do. SQL Server, for instance, runs a background process — literally called the deadlock monitor — that continuously scans for cycles in what's called a wait-for graph: a live map of which transactions are waiting on which others. Under normal conditions it checks every five seconds or so, but the moment it starts finding deadlocks, it speeds up and checks as often as every 100 milliseconds, because a deadlock left standing accomplishes nothing and only gets more expensive to leave in place. When it finds a cycle, it picks one of the two locked-together transactions as the "victim" — usually whichever one is cheapest to roll back, or whichever one was explicitly assigned the lower priority by whoever wrote the application — and forcibly kills it. That transaction's work is undone, its locks are released, and the survivor sails through to completion. The victim's application code gets an error back and, if it was written sensibly, retries the whole operation a moment later, usually succeeding this time because the resource landscape has changed.
+
+Notice what this approach *doesn't* do: it doesn't try to prevent the standoff from forming in the first place. It tolerates the trap, watches for it, and cleans up the mess the instant it appears. This works because most deadlocks in a busy database are actually rare, brief, and cheap to recover from — a fraction of a percent of transactions, resolved in milliseconds, invisible to everyone except the one unlucky transaction that has to try again. Building a system that could never deadlock at all would cost far more in complexity and lost performance than just occasionally sacrificing a transaction and letting it retry.
+
+The second philosophy is *prevention by ordering*, and it attacks the problem from the opposite direction: instead of cleaning up after the trap forms, make it structurally impossible for the trap to form at all. The technique is almost embarrassingly simple once you see it. Assign every resource a fixed, global order — say, by account ID — and require every single process, without exception, to request locks in that same order. In our bank example: always lock the lower account ID first, no matter which direction the money is actually flowing.
+
+Replay the scenario under that rule. Transaction A wants Account 1 then Account 2 — already in order, no problem. Transaction B wants to move money *from* Account 2 *to* Account 1, but the ordering rule doesn't care about the direction of the money; it only cares about lock-acquisition order. So Transaction B is now required to lock Account 1 *first*, even though its transfer logically starts at Account 2. If Transaction A has already locked Account 1, Transaction B simply waits — cleanly, patiently, for a lock that will eventually be released, because Transaction A is never going to be waiting on anything B is holding. B never has anything of A's. The circular wait condition is not managed, or detected, or fixed after the fact — it is made geometrically impossible to construct, because the arrows can now only ever point in one direction: everyone waits on whoever is earlier in the fixed order, and you can't have a cycle in a chain that only ever moves one way.
+
+This is the real cost-benefit split between the two approaches, and it's worth being precise about it. Lock ordering is airtight — genuinely, provably impossible to deadlock, not "very unlikely to." But it only works when you know, in advance, every resource a given operation is ever going to need, so you can sort the requests correctly before you start asking for anything. That's often true for something as bounded as a two-account transfer. It's frequently *not* true in more complicated, dynamically-branching code, where what you need to lock next might depend on data you haven't read yet, or on a decision made three function calls deep in a codebase somebody else wrote. You can't put a list in strict order if you don't have the full list yet. That's exactly why databases, which have to handle wildly unpredictable and unplannable transaction patterns from thousands of simultaneous, mutually unaware clients, mostly give up on prevention and fall back to detection and recovery instead — while application developers, writing code where the lock sequence for a specific operation actually is knowable ahead of time, can and often do enforce strict lock ordering by hand, and get the airtight guarantee for free.
+
+**A four-way stop with no rules**
+
+Here's a way to hold both approaches in your head at once. Picture a four-way intersection with no traffic lights and no stop signs — just four cars arriving at almost exactly the same moment, each one nosing forward into the middle before yielding, the way people actually drive under uncertainty. Car North is blocking the space Car East needs. Car East is blocking the space Car South needs. And so on around the circle, until every car is blocked by exactly the car it's blocking, and nobody can move an inch without somebody going first.
+
+Detect-and-kill is the traffic cop who wasn't there when the gridlock formed, but shows up two minutes later, looks at the tangle, and orders one specific car — say, whichever one is easiest to back out — to reverse. The moment that one car retreats, the whole snarl unlocks itself and everyone else moves through. The gridlock happened. It got resolved. Traffic continues, a little later than it should have, with one driver mildly inconvenienced.
+
+Lock ordering is the fixed rule painted on the intersection *before* any car ever arrives — "always yield to traffic approaching from your right," the actual rule that governs real four-way stops. No car ever has to be flagged down after the fact, because the rule makes the standoff impossible to build in the first place. Every driver, following the same simple local rule with no view of the whole intersection, produces a system where gridlock simply cannot occur — not because anyone is watching for it, but because the geometry of "everyone yields to the right" can't produce a closed loop of mutual blocking. Nobody needs a cop, because nobody ever gets stuck.
+
+Neither philosophy is better in some absolute sense — they're suited to different situations. You use the traffic cop when you can't predict who's going to arrive from which direction and when, and it's cheaper to occasionally untangle a jam than to redesign every intersection in the city. You paint the yield rule on the pavement when you *can* know the traffic pattern in advance, because a rule that prevents the problem structurally is always better than a rule that merely cleans it up — when you can afford to write one down in the first place.
+
+**Why this is worth understanding**
+
+What makes deadlock genuinely instructive, beyond the mechanics of it, is what it teaches about a whole category of problem that shows up far outside databases: any situation where independent actors, each behaving reasonably by their own local rules, can collectively produce a global outcome that none of them intended and none of them can see from where they're standing. Two committees each waiting for the other to approve a budget line before they'll approve their own. Two people in a stalled negotiation, each unwilling to make the first concession until the other one moves first. The four Coffman conditions translate almost exactly: something exclusive is being held, nobody wants to let go of what they've got while they wait for more, nobody can be forced to yield, and the waiting relationships loop back around.
+
+The database version is tidy because it's fully formalized — you can write code that watches for the cycle, or code that enforces the ordering, and either one actually, provably works. The human version rarely gets that luxury; there's no deadlock monitor scanning your organization's wait-for graph every hundred milliseconds. But the underlying shape is the same trap, built the same way, out of individually defensible decisions that only become a problem once they meet each other at exactly the wrong moment. Once you've seen the shape clearly in a system simple enough to trace by hand — two accounts, two transfers, four steps — it becomes much easier to recognize everywhere else it's quietly hiding.
+
+Topics: deadlocks, database transactions, concurrency control, lock ordering
+Suggested topics: two-phase locking, MVCC (multi-version concurrency control), the dining philosophers problem, distributed consensus and the CAP theorem
