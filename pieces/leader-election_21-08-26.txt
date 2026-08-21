@@ -1,0 +1,110 @@
+A Show of Hands
+
+Here is a question that sounds trivial and isn't: how do you know you're still in charge?
+
+Not whether you were put in charge — that part is easy enough to arrange. The question is how you know, right now, at this instant, that nobody has replaced you while you weren't looking. A human manager can glance around the room. A machine cannot. A machine can only consult its own memory, which says: I was elected, and nobody has told me otherwise. That memory is perfectly accurate and completely useless, because the one message that would correct it — you've been replaced — is exactly the message a broken network fails to deliver.
+
+This is the whole of leader election in one uncomfortable sentence. Distributed systems spend enormous effort choosing a single coordinator, and then spend even more effort dealing with the fact that the coordinator can never be certain it still holds the job.
+
+In October 2018, GitHub found out what that costs. During what was meant to be routine maintenance — replacing failing hardware, adding capacity — new nodes were brought into a ZooKeeper cluster faster than the cluster could settle on its own membership. The nodes couldn't agree on who was in the cluster, which meant they couldn't agree on who was leading it, which meant that for a window of time the cluster contained two leaders, each convinced it was the only one. Writes to Kafka started failing. The failures propagated outward into services that had never heard of ZooKeeper and didn't care about it, and GitHub had a bad day that ran to hours.
+
+Two machines. Each one following its instructions exactly. Each one correct, by its own lights. That's the failure mode worth understanding, and it's why this problem is harder than it first looks.
+
+Why you need a leader at all
+
+Start with the obvious objection: why bother? If you have five servers, why not let all five do the work? Isn't that the entire point of having five?
+
+For most work, yes. Five web servers can all serve pages simultaneously and nobody minds. The trouble starts the moment two servers might make conflicting decisions about the same thing.
+
+Take a scheduled job — a nightly billing run. If all five servers run it, five servers charge every customer, and you have a refund crisis and possibly a legal one. Take a counter that assigns order numbers. If two servers hand out number 4,001 at the same moment, you have two different orders wearing the same identity, and every downstream system that assumed order numbers were unique is now quietly wrong. Take a database with one writable copy and four read-only replicas: if two of them start accepting writes, you don't get a merge, you get two divergent histories that both look valid and cannot be reconciled without someone deciding by hand which customer's data to throw away.
+
+The word for this is split-brain, and the medical metaphor is apt. Nothing is broken in the sense of being damaged. Both halves are functioning. They've simply lost the connection that made them one thing, and each is now behaving as a complete organism.
+
+So you appoint a leader. One node makes the decisions that must not be made twice; the others follow. The leader isn't smarter or more powerful, it just holds a temporary monopoly on a specific kind of choice. Everything else in this piece is about how that monopoly gets awarded, and how it gets taken back.
+
+The naive approaches, and how they die
+
+The first idea everyone has is: just designate one. Server A is the leader. Write it in the config file. Done.
+
+This works right up until server A dies, at which point the entire system stops making decisions and waits for a human to edit a file at three in the morning. You've bought consistency by giving up availability entirely — and you've bought it in the worst way, because the failure requires a person to notice and act.
+
+The second idea is: let them pick automatically. Whoever has the lowest ID wins; if the current leader stops responding, the survivors run the rule again. This is essentially the classic bully algorithm, and it's a real improvement — the system heals itself without a human.
+
+It also contains the whole problem in miniature. "Stops responding" is not an observable fact. It's an inference from an absence. When server B stops hearing from server A, exactly one of these is true: A has crashed, A is alive but overloaded and slow, or A is fine and the network between them has failed. B cannot tell which. There is no message A can send to prove it's alive, because the scenario under consideration is precisely the one where messages don't arrive.
+
+And this is where the naive approach becomes actively dangerous. Suppose a network fault splits five servers into a group of three and a group of two. The group of two can't hear the leader, concludes it's dead, and elects a new leader from among themselves. The group of three still has the original leader and carries on. Now there are two leaders, and — this is the part worth sitting with — neither of them has malfunctioned. Both applied a correct rule to the information available. The rule itself was the bug.
+
+The jury room
+
+The fix is old, and it doesn't come from computer science. It comes from the courts.
+
+Imagine a jury asked to reach a verdict. If you require unanimity, a single juror who falls asleep, walks out, or simply won't speak can block any decision forever. Availability is hostage to the least reliable participant. But if you allow any one juror to deliver a verdict alone, twelve jurors can produce twelve contradictory verdicts, and the verdict means nothing.
+
+The resolution is majority rule. Seven of twelve is enough to decide. It tolerates absent and unresponsive jurors — the room keeps working when people are missing — and it also guarantees something subtler and more important: you cannot assemble two different majorities from the same twelve people that don't share at least one member. Any two majorities must overlap. That shared juror is a witness to both decisions, and can say: we already decided this.
+
+That overlap property is the entire mathematical foundation of modern leader election. In distributed systems the majority is called a quorum, and the guarantee is that two quorums drawn from the same cluster always intersect. Which means two leaders cannot both be legitimately elected, because electing each would require a majority, and the majorities would have to share a member, and that member won't vote twice for the same term.
+
+Raft, the algorithm most production systems now use, is a careful working-out of exactly this. Every node sits in one of three roles: follower, candidate, or leader. Followers do nothing but wait for messages from a leader. When a follower hears nothing for long enough, it stops waiting, increments a number called the term, declares itself a candidate, votes for itself, and asks everyone else for their vote. If it collects votes from more than half the cluster, it becomes leader and starts sending regular heartbeats to shut down anyone else's election timer.
+
+The term number is the piece that makes it airtight. Each node remembers the highest term it has seen and will cast at most one vote in any given term. So a candidate for term 8 who gets three votes out of five is the only possible leader of term 8 — the other two nodes cannot conjure a second majority, because their side would need at least three votes too, and one of those would have to come from a node that has already voted. Elections are per-term, and each term has at most one winner, permanently.
+
+Go back to the split cluster: three nodes on one side, two on the other. The pair times out and starts an election, but two votes isn't a majority of five, so no leader emerges. They try again, fail again, and keep failing for as long as the partition lasts. Meanwhile the majority side elects a leader and carries on serving. The minority doesn't cause a split-brain — it simply cannot do anything at all. That's not a flaw. It is the design working: when the cluster can't be whole, only the side that can prove it holds a majority is permitted to act.
+
+Which explains a piece of operational folklore that otherwise looks like superstition: production clusters run odd numbers of nodes. Three, five, seven. With five nodes, a majority is three, and you survive two failures. Add a sixth and the majority becomes four — you still only survive two failures, but you've added a machine that can break. Even numbers also permit an exact split, three against three, where neither half has a majority and the cluster sits down until someone intervenes. Odd sizes make ties impossible.
+
+There's one more piece of engineering in Raft that's easy to overlook and rather elegant. If every follower used the same timeout, then when a leader died they would all become candidates at the same instant, all vote for themselves, and split the vote so that nobody reached a majority — then do it again, forever, in lockstep. Raft prevents this by randomising the timeout: each node picks a value from a range, typically 150 to 300 milliseconds. Somebody's timer fires first, and that node usually wins before the others have woken up. If two do collide, the next round re-randomises and the collision almost certainly doesn't recur. Deadlock is dissolved by jitter — the same trick as a hallway where two people keep stepping the same way until one of them moves unpredictably.
+
+Where this actually lives
+
+Almost nobody implements Raft themselves, and almost nobody should. The algorithm is subtle in exactly the way that makes homegrown versions fail six months later under a load pattern nobody tested. Instead, the industry has converged on running a small consensus cluster as a service and letting everything else lean on it.
+
+ZooKeeper is the old guard, born at Yahoo and hardened by Hadoop and Kafka. It uses its own protocol, Zab, which is closely related to Raft in spirit. etcd is the modern one, written in Go, running Raft directly, and — most consequentially — sitting at the heart of Kubernetes. Every Kubernetes cluster on earth has an etcd cluster underneath it holding the record of what is supposed to be running where, and the reason that record doesn't fracture into contradictory copies is a Raft leader election happening quietly, continuously, and usually invisibly.
+
+The pattern applications use is a lease. Rather than running an election among themselves, several instances of your service all try to write to the same key in etcd: "I am the leader, and this claim expires in fifteen seconds." Only one write succeeds, because etcd's own consensus serialises them. The winner refreshes its claim every few seconds. If it dies, the claim expires, and one of the others takes it. Your service never implements consensus — it just asks a cluster that already solved the problem to arbitrate.
+
+And here, having built something genuinely sound, we arrive at the crack in it.
+
+The judge who doesn't know they've been replaced
+
+Consider a leader holding a fifteen-second lease. It's healthy. It's doing its job. Then its garbage collector decides to pause the process — a stop-the-world collection on a large heap, twenty seconds, not exotic. The process is frozen mid-instruction. Not crashed, not sick, just not executing.
+
+While it's frozen, its lease expires. The other nodes elect a replacement. Everything works exactly as designed.
+
+Then the pause ends. The old leader resumes on the very next instruction, with no awareness that any time has passed — a paused process has no way to notice it was paused. Its own state says it is the leader. Its next instruction is a write to the shared database. It performs the write.
+
+Two leaders. Again. And this time the election algorithm did nothing wrong at all.
+
+Martin Kleppmann's framing of this is the one that stuck: the problem isn't picking a leader, it's that the leader's knowledge of its own status is inherently stale. It was true when it was learned. It cannot be continuously verified, because verification requires messages, and messages take time, and by the time the answer arrives it describes the past. Every leader operates on a belief about itself that was accurate at some earlier moment. Usually the gap is milliseconds and nobody cares. Occasionally the gap is a twenty-second GC pause, or a network hiccup, or a virtual machine that got suspended by a hypervisor, and someone cares very much.
+
+You cannot engineer this away. You can shorten leases, which just means more spurious elections and less stability. You can tighten timeouts, which makes you more sensitive to normal jitter. There's no setting at which the possibility disappears, because you would need a guarantee that a process can't be delayed indefinitely, and no general-purpose computer offers that.
+
+So the answer isn't prevention. It's the courtroom clerk.
+
+Fencing tokens
+
+Return to the jury. The verdict is delivered, the judge issues an order, the clerk files it. Now suppose that judge is removed from the case and a new one takes over — but the old judge, unaware, sends down another order. How does the clerk avoid enforcing it?
+
+Not by checking whether the judge is still the judge; that requires an authority the clerk can't reach. The clerk checks the number. Every order carries a sequence number, strictly increasing, and the clerk keeps a record of the highest they've filed. An order arrives numbered 8 when order 9 is already in the file, and it's rejected on the spot. The clerk doesn't need to know who was replaced or when. The number carries the information.
+
+That's a fencing token. Every time a new leader is elected, the coordination service hands it a token — in etcd or ZooKeeper this comes straight out of the machinery, since terms and version numbers are already monotonically increasing. The leader attaches its token to every action it takes against a shared resource. And the resource — the database, the storage service, the lock manager — remembers the highest token it has honoured and refuses anything lower.
+
+Now replay the GC pause. The frozen leader holds token 33. During its pause, a new leader is elected with token 34 and writes something. The old leader wakes, writes with token 33, and the storage layer rejects it: I have already accepted 34, you are stale. The old leader learns it's been replaced by being told no. Which is, in the end, the only way anyone ever learns that.
+
+Notice what this does and doesn't do. It does not prevent two leaders from existing. Both processes genuinely believed they held the role, and for a moment both did. What fencing prevents is the damage — the stale leader's actions are refused at the point where they would have caused harm. The system stops trying to guarantee that reality never diverges, and instead guarantees that divergence gets caught at the moment it would matter.
+
+That is a real philosophical shift, and it's the most useful thing in this whole area. The check has moved. It's no longer "am I the leader?", asked by a node that can't reliably answer. It's "is this the newest instruction I've seen?", asked by the resource, which always can. The question got relocated to somewhere it can actually be answered.
+
+There's a catch, and it's the reason fencing is less universal than it should be: the resource has to cooperate. A database has to check tokens. A file store has to compare versions. Plenty of systems have no such mechanism — you cannot fence a write to a service that accepts whatever it's given. When people report that their distributed lock "didn't work," the lock usually worked fine; the thing being locked simply had no way to tell an authorised write from a stale one, and did as it was told.
+
+What it leaves you with
+
+Leader election looks, from outside, like an administrative detail — a bit of plumbing that decides which box is in charge. Sit with it for a while and it turns into something closer to an epistemological problem with a wire protocol attached.
+
+The chain runs like this. You need one decision-maker, because some decisions cannot survive being made twice. You can't appoint one permanently, because things die. You can't let each node decide for itself who's in charge, because a partitioned network makes contradictory beliefs look locally correct. So you require a majority, because majorities must overlap and the overlap prevents two simultaneous winners. And then, having built something provably correct, you accept that a correctly-elected leader can still go stale simply by being paused at the wrong moment — and you defend against it not by trying to keep everyone's beliefs accurate, but by numbering every instruction so that stale ones can be recognised and refused.
+
+The GitHub outage in 2018 wasn't a story about bad code. It was a story about two machines, each reasoning correctly from what it could see, arriving at incompatible conclusions about the world. The systems we've built to handle that don't work by making the machines better informed. They work by assuming, permanently and structurally, that any given machine's view of its own authority may already be out of date — and building the check somewhere else.
+
+There's something almost humbling in it. The most reliable coordination systems in production today are the ones that gave up on certainty first.
+
+Topics: Leader Election, Distributed Systems, Consensus Algorithms, Raft, Split-Brain, Fencing Tokens
+Suggested topics: The CAP Theorem, Distributed Locks, Quorum and Replication Factor, Vector Clocks and Causal Ordering
