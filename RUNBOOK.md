@@ -4,7 +4,7 @@
 
 **If you are the scheduler loop (or a subagent it spawned): read this file and follow it exactly.**
 
-> **PAUSED as of 2026-08-23** — the owner is behind on reading existing pieces. When the `RESEARCH` slot is due, do **not** run the phases below. Instead log the skip and record the slot so it does not re-trigger the same day:
+> **PAUSED as of 2026-08-23** (reaffirmed 2026-09-25 — paused until the owner explicitly says otherwise; do not infer resumption from state.txt history or a prior session's behavior). the owner is behind on reading existing pieces. When the `RESEARCH` slot is due, do **not** run the phases below. Instead log the skip and record the slot so it does not re-trigger the same day:
 > ```bash
 > echo "[$(date '+%H:%M:%S')] RESEARCH skipped — paused by owner request (behind on reading)" >> "/home/coco/Documents/Claude/research engine/session.log"
 > ```
