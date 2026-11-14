@@ -8,7 +8,7 @@
 > ```bash
 > echo "[$(date '+%H:%M:%S')] RESEARCH skipped — paused by owner request (behind on reading)" >> "/home/coco/Documents/Claude/research engine/session.log"
 > ```
-> then append `RESEARCH YYYY-MM-DD HH:MM` to `scheduler/state.txt`.
+> then append `RESEARCH YYYY-MM-DD HH:MM PAUSED` to `scheduler/state.txt` (the trailing PAUSED marks a skip, not a run; added 2026-11-12).
 > To resume: delete this block, and the matching pause notes in the root `CLAUDE.md` and `scheduler/loop-prompt.md`.
 
 **Research persona — prepend to every agent prompt in this file:**
